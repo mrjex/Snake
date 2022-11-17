@@ -11,10 +11,17 @@ public class Snake {
     this.direction = 2;
   }
 
-  public void updatePos(){
-    for(int i = 0; ){
+  public void updatePos(){ //First updates the bodies position and then moves the head
+    for(int i = 0; i < bodyPos.size(); i++){
 
+      if(i < bodyPos.size()-1){
+        this.bodyPos.set(i, this.bodyPos.get(i+1));
+      }
+
+      else{
+        this.bodyPos.set(i, headPos);
+      }
     }
-     headPos.move(direction); 
+    this.headPos.move(direction); 
   }
 }

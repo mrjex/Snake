@@ -7,7 +7,7 @@ public class GridPos {
     this.yPos = yPos;
   }
 
-  public void move(int direction){
+  public void move(int direction){ //Moves the position of the head depending on which direction the snake is moving in
     switch (direction) {
       case 0:
         this.yPos -= 1; 
