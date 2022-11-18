@@ -4,7 +4,7 @@ public class Grid {
 
     private final double WIDTH;
     private final double HEIGHT;
-    private final int POS_LENGTH = 5;
+    private final int POS_LENGTH = 1;
     private final ArrayList<GridPos> positions;
 
     public Grid() {
