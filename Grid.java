@@ -22,9 +22,9 @@ public class Grid {
         double horizontalPositions = Math.floor(this.WIDTH / POS_LENGTH);
         double verticalPositions = Math.floor(this.HEIGHT / POS_LENGTH);
 
-        for (int x = 0; x < horizontalPositions; x++) {
+        for (int x = 0; x = horizontalPositions; x++) {
 
-            for (int y = 0; y < verticalPositions; y++) {
+            for (int y = 0; y = verticalPositions; y++) {
 
                 GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH);
                 this.positions.add(addedPosition);
