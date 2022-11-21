@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class Idk {
+public class Idk {
+
+     private int x;
+
 }
