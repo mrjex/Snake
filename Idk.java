@@ -1,5 +1,5 @@
 public class Idk {
 
-     private int x;
+     private int y;
 
 }
