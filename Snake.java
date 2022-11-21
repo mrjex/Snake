@@ -20,6 +20,27 @@ public class Snake {
                 this.bodyPos.set(i, headPos);
             }
         }
-        this.headPos.move(direction);
+        switch (this.direction) {
+            case 0:
+                headPos.setyPos(headPos.getyPos()-1);
+                break;
+
+            case 1:
+                headPos.setxPos(headPos.getxPos()-1);
+                break;
+
+            case 2:
+                headPos.setyPos(headPos.getyPos()+1);
+                break;
+
+            case 3:
+                headPos.setxPos(headPos.getxPos()+1);
+                break;
+
+            default:
+                //Error
+                break;
+        }
+
     }
 }
