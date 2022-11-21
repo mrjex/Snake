@@ -41,6 +41,14 @@ public class Snake {
                 //Error
                 break;
         }
+    }
 
+    public boolean checkCollision(){
+        for(GridPos currentPos : bodyPos){
+            if(headPos.equals(currentPos)){
+                return true;
+            }
+        }
+        return false;
     }
 }
