@@ -6,6 +6,7 @@ public class Grid {
     private final double HEIGHT;
     private final int POS_LENGTH = 1;
     private final ArrayList<GridPos> positions;
+    private Snake snake;
 
     public Grid() {
 
@@ -13,6 +14,7 @@ public class Grid {
         this.HEIGHT = 600;
         this.positions = new ArrayList<>();
         this.drawGrid();
+        this.snake = new Snake();
 
     }
 
@@ -35,6 +37,10 @@ public class Grid {
 
         System.out.println("Generated a " + this.WIDTH + "x" + this.HEIGHT + " grid with units of size " + this.POS_LENGTH + ".");
 
+    }
+
+    public boolean checkCollision(){
+        return snake.checkCollision(this.WIDTH, this.HEIGHT);
     }
 
     @Override

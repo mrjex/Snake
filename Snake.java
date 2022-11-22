@@ -43,12 +43,15 @@ public class Snake {
         }
     }
 
-    public boolean checkCollision(){
+    public boolean checkCollision(double WIDTH, double HEIGHT){
         for(GridPos currentPos : bodyPos){
             if(headPos.equals(currentPos)){
                 return true;
             }
         }
+
+        if(headPos.getxPos() == WIDTH  && headPos.getyPos()== HEIGHT){return true;}
+
         return false;
     }
 }
