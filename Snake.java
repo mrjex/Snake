@@ -11,7 +11,7 @@ public class Snake {
         this.direction = 2;
     }
 
-    public void updatePos() { //First updates the bodies position and then moves the head
+    public boolean updatePos(double WIDTH, double HEIGHT) { //First updates the bodies position and then moves the head
         for (int i = 0; i < bodyPos.size(); i++) {
 
             if (i < bodyPos.size() - 1) {
@@ -41,9 +41,10 @@ public class Snake {
                 //Error
                 break;
         }
+        return checkCollision(WIDTH, HEIGHT);
     }
 
-    public boolean checkCollision(double WIDTH, double HEIGHT){
+    public boolean checkCollision(double WIDTH, double HEIGHT){ //Call this after updatePos method to see if snake has collided
         for(GridPos currentPos : bodyPos){
             if(headPos.equals(currentPos)){
                 return true;

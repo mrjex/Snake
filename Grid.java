@@ -39,8 +39,8 @@ public class Grid {
 
     }
 
-    public boolean checkCollision(){
-        return snake.checkCollision(this.WIDTH, this.HEIGHT);
+    public boolean moveSnake(){
+        return snake.updatePos(this.WIDTH, this.HEIGHT); 
     }
 
     @Override
