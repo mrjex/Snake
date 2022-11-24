@@ -6,12 +6,21 @@ public class Game {
     }
 
     public void play(int direction) throws Exception{
-        int i = 0;
+        long frameRate = 1000/2; // one second in milisecond / framrate
+        long time = System.currentTimeMillis();      
+        Thread.sleep((frameRate-time%frameRate));
+
+        if(gameGrid.moveSnake() == false){ //If snake hasn't collided
+            System.out.println("Moved");
+            play(direction);
+        }
+
+        /*int i = 0;
         while(i < 30){
             long time = System.currentTimeMillis();      
-            Thread.sleep((100/3-time%(100/3)));
+            Thread.sleep((frameRate-time%frameRate));
             System.out.println((i+1) + " " + System.currentTimeMillis()%10000);
             i++;
-        }
+        }*/
     }
 }
