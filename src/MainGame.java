@@ -1,5 +1,3 @@
-package Frontend;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -13,9 +11,9 @@ public class MainGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../resources/StartMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("resources/StartMenu.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Snake: The Game");
+        stage.setTitle("Backend.Snake: The Backend.Game");
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);

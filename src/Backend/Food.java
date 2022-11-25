@@ -1,3 +1,5 @@
+package Backend;
+
 public class Food extends GridPos {
 
     private String name;

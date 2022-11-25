@@ -1,3 +1,5 @@
+package Backend;
+
 public class Game {
     private Grid gameGrid;
 

@@ -1,3 +1,5 @@
+package Backend;
+
 public class GridPos {
     private int xPos;
     private int yPos;
