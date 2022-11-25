@@ -1,11 +1,14 @@
+import javafx.application.Application;
+
 import java.util.ArrayList;
 
 public class Grid {
 
     private final double WIDTH;
     private final double HEIGHT;
-    private final int POS_LENGTH = 5;
+    private final int POS_LENGTH = 1;
     private final ArrayList<GridPos> positions;
+    private Snake snake;
 
     public Grid() {
 
@@ -13,6 +16,7 @@ public class Grid {
         this.HEIGHT = 600;
         this.positions = new ArrayList<>();
         this.drawGrid();
+        this.snake = new Snake();
 
     }
 
@@ -22,9 +26,9 @@ public class Grid {
         double horizontalPositions = Math.floor(this.WIDTH / POS_LENGTH);
         double verticalPositions = Math.floor(this.HEIGHT / POS_LENGTH);
 
-        for (int x = 0; x <= horizontalPositions; x++) {
+        for (int x = 0; x < horizontalPositions; x++) {
 
-            for (int y = 0; y <= verticalPositions; y++) {
+            for (int y = 0; y < verticalPositions; y++) {
 
                 GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH);
                 this.positions.add(addedPosition);
@@ -35,6 +39,24 @@ public class Grid {
 
         System.out.println("Generated a " + this.WIDTH + "x" + this.HEIGHT + " grid with units of size " + this.POS_LENGTH + ".");
 
+    }
+
+    private GridPos spawnFood() {
+
+        int randomIndex = (int) (Math.random() * this.positions.size());
+
+        GridPos position = this.positions.get(randomIndex); // save this to get the x and y
+        Food apple = new Food(position.getxPos(), position.getyPos(), Fruits.APPLE);
+
+        this.positions.set(randomIndex, apple);
+
+        return apple;
+
+
+    }
+
+    public boolean moveSnake(){
+        return snake.updatePos(this.WIDTH, this.HEIGHT);
     }
 
     @Override
