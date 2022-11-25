@@ -1,3 +1,5 @@
+import javafx.application.Application;
+
 import java.util.ArrayList;
 
 public class Grid {
@@ -39,8 +41,22 @@ public class Grid {
 
     }
 
+    private GridPos spawnFood() {
+
+        int randomIndex = (int) (Math.random() * this.positions.size());
+
+        GridPos position = this.positions.get(randomIndex); // save this to get the x and y
+        Food apple = new Food(position.getxPos(), position.getyPos(), Fruits.APPLE);
+
+        this.positions.set(randomIndex, apple);
+
+        return apple;
+
+
+    }
+
     public boolean moveSnake(){
-        return snake.updatePos(this.WIDTH, this.HEIGHT); 
+        return snake.updatePos(this.WIDTH, this.HEIGHT);
     }
 
     @Override
