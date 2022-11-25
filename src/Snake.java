@@ -22,4 +22,12 @@ public class Snake {
         }
         this.headPos.move(direction);
     }
+
+    public void grow() {
+
+        //when collision with food is detected this method will be called
+        this.bodyPos.add(headPos);
+
+    }
+
 }

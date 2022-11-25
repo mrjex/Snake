@@ -1,3 +1,5 @@
+import javafx.application.Application;
+
 import java.util.ArrayList;
 
 public class Grid {
@@ -34,6 +36,20 @@ public class Grid {
         }
 
         System.out.println("Generated a " + this.WIDTH + "x" + this.HEIGHT + " grid with units of size " + this.POS_LENGTH + ".");
+
+    }
+
+    private GridPos spawnFood() {
+
+        int randomIndex = (int) (Math.random() * this.positions.size());
+
+        GridPos position = this.positions.get(randomIndex); // save this to get the x and y
+        Food apple = new Food(position.getxPos(), position.getyPos(), Fruits.APPLE);
+
+        this.positions.set(randomIndex, apple);
+
+        return apple;
+
 
     }
 
