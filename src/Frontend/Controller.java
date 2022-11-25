@@ -17,7 +17,7 @@ public class Controller {
     private Parent root;
 
     public void StartMenu(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("StartMenu.fxml"));
+        root = FXMLLoader.load(getClass().getResource("../resources/StartMenu.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -25,7 +25,7 @@ public class Controller {
     }
 
     public void GameScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("GameScene.fxml"));
+        root = FXMLLoader.load(getClass().getResource("../resources/GameScene.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

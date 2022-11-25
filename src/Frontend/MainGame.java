@@ -13,7 +13,7 @@ public class MainGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../resources/GameScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../resources/StartMenu.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Snake: The Game");
         stage.setScene(scene);
