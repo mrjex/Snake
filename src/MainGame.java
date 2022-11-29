@@ -1,3 +1,5 @@
+import Backend.Game;
+import Frontend.Draw;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainGame extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -19,20 +22,10 @@ public class MainGame extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
-
         Canvas grid = (Canvas) scene.lookup("#Grid");
-        GraphicsContext gc = grid.getGraphicsContext2D();
-        for( int i = 0; i < 20; i++){
-            for(int j = 0; j < 20; j++){
-                if((i+j) % 2 == 0){
-                    gc.setFill(Color.BLACK);
-                }else{
-                    gc.setFill(Color.WHITE);
-                }
-                gc.fillRect(i * 50, j * 50, 50,50);
-            }
-        }
-
+        Game game = new Game();
+        Draw background = new Draw(grid.getGraphicsContext2D());
+        background.drawBackground(game.getPos());
 
     }
 

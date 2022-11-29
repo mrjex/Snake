@@ -1,5 +1,7 @@
 package Backend;
 
+import java.util.ArrayList;
+
 public class Game {
     private Grid gameGrid;
 
@@ -24,5 +26,8 @@ public class Game {
             System.out.println((i+1) + " " + System.currentTimeMillis()%10000);
             i++;
         }*/
+    }
+    public ArrayList<GridPos> getPos(){
+        return gameGrid.getPositions();
     }
 }

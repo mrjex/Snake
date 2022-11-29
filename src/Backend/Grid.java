@@ -1,20 +1,21 @@
 package Backend;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class Grid {
 
     private final double WIDTH;
     private final double HEIGHT;
-    private final int POS_LENGTH = 1;
-    private final ArrayList<GridPos> positions;
+    private final int POS_LENGTH = 50;
+    private final static ArrayList<GridPos> positions = new ArrayList<>();;
     private Snake snake;
 
     public Grid() {
 
         this.WIDTH = 800;
         this.HEIGHT = 600;
-        this.positions = new ArrayList<>();
         this.drawGrid();
         this.snake = new Snake();
 
@@ -29,26 +30,29 @@ public class Grid {
         for (int x = 0; x < horizontalPositions; x++) {
 
             for (int y = 0; y < verticalPositions; y++) {
-
-                GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH);
-                this.positions.add(addedPosition);
-
+                if( (x + y) % 2 == 0) {
+                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.BLACK);
+                    Grid.positions.add(addedPosition);
+                }else{
+                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.WHITE);
+                    Grid.positions.add(addedPosition);
+                }
             }
 
         }
 
-        System.out.println("Generated a " + this.WIDTH + "x" + this.HEIGHT + " grid with units of size " + this.POS_LENGTH + ".");
-
     }
-
+    public ArrayList<GridPos> getPositions(){
+        return Grid.positions;
+    }
     private GridPos spawnFood() {
 
-        int randomIndex = (int) (Math.random() * this.positions.size());
+        int randomIndex = (int) (Math.random() * Grid.positions.size());
 
-        GridPos position = this.positions.get(randomIndex); // save this to get the x and y
+        GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
         Food apple = new Food(position.getxPos(), position.getyPos(), Fruits.APPLE);
 
-        this.positions.set(randomIndex, apple);
+        Grid.positions.set(randomIndex, apple);
 
         return apple;
 
@@ -61,6 +65,6 @@ public class Grid {
 
     @Override
     public String toString() {
-        return this.positions.toString();
+        return Grid.positions.toString();
     }
 }

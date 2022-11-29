@@ -1,5 +1,7 @@
 package Backend;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class Snake {
@@ -8,7 +10,7 @@ public class Snake {
     private int direction; // 0 = north, 1 = west, 2 = south, 3 = east
 
     public Snake() {
-        this.headPos = new GridPos(5, 5);
+        this.headPos = new GridPos(5, 5, Color.GRAY);
         this.bodyPos = new ArrayList<>();
         this.direction = 2;
     }
