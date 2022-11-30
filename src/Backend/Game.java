@@ -27,7 +27,7 @@ public class Game extends AnimationTimer {
         }
 
 
-        if(time-lastUpdate >= 1000000000/2) {
+        if(time-lastUpdate >= 1000000000/5) {
             //gameGrid.grow();
             if(gameGrid.moveSnake()) {
                 this.stop();

@@ -13,6 +13,8 @@ public class Snake {
         this.headPos = new GridPos(50, 50, Color.DEEPSKYBLUE);
         this.bodyPos = new ArrayList<>();
         this.grow();
+        this.grow();
+        this.grow();
         this.direction = 3;
     }
 
@@ -59,7 +61,7 @@ public class Snake {
             }
         }
 
-        if(headPos.getxPos() == WIDTH  || headPos.getyPos()== HEIGHT){return true;}
+        if(headPos.getxPos() >= WIDTH  || headPos.getyPos()>= HEIGHT || headPos.getxPos() < 0 ||headPos.getyPos() < 0){return true;}
 
         return false;
     }

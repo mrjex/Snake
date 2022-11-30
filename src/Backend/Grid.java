@@ -31,10 +31,10 @@ public class Grid {
 
             for (int y = 0; y < verticalPositions; y++) {
                 if( (x + y) % 2 == 0) {
-                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.BLACK);
+                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.web("17E16E"));
                     Grid.positions.add(addedPosition);
                 }else{
-                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.WHITE);
+                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.web("23BB64"));
                     Grid.positions.add(addedPosition);
                 }
             }
