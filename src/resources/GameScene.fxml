@@ -5,21 +5,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #4BC27E;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.Controller">
    <children>
-      <Label layoutX="25.0" layoutY="20.0" prefHeight="249.0" prefWidth="50.0" text="Back">
+      <Label layoutX="16.0" layoutY="16.0" prefHeight="250.0" prefWidth="139.0" text="Back">
          <font>
-            <Font name="04b 30" size="13.0" />
+            <Font name="04b 30" size="29.0" />
          </font>
       </Label>
-      <Button layoutX="18.0" layoutY="18.0" mnemonicParsing="false" onAction="#StartMenu" opacity="0.0" prefHeight="21.0" prefWidth="58.0" text="Back">
+      <Button layoutX="9.0" layoutY="10.0" mnemonicParsing="false" onAction="#StartMenu" opacity="0.0" prefHeight="44.0" prefWidth="112.0" text="Back">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Line endX="62.014915466308594" layoutX="8.0" layoutY="36.0" startX="15.30257797241211" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#15de73" height="92.0" layoutX="757.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="135.0" />
       <Label layoutX="778.0" layoutY="15.0" prefHeight="438.0" prefWidth="96.0" text="Score">
          <font>
             <Font name="04b 30" size="22.0" />
