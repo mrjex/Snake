@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Game extends AnimationTimer {
 
     private Grid gameGrid;
-    private Canvas grid;
+    private Canvas canvas;
     private long lastUpdate;
 
     public Game(Canvas grid){
         this.gameGrid = new Grid();
-        this.grid = grid;
+        this.canvas = grid;
         this.lastUpdate = 2000000000;
     }
 
@@ -27,12 +27,13 @@ public class Game extends AnimationTimer {
         }
 
 
-        if(time-lastUpdate >= 1000000000) {
-            if(gameGrid.moveSnake(2)) {
+        if(time-lastUpdate >= 1000000000/2) {
+            if(gameGrid.moveSnake()) {
                 this.stop();
             }
-            Draw playground = new Draw(grid.getGraphicsContext2D());
+            Draw playground = new Draw(canvas.getGraphicsContext2D());
             playground.drawBackground(getPos());
+
             playground.draw(getHeadPos());
             System.out.println(getHeadPos());
             lastUpdate = time;
@@ -41,20 +42,27 @@ public class Game extends AnimationTimer {
 
 
     }
+    public void setDirection(int newDirection){
+        this.gameGrid.setDirection(newDirection);
+    }
+    public int getDirection(){
+        return gameGrid.getDirection();
+    }
 
-    public boolean play(int direction) throws Exception{
+    /*public boolean play(int direction) throws Exception{
         long frameRate = 1000/2; // one second in milisecond / framrate
         long time = System.currentTimeMillis();      
         Thread.sleep((frameRate-time%frameRate));
 
-        return gameGrid.moveSnake(direction); //If snake hasn't collided
+        return gameGrid.moveSnake(); //If snake hasn't collided
 
 
-    }
+    }*/
     public ArrayList<GridPos> getPos(){
         return gameGrid.getPositions();
     }
     public GridPos getHeadPos(){
         return gameGrid.getHeadPos();
     }
+
 }

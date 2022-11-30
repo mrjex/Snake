@@ -62,12 +62,18 @@ public class Grid {
         return snake.getHeadPos();
     }
 
-    public boolean moveSnake(int direction){
-        return snake.updatePos(this.WIDTH, this.HEIGHT, direction);
+    public boolean moveSnake(){
+        return snake.updatePos(this.WIDTH, this.HEIGHT);
     }
 
     @Override
     public String toString() {
         return Grid.positions.toString();
+    }
+    public void setDirection(int newDirection){
+        snake.setDirection(newDirection);
+    }
+    public int getDirection(){
+        return snake.getDirection();
     }
 }

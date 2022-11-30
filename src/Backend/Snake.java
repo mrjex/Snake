@@ -7,14 +7,15 @@ import java.util.ArrayList;
 public class Snake {
     private GridPos headPos;
     private ArrayList<GridPos> bodyPos;
-    //private int direction; // 0 = north, 1 = west, 2 = south, 3 = east
+    private int direction;// 0 = north, 1 = west, 2 = south, 3 = east
 
     public Snake() {
         this.headPos = new GridPos(50, 50, Color.DEEPSKYBLUE);
         this.bodyPos = new ArrayList<>();
+        this.direction = 3;
     }
 
-    public boolean updatePos(double WIDTH, double HEIGHT, int direction) { //First updates the bodies position and then moves the head
+    public boolean updatePos(double WIDTH, double HEIGHT) { //First updates the bodies position and then moves the head
 
         for (int i = 0; i < bodyPos.size(); i++) {
 
@@ -24,7 +25,7 @@ public class Snake {
                 this.bodyPos.set(i, headPos);
             }
         }
-        switch (direction) {
+        switch (this.direction) {
             case 0:
                 headPos.setyPos(headPos.getyPos()-50);
                 break;
@@ -60,5 +61,11 @@ public class Snake {
         if(headPos.getxPos() == WIDTH  || headPos.getyPos()== HEIGHT){return true;}
 
         return false;
+    }
+    public void setDirection(int newDirection){
+        this.direction = newDirection;
+    }
+    public int getDirection(){
+        return this.direction;
     }
 }

@@ -1,6 +1,7 @@
 package Frontend;
 
 import Backend.Game;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class Controller {
@@ -34,7 +38,38 @@ public class Controller {
         stage.show();
         Canvas grid = (Canvas) scene.lookup("#Grid");
         Game game = new Game(grid);
+        changeDirection(scene,game);
         game.start();
 
+
+    }
+    public void changeDirection(Scene scene, Game game){
+        scene.setOnKeyPressed(e -> {
+            System.out.println(e.getCode());
+            switch (e.getCode()) {
+                case W:
+                    if (game.getDirection() == 1 || game.getDirection() == 3) {
+                        game.setDirection(0);
+                    }
+                    break;
+                case S:
+                    if (game.getDirection() == 1 || game.getDirection() == 3) {
+                        game.setDirection(2);
+                    }
+                    break;
+                case D:
+                    if (game.getDirection() == 0 || game.getDirection() == 2) {
+                        game.setDirection(3);
+                    }
+                    break;
+                case A:
+                    if (game.getDirection() == 0 || game.getDirection() == 2) {
+                        game.setDirection(1);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }   );
     }
 }
