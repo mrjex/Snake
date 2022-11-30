@@ -10,7 +10,7 @@ public class Snake {
     //private int direction; // 0 = north, 1 = west, 2 = south, 3 = east
 
     public Snake() {
-        this.headPos = new GridPos(50, 50, Color.GRAY);
+        this.headPos = new GridPos(50, 50, Color.DEEPSKYBLUE);
         this.bodyPos = new ArrayList<>();
     }
 

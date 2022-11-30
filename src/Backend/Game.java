@@ -1,12 +1,45 @@
 package Backend;
 
+import Frontend.Draw;
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.Canvas;
+
 import java.util.ArrayList;
 
-public class Game {
-    private Grid gameGrid;
+public class Game extends AnimationTimer {
 
-    public Game(){
+    private Grid gameGrid;
+    private Canvas grid;
+    private long lastUpdate;
+
+    public Game(Canvas grid){
         this.gameGrid = new Grid();
+        this.grid = grid;
+        this.lastUpdate = 2000000000;
+    }
+
+    @Override
+    public void handle(long time) {
+        try {
+            long frameRate = (long)Math.pow(10,9)/2; // one second in milisecond / framrate
+        }catch(Exception exception){
+
+        }
+
+
+        if(time-lastUpdate >= 1000000000) {
+            if(gameGrid.moveSnake(2)) {
+                this.stop();
+            }
+            Draw playground = new Draw(grid.getGraphicsContext2D());
+            playground.drawBackground(getPos());
+            playground.draw(getHeadPos());
+            System.out.println(getHeadPos());
+            lastUpdate = time;
+
+        }
+
+
     }
 
     public boolean play(int direction) throws Exception{
@@ -17,13 +50,6 @@ public class Game {
         return gameGrid.moveSnake(direction); //If snake hasn't collided
 
 
-        /*int i = 0;
-        while(i < 30){
-            long time = System.currentTimeMillis();      
-            Thread.sleep((frameRate-time%frameRate));
-            System.out.println((i+1) + " " + System.currentTimeMillis()%10000);
-            i++;
-        }*/
     }
     public ArrayList<GridPos> getPos(){
         return gameGrid.getPositions();
