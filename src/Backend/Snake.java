@@ -12,6 +12,7 @@ public class Snake {
     public Snake() {
         this.headPos = new GridPos(50, 50, Color.DEEPSKYBLUE);
         this.bodyPos = new ArrayList<>();
+        this.grow();
         this.direction = 3;
     }
 
@@ -19,10 +20,10 @@ public class Snake {
 
         for (int i = 0; i < bodyPos.size(); i++) {
 
-            if (i < bodyPos.size() - 1) {
+            if (i < (bodyPos.size() - 1)) {
                 this.bodyPos.set(i, this.bodyPos.get(i + 1));
             } else {
-                this.bodyPos.set(i, headPos);
+                this.bodyPos.set(i, new GridPos(this.headPos.getxPos(), this.headPos.getyPos(), Color.ORANGE));
             }
         }
         switch (this.direction) {
@@ -68,4 +69,12 @@ public class Snake {
     public int getDirection(){
         return this.direction;
     }
+
+    public void grow(){
+        this.bodyPos.add(0, new GridPos(0,50,Color.ORANGE));
+    }
+    public ArrayList<GridPos> getBodyPos(){
+        return this.bodyPos;
+    }
+
 }

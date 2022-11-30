@@ -28,13 +28,17 @@ public class Game extends AnimationTimer {
 
 
         if(time-lastUpdate >= 1000000000/2) {
+            //gameGrid.grow();
             if(gameGrid.moveSnake()) {
                 this.stop();
             }
             Draw playground = new Draw(canvas.getGraphicsContext2D());
             playground.drawBackground(getPos());
-
             playground.draw(getHeadPos());
+            for(GridPos bodyPos : gameGrid.getBodyPos()){
+                playground.draw(bodyPos);
+            }
+            System.out.println(gameGrid.getBodyPos());
             System.out.println(getHeadPos());
             lastUpdate = time;
 

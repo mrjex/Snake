@@ -45,7 +45,7 @@ public class Grid {
     public ArrayList<GridPos> getPositions(){
         return Grid.positions;
     }
-    private GridPos spawnFood() {
+    public GridPos spawnFood() {
 
         int randomIndex = (int) (Math.random() * Grid.positions.size());
 
@@ -75,5 +75,11 @@ public class Grid {
     }
     public int getDirection(){
         return snake.getDirection();
+    }
+    public void grow(){
+        snake.grow();
+    }
+    public ArrayList<GridPos> getBodyPos(){
+        return snake.getBodyPos();
     }
 }
