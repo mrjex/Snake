@@ -14,7 +14,7 @@ import java.io.IOException;
 public class MainGame extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("resources/GameScene.fxml"));
         Scene scene = new Scene(root);
@@ -22,10 +22,22 @@ public class MainGame extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
+
         Canvas grid = (Canvas) scene.lookup("#Grid");
         Game game = new Game();
-        Draw background = new Draw(grid.getGraphicsContext2D());
-        background.drawBackground(game.getPos());
+        Draw playground = new Draw(grid.getGraphicsContext2D());
+        playground.drawBackground(game.getPos());
+        playground.draw(game.getHeadPos());
+        int i = 0;
+        while (!game.play(3)){
+            System.out.println(i);
+            i++;
+            playground.drawBackground(game.getPos());
+            playground.draw(game.getHeadPos());
+            System.out.println(game.getHeadPos());
+        }
+
+
 
     }
 

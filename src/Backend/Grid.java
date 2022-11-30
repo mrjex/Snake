@@ -14,7 +14,7 @@ public class Grid {
 
     public Grid() {
 
-        this.WIDTH = 800;
+        this.WIDTH = 600;
         this.HEIGHT = 600;
         this.drawGrid();
         this.snake = new Snake();
@@ -58,9 +58,12 @@ public class Grid {
 
 
     }
+    public GridPos getHeadPos(){
+        return snake.getHeadPos();
+    }
 
-    public boolean moveSnake(){
-        return snake.updatePos(this.WIDTH, this.HEIGHT);
+    public boolean moveSnake(int direction){
+        return snake.updatePos(this.WIDTH, this.HEIGHT, direction);
     }
 
     @Override

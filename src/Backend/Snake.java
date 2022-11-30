@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public class Snake {
     private GridPos headPos;
     private ArrayList<GridPos> bodyPos;
-    private int direction; // 0 = north, 1 = west, 2 = south, 3 = east
+    //private int direction; // 0 = north, 1 = west, 2 = south, 3 = east
 
     public Snake() {
-        this.headPos = new GridPos(5, 5, Color.GRAY);
+        this.headPos = new GridPos(50, 50, Color.GRAY);
         this.bodyPos = new ArrayList<>();
-        this.direction = 2;
     }
 
-    public boolean updatePos(double WIDTH, double HEIGHT) { //First updates the bodies position and then moves the head
+    public boolean updatePos(double WIDTH, double HEIGHT, int direction) { //First updates the bodies position and then moves the head
+
         for (int i = 0; i < bodyPos.size(); i++) {
 
             if (i < bodyPos.size() - 1) {
@@ -24,21 +24,21 @@ public class Snake {
                 this.bodyPos.set(i, headPos);
             }
         }
-        switch (this.direction) {
+        switch (direction) {
             case 0:
-                headPos.setyPos(headPos.getyPos()-1);
+                headPos.setyPos(headPos.getyPos()-50);
                 break;
 
             case 1:
-                headPos.setxPos(headPos.getxPos()-1);
+                headPos.setxPos(headPos.getxPos()-50);
                 break;
 
             case 2:
-                headPos.setyPos(headPos.getyPos()+1);
+                headPos.setyPos(headPos.getyPos()+50);
                 break;
 
             case 3:
-                headPos.setxPos(headPos.getxPos()+1);
+                headPos.setxPos(headPos.getxPos()+50);
                 break;
 
             default:
@@ -47,7 +47,9 @@ public class Snake {
         }
         return checkCollision(WIDTH, HEIGHT);
     }
-
+    public GridPos getHeadPos(){
+        return this.headPos;
+    }
     public boolean checkCollision(double WIDTH, double HEIGHT){ //Call this after updatePos method to see if snake has collided
         for(GridPos currentPos : bodyPos){
             if(headPos.equals(currentPos)){
@@ -55,7 +57,7 @@ public class Snake {
             }
         }
 
-        if(headPos.getxPos() == WIDTH  && headPos.getyPos()== HEIGHT){return true;}
+        if(headPos.getxPos() == WIDTH  || headPos.getyPos()== HEIGHT){return true;}
 
         return false;
     }

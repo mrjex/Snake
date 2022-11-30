@@ -9,15 +9,13 @@ public class Game {
         this.gameGrid = new Grid();
     }
 
-    public void play(int direction) throws Exception{
+    public boolean play(int direction) throws Exception{
         long frameRate = 1000/2; // one second in milisecond / framrate
         long time = System.currentTimeMillis();      
         Thread.sleep((frameRate-time%frameRate));
 
-        if(gameGrid.moveSnake() == false){ //If snake hasn't collided
-            System.out.println("Moved");
-            play(direction);
-        }
+        return gameGrid.moveSnake(direction); //If snake hasn't collided
+
 
         /*int i = 0;
         while(i < 30){
@@ -29,5 +27,8 @@ public class Game {
     }
     public ArrayList<GridPos> getPos(){
         return gameGrid.getPositions();
+    }
+    public GridPos getHeadPos(){
+        return gameGrid.getHeadPos();
     }
 }

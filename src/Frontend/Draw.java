@@ -18,17 +18,13 @@ public class Draw {
     }
 
     public void drawBackground(ArrayList<GridPos> positions){
-
         for(GridPos position : positions){
             this.gc.setFill(position.getColor());
             this.gc.fillRect(position.getxPos(), position.getyPos(), 50, 50);
-
         }
-
-
-
     }
-    public void draw(GridPos gp){
-
+    public void draw(GridPos pos){
+        this.gc.setFill(pos.getColor());
+        this.gc.fillRect(pos.getxPos(), pos.getyPos(), 50, 50);
     }
 }
