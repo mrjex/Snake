@@ -12,6 +12,7 @@ public class Game extends AnimationTimer {
     private Canvas canvas;
     private long lastUpdate;
 
+
     public Game(Canvas grid){
         this.gameGrid = new Grid();
         this.canvas = grid;
@@ -23,7 +24,7 @@ public class Game extends AnimationTimer {
 
         if(time-lastUpdate >= Math.pow(10,9)/5) {
 
-            if(gameGrid.moveSnake()) {
+            if(gameGrid.moveSnake() == 2) {
                 this.stop();
             }
             Draw playground = new Draw(canvas.getGraphicsContext2D());
@@ -32,12 +33,13 @@ public class Game extends AnimationTimer {
             for(GridPos bodyPos : gameGrid.getBodyPos()){
                 playground.draw(bodyPos);
             }
-            System.out.println(gameGrid.getBodyPos());
-            System.out.println(getHeadPos());
+            playground.draw(gameGrid.getFood());
+//            System.out.println(gameGrid.getBodyPos());
+//            System.out.println(getHeadPos());
+            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
             lastUpdate = time;
 
         }
-
 
     }
     public void setDirection(int newDirection){
@@ -47,6 +49,9 @@ public class Game extends AnimationTimer {
         return gameGrid.getDirection();
     }
 
+    public int getScore(ArrayList<GridPos> positions) {
+        return positions.size() - 3;
+    }
     /*public boolean play(int direction) throws Exception{
         long frameRate = 1000/2; // one second in milisecond / framrate
         long time = System.currentTimeMillis();      

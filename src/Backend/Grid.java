@@ -53,7 +53,6 @@ public class Grid {
         GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
         Food apple = new Food(position.getxPos(), position.getyPos(), Fruits.APPLE);
 
-        Grid.positions.set(randomIndex, apple);
 
         return apple;
 
@@ -63,8 +62,13 @@ public class Grid {
         return snake.getHeadPos();
     }
 
-    public boolean moveSnake(){
-        return snake.updatePos(this.WIDTH, this.HEIGHT, this.food);
+    public int moveSnake(){
+        int code = snake.updatePos(this.WIDTH, this.HEIGHT, this.food);
+        if(code == 1) {
+
+            this.food = this.spawnFood();
+        }
+        return code;
     }
 
     @Override
@@ -77,6 +81,8 @@ public class Grid {
     public int getDirection(){
         return snake.getDirection();
     }
+
+    public Food getFood() { return this.food; }
     public ArrayList<GridPos> getBodyPos(){
         return snake.getBodyPos();
     }

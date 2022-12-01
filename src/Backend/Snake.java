@@ -18,7 +18,7 @@ public class Snake {
         this.direction = 3;
     }
 
-    public boolean updatePos(double WIDTH, double HEIGHT, GridPos foodPos) { //First updates the bodies position and then moves the head
+    public int updatePos(double WIDTH, double HEIGHT, GridPos foodPos) { //First updates the bodies position and then moves the head
 
         for (int i = 0; i < bodyPos.size(); i++) {
 
@@ -54,18 +54,21 @@ public class Snake {
     public GridPos getHeadPos(){
         return this.headPos;
     }
-    public boolean checkCollision(double WIDTH, double HEIGHT, GridPos foodPos){ //Call this after updatePos method to see if snake has collided
+    public int checkCollision(double WIDTH, double HEIGHT, GridPos foodPos){ //Call this after updatePos method to see if snake has collided
         for(GridPos currentPos : bodyPos){
             if(headPos.equals(currentPos)){
-                return true;
+                return 2;
             }
         }
 
-        if(headPos.getxPos() >= WIDTH  || headPos.getyPos()>= HEIGHT || headPos.getxPos() < 0 ||headPos.getyPos() < 0){return true;}
+        if(headPos.getxPos() >= WIDTH  || headPos.getyPos()>= HEIGHT || headPos.getxPos() < 0 ||headPos.getyPos() < 0){return 2;}
 
-        if(this.headPos.equals(foodPos)){this.grow();}
+        if(this.headPos.equals(foodPos)){
+            this.grow();
+            return 1;
+        }
 
-        return false;
+        return 0;
     }
     public void setDirection(int newDirection){
         this.direction = newDirection;
@@ -75,7 +78,7 @@ public class Snake {
     }
 
     public void grow(){
-        this.bodyPos.add(0, new GridPos(50,250,Color.ORANGE));
+        this.bodyPos.add(0, new GridPos(-50,250,Color.ORANGE));
     }
     public ArrayList<GridPos> getBodyPos(){
         return this.bodyPos;
