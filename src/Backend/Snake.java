@@ -18,7 +18,7 @@ public class Snake {
         this.direction = 3;
     }
 
-    public boolean updatePos(double WIDTH, double HEIGHT) { //First updates the bodies position and then moves the head
+    public boolean updatePos(double WIDTH, double HEIGHT, GridPos foodPos) { //First updates the bodies position and then moves the head
 
         for (int i = 0; i < bodyPos.size(); i++) {
 
@@ -49,12 +49,12 @@ public class Snake {
                 //Error
                 break;
         }
-        return checkCollision(WIDTH, HEIGHT);
+        return checkCollision(WIDTH, HEIGHT, foodPos);
     }
     public GridPos getHeadPos(){
         return this.headPos;
     }
-    public boolean checkCollision(double WIDTH, double HEIGHT){ //Call this after updatePos method to see if snake has collided
+    public boolean checkCollision(double WIDTH, double HEIGHT, GridPos foodPos){ //Call this after updatePos method to see if snake has collided
         for(GridPos currentPos : bodyPos){
             if(headPos.equals(currentPos)){
                 return true;
@@ -62,6 +62,8 @@ public class Snake {
         }
 
         if(headPos.getxPos() >= WIDTH  || headPos.getyPos()>= HEIGHT || headPos.getxPos() < 0 ||headPos.getyPos() < 0){return true;}
+
+        if(this.headPos.equals(foodPos)){this.grow();}
 
         return false;
     }

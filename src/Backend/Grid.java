@@ -64,7 +64,7 @@ public class Grid {
     }
 
     public boolean moveSnake(){
-        return snake.updatePos(this.WIDTH, this.HEIGHT);
+        return snake.updatePos(this.WIDTH, this.HEIGHT, this.food);
     }
 
     @Override
