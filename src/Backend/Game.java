@@ -4,6 +4,7 @@ import Frontend.Draw;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Game extends AnimationTimer {
@@ -12,11 +13,28 @@ public class Game extends AnimationTimer {
     private Canvas canvas;
     private long lastUpdate;
 
+    private ArrayList<ScoreData> scoreList;
+
 
     public Game(Canvas grid){
+
         this.gameGrid = new Grid();
         this.canvas = grid;
         this.lastUpdate = 0;
+
+        try {
+
+            FileInputStream fs = new FileInputStream("Scores/score.txt");
+            ObjectInputStream os = new ObjectInputStream(fs);
+            this.scoreList = (ArrayList<ScoreData>) os.readObject();
+            System.out.println(this.scoreList);
+
+        }
+
+        catch(Exception e) {
+            this.scoreList = new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -24,9 +42,27 @@ public class Game extends AnimationTimer {
 
         if(time-lastUpdate >= Math.pow(10,9)/5) {
 
-            if(gameGrid.moveSnake() == 2) {
+            int code = gameGrid.moveSnake();
+
+            if (code == 2) {
+
+                try {
+
+                    System.out.println(System.getProperty("user.dir"));
+                    ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
+                    this.scoreList.add(currentScore);
+                    FileOutputStream os = new FileOutputStream("Scores/score.txt");
+                    ObjectOutputStream objectOutput = new ObjectOutputStream(os);
+                    objectOutput.writeObject(this.scoreList);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 this.stop();
+
             }
+
             Draw playground = new Draw(canvas.getGraphicsContext2D());
             playground.drawBackground(getPos());
             playground.draw(getHeadPos());
@@ -36,7 +72,7 @@ public class Game extends AnimationTimer {
             playground.draw(gameGrid.getFood());
 //            System.out.println(gameGrid.getBodyPos());
 //            System.out.println(getHeadPos());
-            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
+//            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
             lastUpdate = time;
 
         }

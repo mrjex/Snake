@@ -1,0 +1,37 @@
+package Backend;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
+public class ScoreData implements Serializable {
+
+    private long timestamp;
+    private int value;
+
+    public ScoreData(int value) {
+
+        this.timestamp = Instant.now().getEpochSecond();
+        this.value = value;
+
+    }
+
+
+    public String getDate() {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy H:m");
+        return formatter.format(new Date(this.timestamp * 1000));
+
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Score: %d at %s", this.getValue(), this.getDate());
+    }
+
+}

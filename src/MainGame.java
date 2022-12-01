@@ -24,9 +24,6 @@ public class MainGame extends Application {
         stage.setResizable(false);
 
 
-
-
-
     }
 
     public static void main(String[] args) {
