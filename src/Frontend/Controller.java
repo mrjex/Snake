@@ -8,12 +8,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class Controller {
     private Stage stage;
@@ -42,6 +49,28 @@ public class Controller {
         game.start();
 
 
+    }
+
+    public void Leaderboard(ActionEvent event) throws IOException {
+
+        root = FXMLLoader.load(getClass().getResource("../resources/Leaderboard.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        VBox vbox = (VBox) scene.lookup("#leaderboard");
+
+        ArrayList<ScoreData> leaderboard = Game.readScores();
+        Accordion accordion = new Accordion();
+
+        for(ScoreData score : leaderboard) {
+
+            TitledPane titledPane = new TitledPane("Score: " + score.getValue(), new Label("Obtained at " + score.getDate()));
+            accordion.getPanes().add(titledPane);
+
+        }
+
+        vbox.getChildren().add(accordion);
+        stage.show();
     }
 
     public void changeDirection(Scene scene, Game game) {

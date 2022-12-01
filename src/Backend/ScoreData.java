@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-public class ScoreData implements Serializable {
+public class ScoreData implements Serializable, Comparable {
 
     private long timestamp;
     private int value;
@@ -34,4 +34,12 @@ public class ScoreData implements Serializable {
         return String.format("Score: %d at %s", this.getValue(), this.getDate());
     }
 
+    @Override
+    public int compareTo(Object o) {
+
+        if(o == null) return 0;
+        ScoreData otherScore = (ScoreData) o;
+        return otherScore.getValue() - this.getValue();
+
+    }
 }

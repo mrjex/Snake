@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game extends AnimationTimer {
 
@@ -21,22 +22,28 @@ public class Game extends AnimationTimer {
         this.gameGrid = new Grid();
         this.canvas = grid;
         this.lastUpdate = 0;
+        this.scoreList = Game.readScores();
 
+
+    }
+
+    public static ArrayList<ScoreData> readScores() {
+
+        ArrayList<ScoreData> leaderboard = new ArrayList<>();
         try {
 
             FileInputStream fs = new FileInputStream("Scores/score.txt");
             ObjectInputStream os = new ObjectInputStream(fs);
-            this.scoreList = (ArrayList<ScoreData>) os.readObject();
-            System.out.println(this.scoreList);
+            leaderboard = (ArrayList<ScoreData>) os.readObject();
+
+        } catch (Exception e) {
 
         }
 
-        catch(Exception e) {
-            this.scoreList = new ArrayList<>();
-        }
+        Collections.sort(leaderboard);
+        return leaderboard;
 
     }
-
     @Override
     public void handle(long time) {
 
