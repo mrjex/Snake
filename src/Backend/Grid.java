@@ -12,12 +12,15 @@ public class Grid {
     private final static ArrayList<GridPos> positions = new ArrayList<>();;
     private Snake snake;
 
+    public Food food;
+
     public Grid() {
 
         this.WIDTH = 600;
         this.HEIGHT = 600;
         this.drawGrid();
         this.snake = new Snake();
+        this.food = this.spawnFood();
 
     }
 
@@ -30,13 +33,11 @@ public class Grid {
         for (int x = 0; x < horizontalPositions; x++) {
 
             for (int y = 0; y < verticalPositions; y++) {
-                if( (x + y) % 2 == 0) {
-                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.web("17E16E"));
-                    Grid.positions.add(addedPosition);
-                }else{
-                    GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, Color.web("23BB64"));
-                    Grid.positions.add(addedPosition);
-                }
+
+                Color color = (x+y) % 2 == 0 ? Color.web("17E16E") : Color.web("23BB64");
+                GridPos addedPosition = new GridPos(x * POS_LENGTH, y * POS_LENGTH, color);
+                Grid.positions.add(addedPosition);
+
             }
 
         }
@@ -45,7 +46,7 @@ public class Grid {
     public ArrayList<GridPos> getPositions(){
         return Grid.positions;
     }
-    public GridPos spawnFood() {
+    public Food spawnFood() {
 
         int randomIndex = (int) (Math.random() * Grid.positions.size());
 
@@ -75,9 +76,6 @@ public class Grid {
     }
     public int getDirection(){
         return snake.getDirection();
-    }
-    public void grow(){
-        snake.grow();
     }
     public ArrayList<GridPos> getBodyPos(){
         return snake.getBodyPos();

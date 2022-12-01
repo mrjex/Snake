@@ -15,20 +15,14 @@ public class Game extends AnimationTimer {
     public Game(Canvas grid){
         this.gameGrid = new Grid();
         this.canvas = grid;
-        this.lastUpdate = 2000000000;
+        this.lastUpdate = 0;
     }
 
     @Override
     public void handle(long time) {
-        try {
-            long frameRate = (long)Math.pow(10,9)/2; // one second in milisecond / framrate
-        }catch(Exception exception){
 
-        }
+        if(time-lastUpdate >= Math.pow(10,9)/5) {
 
-
-        if(time-lastUpdate >= 1000000000/5) {
-            //gameGrid.grow();
             if(gameGrid.moveSnake()) {
                 this.stop();
             }
