@@ -12,7 +12,7 @@ public class MainGame extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("resources/StartMenu.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Backend.Snake: The Backend.Game");
+        stage.setTitle("Snake");
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);

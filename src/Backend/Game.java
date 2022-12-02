@@ -55,7 +55,6 @@ public class Game extends AnimationTimer {
 
                 try {
 
-                    System.out.println(System.getProperty("user.dir"));
                     ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
                     this.scoreList.add(currentScore);
                     FileOutputStream os = new FileOutputStream("Scores/score.txt");
