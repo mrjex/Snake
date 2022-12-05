@@ -1,3 +1,4 @@
+package Frontend;
 import Backend.Game;
 import Frontend.Draw;
 import javafx.application.Application;
