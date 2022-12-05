@@ -3,7 +3,7 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Group-12</groupId>
+    <groupId>Group_12</groupId>
     <artifactId>Snake</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -24,8 +24,10 @@
 
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>            <!-- Your plugins go here! -->
+
         <plugins>
-            <!-- Your plugins go here! -->
 
         </plugins>
     </build>
