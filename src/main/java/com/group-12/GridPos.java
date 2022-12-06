@@ -1,4 +1,3 @@
-package Backend;
 
 import javafx.scene.paint.Color;
 

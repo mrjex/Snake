@@ -1,8 +1,4 @@
-package Frontend;
 
-import Backend.Game;
-import Backend.Grid;
-import Backend.GridPos;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

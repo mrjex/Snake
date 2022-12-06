@@ -1,4 +1,3 @@
-package Backend;
 
 public enum Fruits {
 

@@ -1,5 +1,3 @@
-import Backend.Game;
-import Frontend.Draw;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +16,7 @@ public class MainGame extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("resources/GameScene.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Backend.Snake: The Backend.Game");
+        stage.setTitle("Snake: The Game");
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
