@@ -3,6 +3,7 @@ package Backend;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Grid {
 
@@ -49,14 +50,20 @@ public class Grid {
     public Food spawnFood() {
 
         int randomIndex = (int) (Math.random() * Grid.positions.size());
+        Random random = new Random();
+        int randomNum = random.nextInt(100);
 
         GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
-        Food apple = new Pizza(position.getxPos(), position.getyPos());
+        Food returnedFood = new Apple(position.getxPos(), position.getyPos());
 
+        //Uses variable randomNum to give a percentage of different food to spawn
+        if(randomNum >= 70 && randomNum < 90){
+            returnedFood = new Pizza(position.getxPos(), position.getyPos());
+        }else if(randomNum >= 90){
+            returnedFood = new HotDog(position.getxPos(), position.getyPos());
+        }
 
-        return apple;
-
-
+        return returnedFood;
     }
     public GridPos getHeadPos(){
         return snake.getHeadPos();
