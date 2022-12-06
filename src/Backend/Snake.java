@@ -64,7 +64,8 @@ public class Snake {
         if(headPos.getxPos() >= WIDTH  || headPos.getyPos()>= HEIGHT || headPos.getxPos() < 0 ||headPos.getyPos() < 0){return 2;}
 
         if(this.headPos.equals(foodPos)){
-            this.grow();
+            Food food = (Food) foodPos;
+            this.grow(food.getScore());
             return 1;
         }
 
@@ -79,6 +80,11 @@ public class Snake {
 
     public void grow(){
         this.bodyPos.add(0, new GridPos(-50,250,Color.ORANGE));
+    }
+    public void grow(int amount){
+        for(int i = 0; i < amount; i++){
+            this.grow();
+        }
     }
     public ArrayList<GridPos> getBodyPos(){
         return this.bodyPos;

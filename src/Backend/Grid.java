@@ -51,7 +51,7 @@ public class Grid {
         int randomIndex = (int) (Math.random() * Grid.positions.size());
 
         GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
-        Food apple = new Food(position.getxPos(), position.getyPos(), 10);
+        Food apple = new Pizza(position.getxPos(), position.getyPos());
 
 
         return apple;
