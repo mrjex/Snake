@@ -4,20 +4,17 @@ import javafx.scene.paint.Color;
 
 public class Food extends GridPos {
 
-    private String name;
+    private int score;
 
 
-    public Food(int x, int y, Fruits type) {
+    public Food(int x, int y, int score) {
 
-        super(x, y,Color.RED);
-        this.name = type.getName();
+        super(x, y, Color.RED);
+        this.score = score;
 
 
     }
 
-    public String getName() {
-        return this.name;
-    }
 
 
 
