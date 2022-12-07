@@ -47,7 +47,7 @@ public class Game extends AnimationTimer {
     @Override
     public void handle(long time) {
 
-        if(time-lastUpdate >= Math.pow(10,9)/8) {
+        if(time-lastUpdate >= Math.pow(10,9)/5) {
 
             int code = gameGrid.moveSnake();
 
