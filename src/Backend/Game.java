@@ -2,7 +2,11 @@ package Backend;
 
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -20,12 +24,20 @@ public class Game extends AnimationTimer {
     }
 
     @Override
-    public void handle(long time) {
-
+    public void handle(long time){
         if(time-lastUpdate >= Math.pow(10,9)/5) {
-
             if(gameGrid.moveSnake() == 2) {
                 this.stop();
+                Stage window = (Stage)canvas.getScene().getWindow();
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("../resources/GameOverScreen.fxml"));
+                    Scene scene = new Scene(root);
+                    window.setScene(scene);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
             }
             Draw playground = new Draw(canvas.getGraphicsContext2D());
             playground.drawBackground(getPos());
@@ -40,7 +52,6 @@ public class Game extends AnimationTimer {
             lastUpdate = time;
 
         }
-
     }
     public void setDirection(int newDirection){
         this.gameGrid.setDirection(newDirection);
