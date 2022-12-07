@@ -1,8 +1,9 @@
-package Backend;
+package Backend.FoodTypes;
 
+import Backend.Food;
 import javafx.scene.paint.Color;
 
-public class HotDog extends Food{
+public class HotDog extends Food {
 
     public HotDog(int xPos, int yPos){
         super(xPos,yPos,2);
