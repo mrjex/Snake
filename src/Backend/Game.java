@@ -3,6 +3,7 @@ package Backend;
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -50,6 +51,11 @@ public class Game extends AnimationTimer {
         if(time-lastUpdate >= Math.pow(10,9)/8) {
 
             int code = gameGrid.moveSnake();
+            if (code == 1){
+                Label label = (Label) canvas.getScene().lookup("#score");
+                String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
+                label.setText(scores);
+            }
 
             if (code == 2) {
 
