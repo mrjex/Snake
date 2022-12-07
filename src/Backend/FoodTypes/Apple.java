@@ -1,8 +1,9 @@
-package Backend;
+package Backend.FoodTypes;
 
+import Backend.Food;
 import javafx.scene.paint.Color;
 
-public class Apple extends Food{
+public class Apple extends Food {
 
     public Apple(int xPos, int yPos){
         super(xPos, yPos, 1);

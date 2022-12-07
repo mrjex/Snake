@@ -1,5 +1,6 @@
 package Frontend;
 
+import Backend.Food;
 import Backend.Game;
 import Backend.Grid;
 import Backend.GridPos;
@@ -27,4 +28,13 @@ public class Draw {
         this.gc.setFill(pos.getColor());
         this.gc.fillRect(pos.getxPos(), pos.getyPos(), 50, 50);
     }
+
+    public void draw(Food food) {
+
+//        this.draw((GridPos) food);
+        this.gc.drawImage(food.getImage(), food.getxPos(), food.getyPos(), 50, 50);
+
+    }
+
+
 }
