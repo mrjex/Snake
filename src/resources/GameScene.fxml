@@ -26,7 +26,7 @@
             <Font name="04b 30" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="814.0" layoutY="54.0" prefHeight="26.0" prefWidth="22.0" text="0" textAlignment="CENTER">
+      <Label fx:id="score" layoutX="814.0" layoutY="54.0" prefHeight="26.0" prefWidth="22.0" text="0" textAlignment="CENTER">
          <font>
             <Font name="04b 30" size="23.0" />
          </font>
