@@ -2,7 +2,11 @@ package Backend;
 
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 import java.io.*;
@@ -72,6 +76,16 @@ public class Game extends AnimationTimer {
                 }
 
                 this.stop();
+                Stage window = (Stage)canvas.getScene().getWindow();
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("../resources/GameOverScreen.fxml"));
+                    Scene scene = new Scene(root);
+                    window.setScene(scene);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
 
             }
 
@@ -89,7 +103,7 @@ public class Game extends AnimationTimer {
 //            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
                 lastUpdate = time;
 
-            }
+        }
 
 
         }

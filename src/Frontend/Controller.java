@@ -30,6 +30,13 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+    public void GameOverScreen(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("../resources/GameOverScreen.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void GameScene(ActionEvent event) throws Exception {
 
@@ -43,7 +50,6 @@ public class Controller {
         Game game = new Game(grid);
         changeDirection(scene, game);
         game.start();
-
 
     }
 
