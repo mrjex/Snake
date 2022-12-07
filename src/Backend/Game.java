@@ -69,17 +69,22 @@ public class Game extends AnimationTimer {
 
             }
 
-            Draw playground = new Draw(canvas.getGraphicsContext2D());
-            playground.drawBackground(getPos());
-            playground.draw(getHeadPos());
-            for(GridPos bodyPos : gameGrid.getBodyPos()){
-                playground.draw(bodyPos);
-            }
-            playground.draw(gameGrid.getFood());
+            else {
+
+                Draw playground = new Draw(canvas.getGraphicsContext2D());
+                playground.drawBackground(getPos());
+                playground.draw(getHeadPos());
+                for(GridPos bodyPos : gameGrid.getBodyPos()){
+                    playground.draw(bodyPos);
+                }
+                playground.draw(gameGrid.getFood());
 //            System.out.println(gameGrid.getBodyPos());
 //            System.out.println(getHeadPos());
 //            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
-            lastUpdate = time;
+                lastUpdate = time;
+
+            }
+
 
         }
 
