@@ -50,9 +50,12 @@ public class Grid {
     }
     public Food spawnFood() {
 
-        int randomIndex = (int) (Math.random() * Grid.positions.size());
+        ArrayList<GridPos> unusedPositions = new ArrayList<>(Grid.positions);
+        unusedPositions.remove(this.snake.getHeadPos());
+        unusedPositions.removeAll(this.snake.getBodyPos());
+        int randomIndex = (int) (Math.random() * unusedPositions.size());
 
-        GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
+        GridPos position = unusedPositions.get(randomIndex); // save this to get the x and y
         Food apple = new Apple(position.getxPos(), position.getyPos());
 
 
