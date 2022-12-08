@@ -17,8 +17,8 @@ public class Game extends AnimationTimer {
 
     private Grid gameGrid;
     private Canvas canvas;
-    private long lastUpdate;
-
+    public long lastUpdate;
+    public boolean canTurn;
     private ArrayList<ScoreData> scoreList;
 
 
@@ -27,8 +27,8 @@ public class Game extends AnimationTimer {
         this.gameGrid = new Grid();
         this.canvas = grid;
         this.lastUpdate = 0;
+        this.canTurn = true;
         this.scoreList = Game.readScores();
-
 
     }
 
@@ -52,7 +52,10 @@ public class Game extends AnimationTimer {
     @Override
     public void handle(long time) {
 
-        if(time-lastUpdate >= Math.pow(10,9)/8) {
+
+
+        if(time-lastUpdate >= Math.pow(10,9)/5) {
+
 
             int code = gameGrid.moveSnake();
             if (code == 1){
@@ -89,7 +92,7 @@ public class Game extends AnimationTimer {
 
             }
 
-            else {
+            if(code == 0) {
 
                 Draw playground = new Draw(canvas.getGraphicsContext2D());
                 playground.drawBackground(getPos());
@@ -98,15 +101,16 @@ public class Game extends AnimationTimer {
                     playground.draw(bodyPos);
                 }
                 playground.draw(gameGrid.getFood());
-//            System.out.println(gameGrid.getBodyPos());
-//            System.out.println(getHeadPos());
-//            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
                 lastUpdate = time;
 
+
         }
+            this.canTurn = true;
 
 
         }
+
+
 
     }
     public void setDirection(int newDirection){

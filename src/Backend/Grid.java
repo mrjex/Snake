@@ -1,5 +1,6 @@
 package Backend;
 
+import Backend.FoodTypes.Apple;
 import Backend.FoodTypes.Pizza;
 import javafx.scene.paint.Color;
 
@@ -9,7 +10,7 @@ public class Grid {
 
     private final double WIDTH;
     private final double HEIGHT;
-    private final int POS_LENGTH = 50;
+    public static final int POS_LENGTH = 50;
     private final static ArrayList<GridPos> positions = new ArrayList<>();;
     private Snake snake;
 
@@ -52,7 +53,7 @@ public class Grid {
         int randomIndex = (int) (Math.random() * Grid.positions.size());
 
         GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
-        Food apple = new Pizza(position.getxPos(), position.getyPos());
+        Food apple = new Apple(position.getxPos(), position.getyPos());
 
 
         return apple;

@@ -9,5 +9,6 @@ public class Apple extends Food {
         super(xPos, yPos, 1);
         super.setProbability(0.6);
         super.setColor(Color.RED);
+        this.setImage("resources/assets/apple.png");
     }
 }

@@ -3,6 +3,7 @@ package Frontend;
 import Backend.Game;
 import Backend.ScoreData;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 public class Controller {
@@ -30,9 +30,10 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
-    public void GameOverScreen(ActionEvent event) throws IOException{
+
+    public void GameOverScreen(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../resources/GameOverScreen.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -64,7 +65,7 @@ public class Controller {
         ArrayList<ScoreData> leaderboard = Game.readScores();
         Accordion accordion = new Accordion();
 
-        for(ScoreData score : leaderboard) {
+        for (ScoreData score : leaderboard) {
 
             TitledPane titledPane = new TitledPane("Score: " + score.getValue(), new Label("Obtained at " + score.getDate()));
             accordion.getPanes().add(titledPane);
@@ -77,7 +78,11 @@ public class Controller {
 
     public void changeDirection(Scene scene, Game game) {
 
+
+
         scene.setOnKeyPressed(e -> {
+
+            if(!game.canTurn) return;
 
             switch (e.getCode()) {
                 case W:
@@ -103,6 +108,12 @@ public class Controller {
                 default:
                     break;
             }
+
+            game.canTurn = false;
+
+
         });
+
+
     }
 } 
