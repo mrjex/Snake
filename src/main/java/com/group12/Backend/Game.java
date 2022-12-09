@@ -1,0 +1,113 @@
+package com.group12.Backend;
+
+import com.group12.Frontend.Draw;
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.Canvas;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Game extends AnimationTimer {
+
+    private Grid gameGrid;
+    private Canvas canvas;
+    private long lastUpdate;
+
+    private ArrayList<ScoreData> scoreList;
+
+
+    public Game(Canvas grid){
+
+        this.gameGrid = new Grid();
+        this.canvas = grid;
+        this.lastUpdate = 0;
+        this.scoreList = Game.readScores();
+
+
+    }
+
+    public static ArrayList<ScoreData> readScores() {
+
+        ArrayList<ScoreData> leaderboard = new ArrayList<>();
+        try {
+
+            FileInputStream fs = new FileInputStream("Scores/score.txt");
+            ObjectInputStream os = new ObjectInputStream(fs);
+            leaderboard = (ArrayList<ScoreData>) os.readObject();
+
+        } catch (Exception e) {
+
+        }
+
+        Collections.sort(leaderboard);
+        return leaderboard;
+
+    }
+    @Override
+    public void handle(long time) {
+
+        if(time-lastUpdate >= Math.pow(10,9)/8) {
+
+            int code = gameGrid.moveSnake();
+
+            if (code == 2) {
+
+                try {
+
+                    ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
+                    this.scoreList.add(currentScore);
+                    FileOutputStream os = new FileOutputStream("Scores/score.txt");
+                    ObjectOutputStream objectOutput = new ObjectOutputStream(os);
+                    objectOutput.writeObject(this.scoreList);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                this.stop();
+
+            }
+
+            Draw playground = new Draw(canvas.getGraphicsContext2D());
+            playground.drawBackground(getPos());
+            playground.draw(getHeadPos());
+            for(GridPos bodyPos : gameGrid.getBodyPos()){
+                playground.draw(bodyPos);
+            }
+            playground.draw(gameGrid.getFood());
+//            System.out.println(gameGrid.getBodyPos());
+//            System.out.println(getHeadPos());
+//            System.out.println("Score: " + this.getScore(gameGrid.getBodyPos()));
+            lastUpdate = time;
+
+        }
+
+    }
+    public void setDirection(int newDirection){
+        this.gameGrid.setDirection(newDirection);
+    }
+    public int getDirection(){
+        return gameGrid.getDirection();
+    }
+
+    public int getScore(ArrayList<GridPos> positions) {
+        return positions.size() - 3;
+    }
+    /*public boolean play(int direction) throws Exception{
+        long frameRate = 1000/2; // one second in milisecond / framrate
+        long time = System.currentTimeMillis();      
+        Thread.sleep((frameRate-time%frameRate));
+
+        return gameGrid.moveSnake(); //If snake hasn't collided
+
+
+    }*/
+    public ArrayList<GridPos> getPos(){
+        return gameGrid.getPositions();
+    }
+    public GridPos getHeadPos(){
+        return gameGrid.getHeadPos();
+    }
+
+}

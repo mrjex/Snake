@@ -1,3 +1,4 @@
+package com.group12.Backend;
 
 public enum Fruits {
 
