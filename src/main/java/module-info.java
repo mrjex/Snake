@@ -3,4 +3,5 @@ module org.openjfx {
     requires javafx.fxml;
     exports com.group12;
     exports com.group12.Frontend;
+    exports com.group12.Backend.FoodTypes;
 }
