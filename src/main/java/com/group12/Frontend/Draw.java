@@ -2,6 +2,12 @@ package com.group12.Frontend;
 
 import com.group12.Backend.Food;
 import com.group12.Backend.GridPos;
+import com.group12.Backend.Food;
+import com.group12.Backend.Game;
+import com.group12.Backend.Grid;
+import com.group12.Backend.GridPos;
+import javafx.application.Application;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;

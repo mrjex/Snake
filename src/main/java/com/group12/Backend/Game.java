@@ -32,7 +32,7 @@ public class Game extends AnimationTimer {
         ArrayList<ScoreData> leaderboard = new ArrayList<>();
         try {
 
-            FileInputStream fs = new FileInputStream("Scores/score.txt");
+            FileInputStream fs = new FileInputStream("/Scores/score.txt");
             ObjectInputStream os = new ObjectInputStream(fs);
             leaderboard = (ArrayList<ScoreData>) os.readObject();
 
@@ -57,7 +57,7 @@ public class Game extends AnimationTimer {
 
                     ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
                     this.scoreList.add(currentScore);
-                    FileOutputStream os = new FileOutputStream("Scores/score.txt");
+                    FileOutputStream os = new FileOutputStream("/Scores/score.txt");
                     ObjectOutputStream objectOutput = new ObjectOutputStream(os);
                     objectOutput.writeObject(this.scoreList);
 

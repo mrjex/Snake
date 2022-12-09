@@ -1,7 +1,7 @@
 package com.group12.Frontend;
 
-import com.group12.Backend.ScoreData;
 import com.group12.Backend.Game;
+import com.group12.Backend.ScoreData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

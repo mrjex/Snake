@@ -192,5 +192,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+Scores/score.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+iml,visualstudiocode,java,macos,windows
