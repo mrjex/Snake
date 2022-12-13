@@ -1,10 +1,16 @@
+package Backend;
+
+import javafx.scene.paint.Color;
+
 public class GridPos {
     private int xPos;
     private int yPos;
+    private Color color;
 
-    public GridPos(int xPos, int yPos) {
+    public GridPos(int xPos, int yPos, Color color) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.color = color;
     }
 
     public int getxPos() {
@@ -13,6 +19,11 @@ public class GridPos {
 
     public int getyPos() {
         return this.yPos;
+    }
+    public Color getColor(){return this.color;}
+
+    public void setColor(Color color){
+        this.color = color;
     }
 
     public void setxPos(int xPos) {
