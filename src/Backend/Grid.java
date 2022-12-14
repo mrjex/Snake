@@ -25,7 +25,6 @@ public class Grid {
         this.HEIGHT = 600;
         this.drawGrid();
         this.snake = new Snake();
-        this.food = this.spawnFood();
 
     }
 
@@ -51,7 +50,7 @@ public class Grid {
     public ArrayList<GridPos> getPositions(){
         return Grid.positions;
     }
-    public Food spawnFood() {
+    public Food spawnFood(boolean foodFrenzy) {
 
         ArrayList<GridPos> unusedPositions = new ArrayList<>(Grid.positions);
         unusedPositions.remove(this.snake.getHeadPos());
@@ -64,13 +63,17 @@ public class Grid {
         GridPos position = unusedPositions.get(randomIndex); // save this to get the x and y
         Food returnedFood = new Apple(position.getxPos(), position.getyPos());
 
-        //Uses variable randomNum to give a percentage of different food to spawn
-        if(randomNum >= 70 && randomNum < 90){
-            returnedFood = new Pizza(position.getxPos(), position.getyPos());
-        }else if(randomNum >= 90){
-            returnedFood = new HotDog(position.getxPos(), position.getyPos());
-        }
+        if(foodFrenzy) {
 
+            //Uses variable randomNum to give a percentage of different food to spawn
+            if(randomNum >= 70 && randomNum < 90){
+                returnedFood = new Pizza(position.getxPos(), position.getyPos());
+            }else if(randomNum >= 90){
+                returnedFood = new HotDog(position.getxPos(), position.getyPos());
+            }
+
+        }
+        this.food = returnedFood;
         return returnedFood;
     }
     public GridPos getHeadPos(){
@@ -81,12 +84,8 @@ public class Grid {
         int code = snake.updatePos(this.WIDTH, this.HEIGHT, this.food);
         if(code == 1) {
 
-            if(!frenzy) {
-                this.food = this.spawnFood();
-            }
-            else {
+            this.food = this.spawnFood(frenzy);
 
-            }
 
         }
         return code;

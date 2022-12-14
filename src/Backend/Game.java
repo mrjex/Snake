@@ -6,10 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,20 +38,35 @@ public class Game extends AnimationTimer {
         this.canTurn = true;
         this.scoreList = Game.readScores();
         this.isFrenzy = frenzy;
+        gameGrid.spawnFood(isFrenzy);
+
 
     }
 
     public static ArrayList<ScoreData> readScores() {
 
         ArrayList<ScoreData> leaderboard = new ArrayList<>();
+
         try {
 
-            FileInputStream fs = new FileInputStream("Scores/score.txt");
-            ObjectInputStream os = new ObjectInputStream(fs);
-            leaderboard = (ArrayList<ScoreData>) os.readObject();
+            byte[] bytes = Files.readAllBytes(Paths.get("Scores/score.json"));
+            String fileContent = new String (bytes);
+
+            JSONObject obj = new JSONObject(fileContent);
+            JSONArray scores = obj.getJSONArray("scores");
+            for(Object score : scores) {
+
+                JSONObject scoreObject = (JSONObject) score;
+//                String name = (String) scoreObject.get("name");
+                int value = (Integer) scoreObject.get("value");
+                leaderboard.add(new ScoreData(value));
+
+            }
+
 
         } catch (Exception e) {
 
+            System.out.println(e.getMessage());
         }
 
         Collections.sort(leaderboard);
@@ -72,20 +94,53 @@ public class Game extends AnimationTimer {
 
                     ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
                     this.scoreList.add(currentScore);
-                    FileOutputStream os = new FileOutputStream("Scores/score.txt");
-                    ObjectOutputStream objectOutput = new ObjectOutputStream(os);
-                    objectOutput.writeObject(this.scoreList);
+
+                    JSONObject jo = new JSONObject();
+                    JSONArray scores = new JSONArray();
+
+                    for(ScoreData score : this.scoreList) {
+
+                        JSONObject data = new JSONObject();
+                        data.put("value", score.getValue());
+                        data.put("timestamp", score.getDate());
+                        scores.put(data);
+
+                    }
+                    jo.put("scores", scores);
+                    FileWriter writer = new FileWriter("Scores/score.json");
+                    writer.write(jo.toString());
+                    writer.flush();
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
 
                 this.stop();
+
                 Stage window = (Stage)canvas.getScene().getWindow();
                 try {
+
                     Parent root = FXMLLoader.load(getClass().getResource("../resources/GameOverScreen.fxml"));
                     Scene scene = new Scene(root);
                     window.setScene(scene);
+
+                    Label label = (Label) scene.lookup("#finalScore");
+                    label.setText(String.valueOf(getScore(gameGrid.getBodyPos())));
+
+                    VBox vbox = (VBox) scene.lookup("#leaderboard");
+
+                    ArrayList<ScoreData> leaderboard = Game.readScores();
+                    Accordion accordion = new Accordion();
+
+                    for (ScoreData score : leaderboard) {
+
+                        TitledPane titledPane = new TitledPane("Score: " + score.getValue(), new Label("Obtained at " + score.getDate()));
+                        accordion.getPanes().add(titledPane);
+
+                    }
+
+                    vbox.getChildren().add(accordion);
+
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
