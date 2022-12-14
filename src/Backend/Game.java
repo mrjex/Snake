@@ -20,15 +20,17 @@ public class Game extends AnimationTimer {
     public long lastUpdate;
     public boolean canTurn;
     private ArrayList<ScoreData> scoreList;
+    private boolean isFrenzy;
 
 
-    public Game(Canvas grid){
+    public Game(Canvas grid, boolean frenzy){
 
         this.gameGrid = new Grid();
         this.canvas = grid;
         this.lastUpdate = 0;
         this.canTurn = true;
         this.scoreList = Game.readScores();
+        this.isFrenzy = frenzy;
 
     }
 
@@ -57,7 +59,7 @@ public class Game extends AnimationTimer {
         if(time-lastUpdate >= Math.pow(10,9)/5) {
 
 
-            int code = gameGrid.moveSnake();
+            int code = gameGrid.moveSnake(isFrenzy);
             if (code == 1){
                 Label label = (Label) canvas.getScene().lookup("#score");
                 String scores = String.valueOf(getScore(gameGrid.getBodyPos()));

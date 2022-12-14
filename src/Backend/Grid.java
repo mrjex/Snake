@@ -67,11 +67,17 @@ public class Grid {
         return snake.getHeadPos();
     }
 
-    public int moveSnake(){
+    public int moveSnake(boolean frenzy){
         int code = snake.updatePos(this.WIDTH, this.HEIGHT, this.food);
         if(code == 1) {
 
-            this.food = this.spawnFood();
+            if(!frenzy) {
+                this.food = this.spawnFood();
+            }
+            else {
+
+            }
+
         }
         return code;
     }

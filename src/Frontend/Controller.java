@@ -2,6 +2,7 @@ package Frontend;
 
 import Backend.Game;
 import Backend.ScoreData;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,29 @@ public class Controller {
         stage.show();
     }
 
+    public void exit() {
+
+        Platform.exit();
+
+    }
+
+    public void FoodFrenzyButton(ActionEvent event) throws IOException {
+
+
+        root = FXMLLoader.load(getClass().getResource("../resources/GameScene.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        Canvas grid = (Canvas) scene.lookup("#Grid");
+
+        Game game = new Game(grid, true);
+        changeDirection(scene, game);
+        game.start();
+
+
+    }
+
     public void GameOverScreen(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../resources/GameOverScreen.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -48,7 +72,7 @@ public class Controller {
         stage.show();
         Canvas grid = (Canvas) scene.lookup("#Grid");
 
-        Game game = new Game(grid);
+        Game game = new Game(grid, false);
         changeDirection(scene, game);
         game.start();
 
