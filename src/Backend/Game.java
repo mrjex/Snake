@@ -149,7 +149,7 @@ public class Game extends AnimationTimer {
 
             }
 
-            if(code == 0) {
+            if(code != 2) {
 
                 Draw playground = new Draw(canvas.getGraphicsContext2D());
                 playground.drawBackground(getPos());
@@ -162,8 +162,8 @@ public class Game extends AnimationTimer {
 
 
         }
-            this.canTurn = true;
 
+            this.canTurn = true;
 
         }
 
