@@ -22,7 +22,7 @@
             <Font name="04b 30" size="50.0" />
          </font>
       </Label>
-      <Button layoutX="315.0" layoutY="210.0" mnemonicParsing="false" onAction="#GameScene" opacity="0.0" prefHeight="80.0" prefWidth="276.0" text="Easy">
+      <Button layoutX="254.0" layoutY="197.0" mnemonicParsing="false" onAction="#NormalMode" opacity="0.0" prefHeight="80.0" prefWidth="276.0" text="Easy">
          <font>
             <Font size="18.0" />
          </font>

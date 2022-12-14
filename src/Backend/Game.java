@@ -27,7 +27,7 @@ public class Game extends AnimationTimer {
     public long lastUpdate;
     public boolean canTurn;
     private ArrayList<ScoreData> scoreList;
-    private boolean isFrenzy;
+    public static boolean isFrenzy;
 
 
     public Game(Canvas grid, boolean frenzy){
