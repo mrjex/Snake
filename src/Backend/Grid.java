@@ -2,9 +2,12 @@ package Backend;
 
 import Backend.FoodTypes.Apple;
 import Backend.FoodTypes.Pizza;
+import Backend.FoodTypes.HotDog;
+
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Grid {
 
@@ -55,13 +58,20 @@ public class Grid {
         unusedPositions.removeAll(this.snake.getBodyPos());
         int randomIndex = (int) (Math.random() * unusedPositions.size());
 
+        Random random = new Random();
+        int randomNum = random.nextInt(100);
+
         GridPos position = unusedPositions.get(randomIndex); // save this to get the x and y
-        Food apple = new Apple(position.getxPos(), position.getyPos());
+        Food returnedFood = new Apple(position.getxPos(), position.getyPos());
 
+        //Uses variable randomNum to give a percentage of different food to spawn
+        if(randomNum >= 70 && randomNum < 90){
+            returnedFood = new Pizza(position.getxPos(), position.getyPos());
+        }else if(randomNum >= 90){
+            returnedFood = new HotDog(position.getxPos(), position.getyPos());
+        }
 
-        return apple;
-
-
+        return returnedFood;
     }
     public GridPos getHeadPos(){
         return snake.getHeadPos();

@@ -10,6 +10,7 @@ public abstract class Food extends GridPos {
     private Image image;
 
 
+
     public Food(int x, int y, int score) {
 
         super(x, y, Color.RED);
