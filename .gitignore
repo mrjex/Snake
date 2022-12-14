@@ -41,7 +41,7 @@
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
-# *.iml
+ *.iml
 # *.ipr
 
 # CMake
@@ -191,5 +191,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+Scores/score.json
+target
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+iml,visualstudiocode,java,macos,windows

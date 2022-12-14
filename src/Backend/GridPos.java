@@ -22,6 +22,10 @@ public class GridPos {
     }
     public Color getColor(){return this.color;}
 
+    public void setColor(Color color){
+        this.color = color;
+    }
+
     public void setxPos(int xPos) {
         this.xPos = xPos;
     }  

@@ -1,15 +1,9 @@
-import Backend.Game;
-import Frontend.Draw;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class MainGame extends Application {
 
@@ -18,13 +12,10 @@ public class MainGame extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("resources/StartMenu.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Backend.Snake: The Backend.Game");
+        stage.setTitle("Snake");
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
-
-
-
 
 
     }

@@ -1,14 +1,19 @@
 package Backend;
 
+import Backend.FoodTypes.Apple;
+import Backend.FoodTypes.Pizza;
+import Backend.FoodTypes.HotDog;
+
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Grid {
 
     private final double WIDTH;
     private final double HEIGHT;
-    private final int POS_LENGTH = 50;
+    public static final int POS_LENGTH = 50;
     private final static ArrayList<GridPos> positions = new ArrayList<>();;
     private Snake snake;
 
@@ -20,7 +25,6 @@ public class Grid {
         this.HEIGHT = 600;
         this.drawGrid();
         this.snake = new Snake();
-        this.food = this.spawnFood();
 
     }
 
@@ -46,27 +50,43 @@ public class Grid {
     public ArrayList<GridPos> getPositions(){
         return Grid.positions;
     }
-    public Food spawnFood() {
+    public Food spawnFood(boolean foodFrenzy) {
 
-        int randomIndex = (int) (Math.random() * Grid.positions.size());
+        ArrayList<GridPos> unusedPositions = new ArrayList<>(Grid.positions);
+        unusedPositions.remove(this.snake.getHeadPos());
+        unusedPositions.removeAll(this.snake.getBodyPos());
+        int randomIndex = (int) (Math.random() * unusedPositions.size());
 
-        GridPos position = Grid.positions.get(randomIndex); // save this to get the x and y
-        Food apple = new Food(position.getxPos(), position.getyPos(), Fruits.APPLE);
+        Random random = new Random();
+        int randomNum = random.nextInt(100);
 
+        GridPos position = unusedPositions.get(randomIndex); // save this to get the x and y
+        Food returnedFood = new Apple(position.getxPos(), position.getyPos());
 
-        return apple;
+        if(foodFrenzy) {
 
+            //Uses variable randomNum to give a percentage of different food to spawn
+            if(randomNum >= 70 && randomNum < 90){
+                returnedFood = new Pizza(position.getxPos(), position.getyPos());
+            }else if(randomNum >= 90){
+                returnedFood = new HotDog(position.getxPos(), position.getyPos());
+            }
 
+        }
+        this.food = returnedFood;
+        return returnedFood;
     }
     public GridPos getHeadPos(){
         return snake.getHeadPos();
     }
 
-    public int moveSnake(){
+    public int moveSnake(boolean frenzy){
         int code = snake.updatePos(this.WIDTH, this.HEIGHT, this.food);
         if(code == 1) {
 
-            this.food = this.spawnFood();
+            this.food = this.spawnFood(frenzy);
+
+
         }
         return code;
     }

@@ -10,7 +10,7 @@ public class Snake {
     private int direction;// 0 = north, 1 = west, 2 = south, 3 = east
 
     public Snake() {
-        this.headPos = new GridPos(50, 250, Color.DEEPSKYBLUE);
+        this.headPos = new GridPos(Grid.POS_LENGTH, Grid.POS_LENGTH * 2, Color.DEEPSKYBLUE);
         this.bodyPos = new ArrayList<>();
         this.grow();
         this.grow();
@@ -30,25 +30,26 @@ public class Snake {
         }
         switch (this.direction) {
             case 0:
-                headPos.setyPos(headPos.getyPos()-50);
+                headPos.setyPos(headPos.getyPos()-Grid.POS_LENGTH);
                 break;
 
             case 1:
-                headPos.setxPos(headPos.getxPos()-50);
+                headPos.setxPos(headPos.getxPos()-Grid.POS_LENGTH);
                 break;
 
             case 2:
-                headPos.setyPos(headPos.getyPos()+50);
+                headPos.setyPos(headPos.getyPos()+Grid.POS_LENGTH);
                 break;
 
             case 3:
-                headPos.setxPos(headPos.getxPos()+50);
+                headPos.setxPos(headPos.getxPos()+Grid.POS_LENGTH);
                 break;
 
             default:
                 //Error
                 break;
         }
+
         return checkCollision(WIDTH, HEIGHT, foodPos);
     }
     public GridPos getHeadPos(){
@@ -64,7 +65,8 @@ public class Snake {
         if(headPos.getxPos() >= WIDTH  || headPos.getyPos()>= HEIGHT || headPos.getxPos() < 0 ||headPos.getyPos() < 0){return 2;}
 
         if(this.headPos.equals(foodPos)){
-            this.grow();
+            Food food = (Food) foodPos;
+            this.grow(food.getScore());
             return 1;
         }
 
@@ -79,6 +81,11 @@ public class Snake {
 
     public void grow(){
         this.bodyPos.add(0, new GridPos(-50,250,Color.ORANGE));
+    }
+    public void grow(int amount){
+        for(int i = 0; i < amount; i++){
+            this.grow();
+        }
     }
     public ArrayList<GridPos> getBodyPos(){
         return this.bodyPos;
