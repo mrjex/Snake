@@ -86,12 +86,14 @@ public class Game extends AnimationTimer {
                 Label label = (Label) canvas.getScene().lookup("#score");
                 String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
                 label.setText(scores);
+
+                // Sound effect here - Eat specific food
             }
 
             if (code == 2) {
+                // Sound effect here - Snake dies
 
                 try {
-
                     ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
                     this.scoreList.add(currentScore);
 
