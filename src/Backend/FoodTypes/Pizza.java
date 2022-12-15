@@ -8,7 +8,6 @@ public class Pizza extends Food {
     public Pizza(int xPos, int yPos){
 
         super(xPos, yPos, 3);
-        super.setProbability(0.1);
         super.setColor(Color.YELLOW);
         super.setImage("resources/assets/pizza.png");
 
