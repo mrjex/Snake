@@ -11,23 +11,26 @@ import java.util.TimerTask;
         /*
             // Ideas for improvement that will be implemented by JoelM soon:
             * Once the list of predetermined songs is done, it will loop from the beginning again
-            * Make a general loop in MainGame.java dependent on the variables retrieved from the songs in this class
             * Make the relationship between this class and MainGame.java clean and readable (smooth code and good comments)
          */
 
 public class SongList extends TimerTask
 {
-    public int i; // Private?
-    public int numberOfTimesToRun; // Private?
+    public static int numberOfSongsInList = 3;
+    public static long[] songDurations = new long[numberOfSongsInList];
+    private static String[] songFilePaths = {"SkyHighTrinitySnakeBackgroundSound2.wav", "RobotSnakeBackgroundSound.wav", "EnergyINeed.wav"};
+
+    private int i;
+    private int numberOfTimesToRun;
 
     private int currentNumberOfRuns;
-    private String[] filePaths = {"SkyHighTrinitySnakeBackgroundSound2.wav", "RobotSnakeBackgroundSound.wav"};
 
     public SongList(int i, int numberOfTimesToRun)
     {
         this.i = i;
-        this.numberOfTimesToRun = numberOfTimesToRun;
+
         currentNumberOfRuns = 0;
+        this.numberOfTimesToRun = numberOfTimesToRun;
     }
 
     @Override
@@ -42,24 +45,36 @@ public class SongList extends TimerTask
         }
     }
 
-    public void playBackgroundSongs()
+    private void playBackgroundSongs()
     {
         System.out.println("Song number " + String.valueOf((i + 1)) + " is playing!");
+        createAudioClip(i, true);
+    }
 
+    public static void getSongDurations()
+    {
+        for (int j = 0; j < songFilePaths.length; j++)
+        {
+            createAudioClip(j, false);
+        }
+    }
+
+    private static void createAudioClip(int index, boolean startClip)
+    {
         try
         {
-            File musicPath = new File(this.filePaths[i]);
+            File musicPath = new File(songFilePaths[index]);
 
             if (musicPath.exists())
             {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 Clip clip = AudioSystem.getClip();
-
                 clip.open(audioInput);
-                clip.start();
 
-                // System.out.println(clip.getMicrosecondLength());
-                // System.out.println(clip.getMicrosecondPosition());
+                if (startClip)
+                    clip.start();
+
+                songDurations[index] = setCommaNDigitsFromEnd(clip.getMicrosecondLength(), 3);
             }
             else
             {
@@ -70,5 +85,16 @@ public class SongList extends TimerTask
         {
             System.out.println(exception.getMessage());
         }
+    }
+
+    // Source used: https://stackoverflow.com/questions/29012224/java-how-to-remove-last-numbers-of-a-long (retrieved 2022-12-15)
+    // The purpose with this function is that Java completely ignores the comma located 3 digits from the last digit
+    // when retrieving a clip's length using 'clip.getMicrosecondLength'
+
+    // Note: My suggestion is that we make a class called "Utils" where we have other generalized
+    // public static functions whose behaviours don't fit in classes with specific behaviour
+    private static long setCommaNDigitsFromEnd(long number, int n)
+    {
+        return (long)(number / Math.pow(10, n));
     }
 }

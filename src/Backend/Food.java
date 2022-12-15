@@ -10,8 +10,6 @@ public abstract class Food extends GridPos {
     private double probability;
     private Image image;
 
-
-
     public Food(int x, int y, int score) {
 
         super(x, y, Color.RED);

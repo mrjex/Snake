@@ -33,13 +33,33 @@ public class MainGame extends Application {
         stage.setResizable(false);
 
         Timer timer = new Timer();
-        timer.schedule(new SongList(0, 1), 0, 108000); // First song/clip duration: 108000 milliseconds
-        timer.schedule(new SongList(1, 1), 108000, 4000);
+        SongList.getSongDurations();
+
+        long currentDelay = 0;
+
+        for (int i = 0; i < SongList.numberOfSongsInList; i++)
+        {
+            timer.schedule(new SongList(i, 1), currentDelay);
+            currentDelay += SongList.songDurations[i];
+
+            /*
+            // No delay to start the first song
+            if (i == 0)
+            {
+                timer.schedule(new SongList(i, 1), 0);
+            }
+            //
+            else
+            {
+                timer.schedule(new SongList(i, 1), SongList.songDurations[i - 1]);
+            }
+
+             */
+        }
 
         /*
         Notes for JoelM:
         * Make a general function that converts X to Y (time). Example: "Seconds" to "Minutes", "Hours" to "Milliseconds"
-        * Make a general loop and remove "magic numbers" in the 3 lines above
          */
     }
 
