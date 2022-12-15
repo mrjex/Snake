@@ -22,12 +22,12 @@
             <Font name="04b 30" size="50.0" />
          </font>
       </Label>
-      <Button layoutX="254.0" layoutY="197.0" mnemonicParsing="false" onAction="#NormalMode" opacity="0.0" prefHeight="80.0" prefWidth="276.0" text="Easy">
+      <Button layoutX="312.0" layoutY="167.0" mnemonicParsing="false" onAction="#NormalMode" opacity="0.42" prefHeight="80.0" prefWidth="276.0" text="Easy">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="109.0" layoutY="277.0" mnemonicParsing="false" onAction="#FoodFrenzyButton" opacity="0.0" prefHeight="114.0" prefWidth="485.0" text="Medium">
+      <Button layoutX="216.0" layoutY="277.0" mnemonicParsing="false" onAction="#FoodFrenzyButton" opacity="0.59" prefHeight="114.0" prefWidth="485.0" text="Medium">
          <font>
             <Font size="18.0" />
          </font>
@@ -37,7 +37,7 @@
             <Font name="04b 30" size="50.0" />
          </font>
       </Label>
-      <Button layoutX="280.0" layoutY="391.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exit" opacity="0.0" prefHeight="101.0" prefWidth="179.0" text="Quit">
+      <Button fx:id="resume" layoutX="389.0" layoutY="453.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exit" opacity="0.5" prefHeight="101.0" prefWidth="179.0" text="Quit">
          <font>
             <Font size="18.0" />
          </font>
