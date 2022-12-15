@@ -6,14 +6,18 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -117,9 +121,26 @@ public class Controller {
 
     public void changeDirection(Scene scene, Game game) {
 
+        Group pauseGroup = (Group) scene.lookup("#pause");
 
+        Button button = (Button)scene.lookup("#resume");
+        button.setOnAction(e -> {
+
+            pauseGroup.setOpacity(0);
+            pauseGroup.setDisable(true);
+
+            game.start();
+        });
 
         scene.setOnKeyPressed(e -> {
+
+            if (e.getCode().equals(KeyCode.ESCAPE))
+            {
+                game.stop();
+
+                pauseGroup.setDisable(false);
+                pauseGroup.setOpacity(1);
+            }
 
             if(!game.canTurn) return;
 
