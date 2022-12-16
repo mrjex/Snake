@@ -20,6 +20,7 @@ public class SongList extends TimerTask
 {
     public static Clip currentClip;
     public static int numberOfSongsInList = 3;
+    public static int currentSongIndex;
     public static long[] songDurations = new long[numberOfSongsInList];
     private static String[] songFilePaths = {"SkyHighTrinitySnakeBackgroundSound2.wav", "RobotSnakeBackgroundSound.wav", "EnergyINeed.wav"};
 
@@ -50,7 +51,9 @@ public class SongList extends TimerTask
 
     private void playBackgroundSongs()
     {
-        System.out.println("Song number " + String.valueOf((i + 1)) + " is playing!");
+        currentSongIndex = i;
+        System.out.println("Song number " + String.valueOf((currentSongIndex + 1)) + " is playing!");
+
         createAudioClip(i, true);
     }
 

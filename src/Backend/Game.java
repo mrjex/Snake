@@ -83,7 +83,7 @@ public class Game extends AnimationTimer {
             // Check if SongList.currentClip updates to the next clip
             // Find a smooth way to store current song index to put in the denominator below
 
-            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[0]);
+            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[SongList.currentSongIndex]); // past index: 0
 
             ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
             bar.setProgress(barProgression);
