@@ -99,7 +99,7 @@ public class SongList extends TimerTask
 
     // Note: My suggestion is that we make a class called "Utils" where we have other generalized
     // public static functions whose behaviours don't fit in classes with specific behaviour
-    private static long setCommaNDigitsFromEnd(long number, int n)
+    public static long setCommaNDigitsFromEnd(long number, int n)
     {
         return (long)(number / Math.pow(10, n));
     }

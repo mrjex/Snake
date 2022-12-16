@@ -1,4 +1,3 @@
-
 import Backend.SongList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

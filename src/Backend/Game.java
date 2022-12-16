@@ -1,5 +1,6 @@
 package Backend;
 
+import Frontend.Controller;
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -75,20 +77,22 @@ public class Game extends AnimationTimer {
     }
     @Override
     public void handle(long time) {
-
-
-
         if(time-lastUpdate >= Math.pow(10,9)/5) {
 
+            // Notes for JoelM - Two steps:
+            // Check if SongList.currentClip updates to the next clip
+            // Find a smooth way to store current song index to put in the denominator below
+
+            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[0]);
+
+            ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
+            bar.setProgress(barProgression);
 
             int code = gameGrid.moveSnake(isFrenzy);
             if (code == 1){
                 Label label = (Label) canvas.getScene().lookup("#score");
                 String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
                 label.setText(scores);
-
-                // Change direction
-                System.out.println("Test!");
 
                 // Sound effect here - Eat specific food
             }

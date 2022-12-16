@@ -12,10 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -26,7 +23,7 @@ import java.util.ArrayList;
 
 public class Controller {
     private Stage stage;
-    private Scene scene;
+    public static Scene scene; // private Scene scene;
     private Parent root;
 
     public void StartMenu(ActionEvent event) throws IOException {
@@ -80,6 +77,8 @@ public class Controller {
         changeDirection(scene, game);
         game.start();
 
+        ProgressBar bar = (ProgressBar) (scene.lookup("#songProgressBar"));
+        bar.setProgress(0.8);
     }
 
     public void playAgain(ActionEvent event) throws IOException {
