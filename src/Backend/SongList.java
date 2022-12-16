@@ -1,3 +1,5 @@
+package Backend;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,6 +18,7 @@ import java.util.TimerTask;
 
 public class SongList extends TimerTask
 {
+    public static Clip currentClip;
     public static int numberOfSongsInList = 3;
     public static long[] songDurations = new long[numberOfSongsInList];
     private static String[] songFilePaths = {"SkyHighTrinitySnakeBackgroundSound2.wav", "RobotSnakeBackgroundSound.wav", "EnergyINeed.wav"};
@@ -72,8 +75,11 @@ public class SongList extends TimerTask
                 clip.open(audioInput);
 
                 if (startClip)
+                {
                     clip.start();
+                }
 
+                currentClip = clip;
                 songDurations[index] = setCommaNDigitsFromEnd(clip.getMicrosecondLength(), 3);
             }
             else
@@ -96,5 +102,11 @@ public class SongList extends TimerTask
     private static long setCommaNDigitsFromEnd(long number, int n)
     {
         return (long)(number / Math.pow(10, n));
+    }
+
+    public static void stop()
+    {
+        currentClip.close();
+        currentClip.stop();
     }
 }

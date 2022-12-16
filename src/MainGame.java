@@ -1,4 +1,5 @@
 
+import Backend.SongList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,19 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 // import javax.print.attribute.standard.Media;
-import java.io.File;
 import java.util.Timer;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 public class MainGame extends Application {
 
@@ -46,12 +35,12 @@ public class MainGame extends Application {
             // No delay to start the first song
             if (i == 0)
             {
-                timer.schedule(new SongList(i, 1), 0);
+                timer.schedule(new Backend.SongList(i, 1), 0);
             }
             //
             else
             {
-                timer.schedule(new SongList(i, 1), SongList.songDurations[i - 1]);
+                timer.schedule(new Backend.SongList(i, 1), Backend.SongList.songDurations[i - 1]);
             }
 
              */

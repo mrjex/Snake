@@ -87,6 +87,9 @@ public class Game extends AnimationTimer {
                 String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
                 label.setText(scores);
 
+                // Change direction
+                System.out.println("Test!");
+
                 // Sound effect here - Eat specific food
             }
 
