@@ -2,14 +2,13 @@ package Backend;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.media.AudioClip;
 
 public abstract class Food extends GridPos {
 
     private int score;
     private double probability;
     private Image image;
-
-
 
     public Food(int x, int y, int score) {
 
