@@ -93,7 +93,7 @@ public class Game extends AnimationTimer {
             bar.setProgress(barProgression);
 
             songNameText = (Text)(Controller.scene.lookup("#songNameText")); // JoelM: Optimize
-            songNameText.setText(SongList.songFilePaths[SongList.currentSongIndex]); // JoelM: Optimize
+            songNameText.setText(SongList.songFilePaths[SongList.currentSongIndex].substring(0, SongList.songFilePaths[SongList.currentSongIndex].length() - 4)); // JoelM: Optimize
 
             int code = gameGrid.moveSnake(isFrenzy);
             if (code == 1){

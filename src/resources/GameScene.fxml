@@ -49,6 +49,10 @@
             <SepiaTone />
          </effect>
       </ProgressBar>
-      <Text fx:id="songNameText" layoutX="56.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song name here" />
+      <Text fx:id="songNameText" layoutX="65.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song name here">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
