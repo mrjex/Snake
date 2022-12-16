@@ -22,7 +22,7 @@ public class SongList extends TimerTask
     public static int numberOfSongsInList = 3;
     public static int currentSongIndex;
     public static long[] songDurations = new long[numberOfSongsInList];
-    private static String[] songFilePaths = {"SkyHighTrinitySnakeBackgroundSound2.wav", "RobotSnakeBackgroundSound.wav", "EnergyINeed.wav"};
+    public static String[] songFilePaths = {"SkyHighTrinitySnakeBackgroundSound2.wav", "RobotSnakeBackgroundSound.wav", "EnergyINeed.wav"};
 
     private int i;
     private int numberOfTimesToRun;

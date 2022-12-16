@@ -5,10 +5,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #4BC27E;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.Controller">
    <children>
@@ -42,6 +44,11 @@
             <Button layoutX="83.0" layoutY="134.0" mnemonicParsing="false" onAction="#StartMenu" text="Quit" />
          </children>
       </Group>
-      <ProgressBar fx:id="songProgressBar" layoutX="224.0" layoutY="100.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar fx:id="songProgressBar" layoutX="21.0" layoutY="66.0" prefWidth="200.0" progress="0.44">
+         <effect>
+            <SepiaTone />
+         </effect>
+      </ProgressBar>
+      <Text fx:id="songNameText" layoutX="56.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song name here" />
    </children>
 </AnchorPane>

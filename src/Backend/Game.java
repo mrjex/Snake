@@ -11,10 +11,12 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import javafx.fxml.FXML;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -31,6 +33,8 @@ public class Game extends AnimationTimer {
     private ArrayList<ScoreData> scoreList;
     public static boolean isFrenzy;
 
+    @FXML
+    private Text songNameText;
 
     public Game(Canvas grid, boolean frenzy){
 
@@ -87,6 +91,9 @@ public class Game extends AnimationTimer {
 
             ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
             bar.setProgress(barProgression);
+
+            songNameText = (Text)(Controller.scene.lookup("#songNameText")); // JoelM: Optimize
+            songNameText.setText(SongList.songFilePaths[SongList.currentSongIndex]); // JoelM: Optimize
 
             int code = gameGrid.moveSnake(isFrenzy);
             if (code == 1){
