@@ -2,6 +2,7 @@ package Frontend;
 
 import Backend.Game;
 import Backend.ScoreData;
+import Backend.SongList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,9 +38,8 @@ public class Controller {
     }
 
     public void exit() {
-
+        SongList.stop();
         Platform.exit();
-
     }
 
     public void FoodFrenzyButton(ActionEvent event) throws IOException {
