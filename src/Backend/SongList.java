@@ -19,10 +19,10 @@ import java.util.TimerTask;
 public class SongList extends TimerTask
 {
     public static Clip currentClip;
-    public static int numberOfSongsInList = 3;
+    public static int numberOfSongsInList = 6;
     public static int currentSongIndex;
     public static long[] songDurations = new long[numberOfSongsInList];
-    public static String[] songFilePaths = {"Sky High - Trinity.wav", "Robots - Pecan Pie.wav", "Energy I Need - Pecan Pie.wav"};
+    public static String[] songFilePaths = {"Lazy Love - KEM.wav", "Robots - Pecan Pie.wav", "Energy I Need - Pecan Pie.wav", "Sky High - Trinity.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"};
 
     private int i;
     private int numberOfTimesToRun;

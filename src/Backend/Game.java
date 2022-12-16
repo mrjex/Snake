@@ -82,11 +82,6 @@ public class Game extends AnimationTimer {
     @Override
     public void handle(long time) {
         if(time-lastUpdate >= Math.pow(10,9)/5) {
-
-            // Notes for JoelM - Two steps:
-            // Check if SongList.currentClip updates to the next clip
-            // Find a smooth way to store current song index to put in the denominator below
-
             double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[SongList.currentSongIndex]); // past index: 0
 
             ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
