@@ -4,6 +4,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimerTask;
 
 // Sources retrieved:
@@ -24,6 +26,27 @@ public class SongList extends TimerTask
     public static long[] songDurations = new long[numberOfSongsInList];
     public static String[] songFilePaths = {"Lazy Love - KEM.wav", "Robots - Pecan Pie.wav", "Energy I Need - Pecan Pie.wav", "Sky High - Trinity.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"};
     public static String[] musicThemePlaylists = {"Chill", "Trap"};
+
+
+    public static String currentList = "Chill";
+    public static int[] listIndices = new int[musicThemePlaylists.length];
+    public static String[] chillSongs = {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"};
+
+    public static int currentListIndex = 0;
+
+    public static HashMap<String, Integer> currentPlaylistAndSong = new HashMap<>()
+    {
+        {
+            // Connect specific song to index
+            // "Playlist name" : song index
+           put("Chill", 0);
+           put("Trap", 0);
+        }
+    };
+
+    // "Chill0" = "Lazy Love - KEM.wav" --> chillSongs[0] --> Research if solution with polymorphism favoring the design is possible
+    // Chill1 = "Music Is - Pryces.wav"
+    // Chill2 = "Bees In The Garden - Moire.wav"
 
     private int i;
     private int numberOfTimesToRun;

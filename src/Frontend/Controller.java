@@ -140,9 +140,32 @@ public class Controller{
             game.start();
         });
 
-        scene.setOnKeyPressed(e -> {
 
-            if (e.getCode().equals(KeyCode.ESCAPE))
+        // Note for JoelM: Make new method for this and don't use it in this method ("changeDirection")
+        scene.setOnKeyReleased(e ->
+        {
+            // Make method for this:
+            // Make delay so that user can't spam new songs
+
+            if (e.getCode().equals(KeyCode.Q))
+            {
+                if (SongList.listIndices[SongList.currentListIndex] == 0) // JavaFX sucks - They calculate (-1 % 3) = -1, which is wrong..
+                    SongList.listIndices[SongList.currentListIndex] = SongList.chillSongs.length - 1;
+                else
+                    SongList.listIndices[SongList.currentListIndex]--;
+            }
+            else if (e.getCode().equals(KeyCode.E))
+            {
+                SongList.listIndices[SongList.currentListIndex]++;
+            }
+
+            SongList.listIndices[SongList.currentListIndex] %= SongList.chillSongs.length; // Isn't general: Only works for 1 list. Solution: 2D array - Requires every list to have same length. Otherwise, Solution: Jagged 2D array
+            System.out.println(SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]]);
+        });
+
+        scene.setOnKeyPressed(e ->
+        {
+            if (e.getCode().equals(KeyCode.ESCAPE)) // Note for JoelM: This if-statement does not belong in this function - Make a new one
             {
                 game.stop();
 
@@ -178,8 +201,6 @@ public class Controller{
             }
 
             game.canTurn = false;
-
-
         });
     }
 
