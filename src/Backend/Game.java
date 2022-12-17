@@ -7,13 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import javafx.fxml.FXML;
@@ -46,8 +43,11 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-        System.out.println("yest");
         Utils.updateText(Controller.scene, "#songNameText", SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]], true);
+
+        // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
+        CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));
+        pauseCheckBox.setSelected(!SongList.currentClip.isRunning());
     }
 
     public static ArrayList<ScoreData> readScores() {
@@ -82,10 +82,15 @@ public class Game extends AnimationTimer {
     }
     @Override
     public void handle(long time) {
-        if(time-lastUpdate >= Math.pow(10,9)/5) {
+        if(time-lastUpdate >= Math.pow(10,9)/5)
+        {
+            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double) SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondLength(), 3));
 
-            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[SongList.currentSongIndex]);
-            double barProgression2 = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double) SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondLength(), 3));
+            if (barProgression == 1)
+            {
+                System.out.println("Song is done!");
+                SongList.changeSong(true);
+            }
 
             ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
             bar.setProgress(barProgression);

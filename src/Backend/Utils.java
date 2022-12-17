@@ -12,8 +12,8 @@ public class Utils
             newMessage = removeNLastCharactersInString(newMessage, 4); // Remove ".wav" for every song
         }
 
-        Text teest = (Text)(Controller.scene.lookup("#songNameText"));
-        teest.setText(newMessage);
+        Text text = (Text)(Controller.scene.lookup("#songNameText"));
+        text.setText(newMessage);
     }
 
     private static String removeNLastCharactersInString(String stringText, int n)

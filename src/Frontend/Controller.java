@@ -39,7 +39,7 @@ public class Controller{
     private RadioButton trap;
 
     @FXML
-    private Text songNameText;
+    private CheckBox pauseCheckBox;
 
     private RadioButton mostRecentSelectedRadioButton = null;
 
@@ -151,26 +151,13 @@ public class Controller{
             // Make method for this:
             // Make delay so that user can't spam new songs
 
-            // User changes song in current song-list
-            if (e.getCode().equals(KeyCode.Q) || e.getCode().equals(KeyCode.E))
+            if (e.getCode().equals(KeyCode.E))
             {
-                if (e.getCode().equals(KeyCode.Q))
-                {
-                    if (SongList.listIndices[SongList.currentListIndex] == 0) // JavaFX sucks - They calculate (-1 % 3) = -1, which is wrong..
-                        SongList.listIndices[SongList.currentListIndex] = SongList.chillSongs.length - 1;
-                    else
-                        SongList.listIndices[SongList.currentListIndex]--;
-                }
-                else if (e.getCode().equals(KeyCode.E))
-                {
-                    SongList.listIndices[SongList.currentListIndex]++;
-                }
-
-                SongList.listIndices[SongList.currentListIndex] %= SongList.chillSongs.length; // Isn't general: Only works for 1 list. Solution: 2D array - Requires every list to have same length. Otherwise, Solution: Jagged 2D array
-                System.out.println(SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]]);
-
-                SongList.startAudioClip(SongList.listIndices[SongList.currentListIndex]);
-                Utils.updateText(scene, "#songNameText", SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]], true);
+                SongList.changeSong(true);
+            }
+            else if (e.getCode().equals(KeyCode.Q))
+            {
+                SongList.changeSong(false);
             }
         });
 
@@ -215,7 +202,7 @@ public class Controller{
         });
     }
 
-    public void changeValue(ActionEvent event)
+    public void changeSongList(ActionEvent event)
     {
         if(chill.isSelected())
         {
@@ -242,6 +229,18 @@ public class Controller{
             {
                 mostRecentSelected.setSelected(false);
             }
+        }
+    }
+
+    public void pauseSong()
+    {
+        if (pauseCheckBox.isSelected())
+        {
+            SongList.toggleSongAudio(true);
+        }
+        else
+        {
+            SongList.toggleSongAudio(false);
         }
     }
 }

@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimerTask;
+import static Frontend.Controller.scene;
 
 // Sources retrieved:
 // https://stackoverflow.com/questions/12908412/print-hello-world-every-x-seconds (2022-12-15): The one with 210+ upvotes
@@ -102,7 +103,7 @@ public class SongList extends TimerTask
                 clip.open(audioInput);
                 clip.start();
 
-                currentClip = clip; //
+                currentClip = clip;
                 mostRecentClip = clip;
             }
             else
@@ -170,5 +171,36 @@ public class SongList extends TimerTask
     {
         currentClip.close();
         currentClip.stop();
+    }
+
+    public static void changeSong(boolean increase)
+    {
+        if (increase)
+        {
+            listIndices[currentListIndex]++;
+        }
+        else
+        {
+            if (listIndices[currentListIndex] == 0) // JavaFX sucks - They calculate (-1 % 3) = -1, which is wrong..
+                listIndices[currentListIndex] = chillSongs.length - 1;
+            else
+                listIndices[currentListIndex]--;
+        }
+
+        listIndices[currentListIndex] %= chillSongs.length; // Isn't general: Only works for 1 list. Solution: 2D array - Requires every list to have same length. Otherwise, Solution: Jagged 2D array
+        System.out.println(chillSongs[listIndices[currentListIndex]]);
+
+        startAudioClip(listIndices[currentListIndex]);
+        Utils.updateText(scene, "#songNameText", chillSongs[listIndices[currentListIndex]], true);
+    }
+
+    public static void toggleSongAudio(boolean pause)
+    {
+        if (pause)
+        {
+            currentClip.stop();
+        }
+        else
+            currentClip.start();
     }
 }
