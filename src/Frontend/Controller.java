@@ -163,7 +163,7 @@ public class Controller{
 
         scene.setOnKeyPressed(e ->
         {
-            if (e.getCode().equals(KeyCode.ESCAPE)) // Note for JoelM: This if-statement does not belong in this function - Make a new one
+            if (e.getCode().equals(KeyCode.ESCAPE)) // Note for JoelM: This if-statement does not belong in this function - Fix
             {
                 game.stop();
 

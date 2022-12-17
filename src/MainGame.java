@@ -21,18 +21,6 @@ public class MainGame extends Application {
         stage.show();
         stage.setResizable(false);
 
-        Timer timer = new Timer();
-        SongList.getSongDurations();
-        long currentDelay = 0;
-
-        /*
-        for (int i = 0; i < SongList.numberOfSongsInList; i++)
-        {
-            timer.schedule(new SongList(i, 1), currentDelay);
-            currentDelay += SongList.songDurations[i];
-        }
-         */
-
         SongList.startAudioClip(SongList.listIndices[SongList.currentListIndex]);
     }
 
