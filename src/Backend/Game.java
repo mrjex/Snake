@@ -46,7 +46,8 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-
+        System.out.println("yest");
+        Utils.updateText(Controller.scene, "#songNameText", SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]], true);
     }
 
     public static ArrayList<ScoreData> readScores() {
@@ -82,13 +83,12 @@ public class Game extends AnimationTimer {
     @Override
     public void handle(long time) {
         if(time-lastUpdate >= Math.pow(10,9)/5) {
-            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[SongList.currentSongIndex]); // past index: 0
+
+            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double)SongList.songDurations[SongList.currentSongIndex]);
+            double barProgression2 = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double) SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondLength(), 3));
 
             ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
             bar.setProgress(barProgression);
-
-            songNameText = (Text)(Controller.scene.lookup("#songNameText")); // JoelM: Optimize
-            songNameText.setText(SongList.songFilePaths[SongList.currentSongIndex].substring(0, SongList.songFilePaths[SongList.currentSongIndex].length() - 4)); // JoelM: Optimize
 
             int code = gameGrid.moveSnake(isFrenzy);
             if (code == 1){

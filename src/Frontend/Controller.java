@@ -3,6 +3,7 @@ package Frontend;
 import Backend.Game;
 import Backend.ScoreData;
 import Backend.SongList;
+import Backend.Utils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +37,9 @@ public class Controller{
     private RadioButton chill;
     @FXML
     private RadioButton trap;
+
+    @FXML
+    private Text songNameText;
 
     private RadioButton mostRecentSelectedRadioButton = null;
 
@@ -102,7 +107,6 @@ public class Controller{
         Game game = new Game(grid, Game.isFrenzy);
         changeDirection(scene, game);
         game.start();
-
     }
 
     public void Leaderboard(ActionEvent event) throws IOException {
@@ -147,20 +151,27 @@ public class Controller{
             // Make method for this:
             // Make delay so that user can't spam new songs
 
-            if (e.getCode().equals(KeyCode.Q))
+            // User changes song in current song-list
+            if (e.getCode().equals(KeyCode.Q) || e.getCode().equals(KeyCode.E))
             {
-                if (SongList.listIndices[SongList.currentListIndex] == 0) // JavaFX sucks - They calculate (-1 % 3) = -1, which is wrong..
-                    SongList.listIndices[SongList.currentListIndex] = SongList.chillSongs.length - 1;
-                else
-                    SongList.listIndices[SongList.currentListIndex]--;
-            }
-            else if (e.getCode().equals(KeyCode.E))
-            {
-                SongList.listIndices[SongList.currentListIndex]++;
-            }
+                if (e.getCode().equals(KeyCode.Q))
+                {
+                    if (SongList.listIndices[SongList.currentListIndex] == 0) // JavaFX sucks - They calculate (-1 % 3) = -1, which is wrong..
+                        SongList.listIndices[SongList.currentListIndex] = SongList.chillSongs.length - 1;
+                    else
+                        SongList.listIndices[SongList.currentListIndex]--;
+                }
+                else if (e.getCode().equals(KeyCode.E))
+                {
+                    SongList.listIndices[SongList.currentListIndex]++;
+                }
 
-            SongList.listIndices[SongList.currentListIndex] %= SongList.chillSongs.length; // Isn't general: Only works for 1 list. Solution: 2D array - Requires every list to have same length. Otherwise, Solution: Jagged 2D array
-            System.out.println(SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]]);
+                SongList.listIndices[SongList.currentListIndex] %= SongList.chillSongs.length; // Isn't general: Only works for 1 list. Solution: 2D array - Requires every list to have same length. Otherwise, Solution: Jagged 2D array
+                System.out.println(SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]]);
+
+                SongList.startAudioClip(SongList.listIndices[SongList.currentListIndex]);
+                Utils.updateText(scene, "#songNameText", SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]], true);
+            }
         });
 
         scene.setOnKeyPressed(e ->

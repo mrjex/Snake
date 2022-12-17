@@ -25,11 +25,15 @@ public class MainGame extends Application {
         SongList.getSongDurations();
         long currentDelay = 0;
 
+        /*
         for (int i = 0; i < SongList.numberOfSongsInList; i++)
         {
             timer.schedule(new SongList(i, 1), currentDelay);
             currentDelay += SongList.songDurations[i];
         }
+         */
+
+        SongList.startAudioClip(SongList.listIndices[SongList.currentListIndex]);
     }
 
     public static void main(String[] args) {

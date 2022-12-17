@@ -33,6 +33,7 @@ public class SongList extends TimerTask
     public static String[] chillSongs = {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"};
 
     public static int currentListIndex = 0;
+    public static Clip mostRecentClip = null;
 
     public static HashMap<String, Integer> currentPlaylistAndSong = new HashMap<>()
     {
@@ -81,11 +82,37 @@ public class SongList extends TimerTask
         createAudioClip(i, true);
     }
 
-    public static void getSongDurations()
+    public static void startAudioClip(int indexOfList)
     {
-        for (int j = 0; j < songFilePaths.length; j++)
+        try
         {
-            createAudioClip(j, false);
+            File musicPath = new File(chillSongs[indexOfList]);
+
+            if (musicPath.exists())
+            {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+
+                if (mostRecentClip != null)
+                {
+                    mostRecentClip.close();
+                    mostRecentClip.stop();
+                }
+
+                clip.open(audioInput);
+                clip.start();
+
+                currentClip = clip; //
+                mostRecentClip = clip;
+            }
+            else
+            {
+                System.out.println("File was not found!");
+            }
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -117,6 +144,14 @@ public class SongList extends TimerTask
         catch (Exception exception)
         {
             System.out.println(exception.getMessage());
+        }
+    }
+
+    public static void getSongDurations()
+    {
+        for (int j = 0; j < songFilePaths.length; j++)
+        {
+            createAudioClip(j, false);
         }
     }
 
