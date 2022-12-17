@@ -2,14 +2,11 @@ package Frontend;
 
 import Backend.Game;
 import Backend.ScoreData;
-import Backend.SongList;
-import Backend.Utils;
+import Backend.SongUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,15 +15,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class Controller{
     private Stage stage;
@@ -52,7 +44,7 @@ public class Controller{
     }
 
     public void exit() {
-        SongList.stop();
+        SongUtils.stop();
         Platform.exit();
     }
 
@@ -153,11 +145,11 @@ public class Controller{
 
             if (e.getCode().equals(KeyCode.E))
             {
-                SongList.changeSong(true);
+                SongUtils.changeSong(true);
             }
             else if (e.getCode().equals(KeyCode.Q))
             {
-                SongList.changeSong(false);
+                SongUtils.changeSong(false);
             }
         });
 
@@ -236,11 +228,11 @@ public class Controller{
     {
         if (pauseCheckBox.isSelected())
         {
-            SongList.toggleSongAudio(true);
+            SongUtils.toggleSongAudio(true);
         }
         else
         {
-            SongList.toggleSongAudio(false);
+            SongUtils.toggleSongAudio(false);
         }
     }
 }

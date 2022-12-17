@@ -43,11 +43,11 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-        Utils.updateText(Controller.scene, "#songNameText", SongList.chillSongs[SongList.listIndices[SongList.currentListIndex]], true);
+        Utils.updateText(Controller.scene, "#songNameText", SongUtils.chillSongs[SongUtils.listIndices[SongUtils.currentListIndex]], true);
 
         // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
         CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));
-        pauseCheckBox.setSelected(!SongList.currentClip.isRunning());
+        pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
     }
 
     public static ArrayList<ScoreData> readScores() {
@@ -84,12 +84,12 @@ public class Game extends AnimationTimer {
     public void handle(long time) {
         if(time-lastUpdate >= Math.pow(10,9)/5)
         {
-            double barProgression = (double)(SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondPosition(), 3) / (double) SongList.setCommaNDigitsFromEnd(SongList.currentClip.getMicrosecondLength(), 3));
+            double barProgression = (double)(SongUtils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondPosition(), 3) / (double) SongUtils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondLength(), 3));
 
             if (barProgression == 1)
             {
                 System.out.println("Song is done!");
-                SongList.changeSong(true);
+                SongUtils.changeSong(true);
             }
 
             ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
