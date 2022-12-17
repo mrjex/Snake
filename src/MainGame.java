@@ -1,9 +1,12 @@
 import Backend.SongList;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
 import java.util.Timer;
 
 public class MainGame extends Application {
@@ -27,11 +30,6 @@ public class MainGame extends Application {
             timer.schedule(new SongList(i, 1), currentDelay);
             currentDelay += SongList.songDurations[i];
         }
-
-        /*
-        Notes for JoelM:
-        * Make a general function that converts X to Y (time). Example: "Seconds" to "Minutes", "Hours" to "Milliseconds"
-         */
     }
 
     public static void main(String[] args) {

@@ -6,7 +6,9 @@ import Backend.SongList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,14 +19,24 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.control.ChoiceBox;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller{
     private Stage stage;
-    public static Scene scene; // private Scene scene;
+    public static Scene scene; // Change back to previous if it turns out to not work: "private Scene scene;"
     private Parent root;
+
+    @FXML
+    private RadioButton chill;
+    @FXML
+    private RadioButton trap;
+
+    private RadioButton mostRecentSelectedRadioButton = null;
 
     public void StartMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../resources/StartMenu.fxml"));
@@ -76,9 +88,6 @@ public class Controller {
         Game game = new Game(grid, false);
         changeDirection(scene, game);
         game.start();
-
-        ProgressBar bar = (ProgressBar) (scene.lookup("#songProgressBar"));
-        bar.setProgress(0.8);
     }
 
     public void playAgain(ActionEvent event) throws IOException {
@@ -172,7 +181,35 @@ public class Controller {
 
 
         });
-
-
     }
-} 
+
+    public void changeValue(ActionEvent event)
+    {
+        if(chill.isSelected())
+        {
+            deselectRadioButton(mostRecentSelectedRadioButton, chill);
+            mostRecentSelectedRadioButton = chill;
+
+            // Play "Chill" song-list here
+        }
+
+        if(trap.isSelected())
+        {
+            deselectRadioButton(mostRecentSelectedRadioButton, trap);
+            mostRecentSelectedRadioButton = trap;
+
+            // Play "Trap" song-list here
+        }
+    }
+
+    private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected)
+    {
+        if (mostRecentSelected != null && mostRecentSelected != selected)
+        {
+            if (mostRecentSelected != null)
+            {
+                mostRecentSelected.setSelected(false);
+            }
+        }
+    }
+}
