@@ -2,6 +2,7 @@ package Frontend;
 
 import Backend.Game;
 import Backend.ScoreData;
+import Backend.SongList;
 import Backend.SongUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -202,6 +203,7 @@ public class Controller{
             mostRecentSelectedRadioButton = chill;
 
             // Play "Chill" song-list here
+            SongList.listIndex = 0;
         }
 
         if(trap.isSelected())
@@ -210,6 +212,7 @@ public class Controller{
             mostRecentSelectedRadioButton = trap;
 
             // Play "Trap" song-list here
+            SongList.listIndex = 1;
         }
     }
 

@@ -84,16 +84,7 @@ public class Game extends AnimationTimer {
     public void handle(long time) {
         if(time-lastUpdate >= Math.pow(10,9)/5)
         {
-            double barProgression = (double)(SongUtils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondPosition(), 3) / (double) SongUtils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondLength(), 3));
-
-            if (barProgression == 1)
-            {
-                System.out.println("Song is done!");
-                SongUtils.changeSong(true);
-            }
-
-            ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
-            bar.setProgress(barProgression);
+            SongUtils.updateSongBarProgression();
 
             int code = gameGrid.moveSnake(isFrenzy);
             if (code == 1){
@@ -211,5 +202,4 @@ public class Game extends AnimationTimer {
     public GridPos getHeadPos(){
         return gameGrid.getHeadPos();
     }
-
 }

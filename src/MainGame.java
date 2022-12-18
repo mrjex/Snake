@@ -1,4 +1,7 @@
+import Backend.ChillList;
+import Backend.SongList;
 import Backend.SongUtils;
+import Backend.TrapList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +20,16 @@ public class MainGame extends Application {
         stage.show();
         stage.setResizable(false);
 
+        // Note for JoelM: Optimize this solution in accordance with the design principles when everything works
+        ChillList chillList = new ChillList(new String[] {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"});
+        TrapList trapList = new TrapList(new String[]{"Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav"});
+
+
         SongUtils.startAudioClip(SongUtils.listIndices[SongUtils.currentListIndex]);
+        // SongUtils.startAudioClip2();
+
+        SongUtils.getSongListIndicesBoundaries();
+        System.out.println(SongList.songs);
     }
 
     public static void main(String[] args) {

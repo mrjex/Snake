@@ -1,9 +1,15 @@
 package Backend;
 
+import Frontend.Controller;
+import javafx.scene.control.ProgressBar;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static Frontend.Controller.scene;
 
 // Sources retrieved:
@@ -32,6 +38,63 @@ public class SongUtils
     {
         try
         {
+            File musicPath = new File(chillSongs[indexOfList]);
+
+            if (musicPath.exists())
+            {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+
+                if (mostRecentClip != null)
+                {
+                    mostRecentClip.close();
+                    mostRecentClip.stop();
+                }
+
+                clip.open(audioInput);
+                clip.start();
+
+                currentClip = clip;
+                mostRecentClip = clip;
+            }
+            else
+            {
+                System.out.println("File was not found!");
+            }
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static void getSongListIndicesBoundaries()
+    {
+        // [3, 2] ---> [0, 2], [3, 4]
+        // [3, 2, 3, 4, 2] ---> [0, 2], [3, 4], [5, 7], [8, 11], [12, 13]
+
+        int[][] output = new int[SongList.numberOfSongsInList.length][];
+
+        int min = 0;
+        int max = SongList.numberOfSongsInList[0] - 1;
+
+        for (int i = 0; i < SongList.numberOfSongsInList.length - 1; i++)
+        {
+            output[i] = new int[]{min, max};
+
+            min += SongList.numberOfSongsInList[i];
+            max += SongList.numberOfSongsInList[i + 1];
+        }
+
+        output[output.length - 1] = new int[]{min, max};
+    }
+
+    public static void startAudioClip2(int indexOfList)
+    {
+        try
+        {
+            // File musicPath = new File(SongList.songs.get(SongList.songIndex));
+
             File musicPath = new File(chillSongs[indexOfList]);
 
             if (musicPath.exists())
@@ -108,5 +171,19 @@ public class SongUtils
         }
         else
             currentClip.start();
+    }
+
+    public static void updateSongBarProgression()
+    {
+        double barProgression = (SongUtils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondPosition(), 3) / (double) SongUtils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondLength(), 3));
+
+        if (barProgression == 1)
+        {
+            System.out.println("Song is done!");
+            SongUtils.changeSong(true);
+        }
+
+        ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
+        bar.setProgress(barProgression);
     }
 }
