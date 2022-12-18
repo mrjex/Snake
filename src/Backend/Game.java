@@ -30,9 +30,6 @@ public class Game extends AnimationTimer {
     private ArrayList<ScoreData> scoreList;
     public static boolean isFrenzy;
 
-    @FXML
-    private Text songNameText;
-
     public Game(Canvas grid, boolean frenzy){
 
         this.gameGrid = new Grid();
@@ -43,7 +40,10 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-        Utils.updateText(Controller.scene, "#songNameText", SongUtils.chillSongs[SongUtils.listIndices[SongUtils.currentListIndex]], true);
+        Utils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
+
+        // Update songListUI buttons: If user has selected 'TrapList' the scene automatically
+        // starts with displaying 'ChillList' as selected, while 'TrapList' is the list being played
 
         // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
         CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));

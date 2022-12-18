@@ -146,11 +146,11 @@ public class Controller{
 
             if (e.getCode().equals(KeyCode.E))
             {
-                SongUtils.changeSong(true);
+                SongUtils.toggleSong(true);
             }
             else if (e.getCode().equals(KeyCode.Q))
             {
-                SongUtils.changeSong(false);
+                SongUtils.toggleSong(false);
             }
         });
 
@@ -202,8 +202,7 @@ public class Controller{
             deselectRadioButton(mostRecentSelectedRadioButton, chill);
             mostRecentSelectedRadioButton = chill;
 
-            // Play "Chill" song-list here
-            SongList.listIndex = 0;
+            SongList.toggleSongList(0); // Remove magic number - Create variable that corresponds with each list's index position
         }
 
         if(trap.isSelected())
@@ -211,9 +210,10 @@ public class Controller{
             deselectRadioButton(mostRecentSelectedRadioButton, trap);
             mostRecentSelectedRadioButton = trap;
 
-            // Play "Trap" song-list here
-            SongList.listIndex = 1;
+            SongList.toggleSongList(1); // Remove magic number - Create variable that corresponds with each list's index position
         }
+
+        // Deal with case where no song is selected: Make it impossible to have 0 selected lists at once?
     }
 
     private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected)
