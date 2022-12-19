@@ -1,9 +1,6 @@
 package Frontend;
 
-import Backend.Game;
-import Backend.ScoreData;
-import Backend.SongList;
-import Backend.SongUtils;
+import Backend.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,9 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+// import javax.swing.text.html.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +36,9 @@ public class Controller{
 
     @FXML
     private CheckBox pauseCheckBox;
+
+    // "resources/assets/apple.png"
+    private String[] imagesTest = {"Lazy Love - KEM.png", "Music Is - Pryces.png"};
 
     private RadioButton mostRecentSelectedRadioButton = null;
 
@@ -137,20 +143,22 @@ public class Controller{
             game.start();
         });
 
-
-        // Note for JoelM: Make new method for this and don't use it in this method ("changeDirection")
+        // Note for JoelM: Make new method for this
         scene.setOnKeyReleased(e ->
         {
-            // Make method for this:
-            // Make delay so that user can't spam new songs
+            if (e.getCode().equals(KeyCode.E) || e.getCode().equals(KeyCode.Q))
+            {
+                // Make method for this:
+                if (e.getCode().equals(KeyCode.E))
+                {
+                    SongUtils.toggleSong(true);
+                }
+                else
+                {
+                    SongUtils.toggleSong(false);
+                }
 
-            if (e.getCode().equals(KeyCode.E))
-            {
-                SongUtils.toggleSong(true);
-            }
-            else if (e.getCode().equals(KeyCode.Q))
-            {
-                SongUtils.toggleSong(false);
+                SongList.synchronizeThumbnailWithSong();
             }
         });
 
@@ -195,25 +203,28 @@ public class Controller{
         });
     }
 
+    // Note for JoelM: Refactor this code
     public void changeSongList(ActionEvent event)
     {
+        int selectedListIndex = 0;
+
         if(chill.isSelected())
         {
             deselectRadioButton(mostRecentSelectedRadioButton, chill);
             mostRecentSelectedRadioButton = chill;
-
-            SongList.toggleSongList(0); // Remove magic number - Create variable that corresponds with each list's index position
         }
 
         if(trap.isSelected())
         {
+            selectedListIndex = 1;
             deselectRadioButton(mostRecentSelectedRadioButton, trap);
             mostRecentSelectedRadioButton = trap;
-
-            SongList.toggleSongList(1); // Remove magic number - Create variable that corresponds with each list's index position
         }
 
-        // Deal with case where no song is selected: Make it impossible to have 0 selected lists at once?
+        SongList.toggleSongList(selectedListIndex);
+        SongList.synchronizeThumbnailWithSong();
+
+        // Deal with case where no song is selected: Don't make it impossible to have 0 selected lists at once
     }
 
     private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected)

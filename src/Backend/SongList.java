@@ -1,6 +1,8 @@
 package Backend;
 
 import Frontend.Controller;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,5 +56,30 @@ public abstract class SongList
         }
 
         return "-1";
+    }
+
+    public static void synchronizeThumbnailWithSong()
+    {
+        String commonPath = "resources/assets/";
+        String list = "";
+        String newSong = "";
+
+        if (SongList.listIndex == 0)
+        {
+            list = "ChillList";
+        }
+        else if (SongList.listIndex == 1)
+        {
+            list = "TrapList";
+        }
+
+        newSong = SongList.songs.get(SongList.songIndex); // Create method: 'GetCurrentSong()'?
+
+        // System.out.println(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
+
+        // Note for JoelM: To avoid using function from Utils, remove ".wav" in MainGame.java and add function 'SetFormat(String format)' where 'format' = "wav", "png"
+        Image newSongImage = new Image(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
+        ImageView songPictureDisplayer = (ImageView)(Controller.scene.lookup("#songPictureDisplayer")); // Reuse method in Utils.java?, Seperate logic from UI!
+        songPictureDisplayer.setImage(newSongImage);
     }
 }

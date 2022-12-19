@@ -31,6 +31,9 @@ public class Game extends AnimationTimer {
     private ArrayList<ScoreData> scoreList;
     public static boolean isFrenzy;
 
+    public static ChillList chillList;
+    public static TrapList trapList;
+
     public Game(Canvas grid, boolean frenzy){
 
         this.gameGrid = new Grid();
@@ -51,6 +54,7 @@ public class Game extends AnimationTimer {
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
 
         selectSongUI();
+        SongList.synchronizeThumbnailWithSong();
     }
 
     private void selectSongUI()

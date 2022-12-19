@@ -16,7 +16,7 @@ public class Utils
         text.setText(newMessage);
     }
 
-    private static String removeNLastCharactersInString(String stringText, int n)
+    public static String removeNLastCharactersInString(String stringText, int n)
     {
         return stringText.substring(0, stringText.length() - n);
     }
