@@ -45,4 +45,14 @@ public class Utils
 
         return value;
     }
+
+    public static boolean isWithinRange(int value, int[] range)
+    {
+        return (value >= range[0] && value <= range[1]);
+    }
+
+    public static Object linkObjectWithId(String id) // Note for JoelM: Create class 'UI-Utils.java' where we put this method and 'updateText()'?
+    {
+        return Controller.scene.lookup(id);
+    }
 }

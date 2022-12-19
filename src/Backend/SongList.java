@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 public abstract class SongList
 {
+    // Note: The values of the variables below are not assigned in the constructor,
+    // because they are static, meaning they belong to the class itself, not the instances or objects we create of it
     public static int listIndex = 0;
     public static int songIndex = 0;
 
@@ -18,6 +20,8 @@ public abstract class SongList
     // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
 
     public static ArrayList<Integer> currentSongIndices = new ArrayList<>();
+    public static int[][] songListIndicesBoundaries;
+    public static String[] listNames = {"Chill", "Trap"};
 
     public SongList(String[] newSongs, int listIndex)
     {
@@ -27,7 +31,7 @@ public abstract class SongList
     public void addSongs(String[] newSongs, int listIndex)
     {
         songs.addAll(Arrays.asList(newSongs));
-        currentSongIndices.add(SongUtils.songListIndicesBoundaries[listIndex][0]);
+        currentSongIndices.add(songListIndicesBoundaries[listIndex][0]);
     }
 
     public static void toggleSongList(int newListIndex)
@@ -35,8 +39,20 @@ public abstract class SongList
         listIndex = newListIndex;
         songIndex = currentSongIndices.get(listIndex);
 
-        // Play new song here
-        SongUtils.startAudioClip2();
+        SongUtils.startAudioClip();
         Utils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);
+    }
+
+    public static String selectSongList() // Logic for determining UI
+    {
+        for (int i = 0; i < songListIndicesBoundaries.length; i++)
+        {
+            if (Utils.isWithinRange(songIndex, songListIndicesBoundaries[i]))
+            {
+                return listNames[i];
+            }
+        }
+
+        return "-1";
     }
 }

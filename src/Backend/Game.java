@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Game extends AnimationTimer {
 
@@ -48,6 +49,32 @@ public class Game extends AnimationTimer {
         // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
         CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
+
+        selectSongUI();
+    }
+
+    private void selectSongUI()
+    {
+        String selectedSongList = SongList.selectSongList();
+
+        if (Objects.equals(selectedSongList, SongList.listNames[0]))
+        {
+            // Play chill list!
+            System.out.println("Play chill list!");
+
+            // RadioButton chillButton = (RadioButton) Utils.linkObjectWithId(String.valueOf(Controller.scene.lookup("#chill")));
+
+            RadioButton chillButton = (RadioButton)(Controller.scene.lookup("#chill")); // Make general using (Object) in Utils?
+            chillButton.setSelected(true);
+        }
+        else if (Objects.equals(selectedSongList, SongList.listNames[1]))
+        {
+            // Play trap list!
+            System.out.println("Trap list!");
+
+            RadioButton trapButton = (RadioButton)(Controller.scene.lookup("#trap")); // Make general using (Object) in Utils?
+            trapButton.setSelected(true);
+        }
     }
 
     public static ArrayList<ScoreData> readScores() {

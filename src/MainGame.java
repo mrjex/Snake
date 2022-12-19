@@ -20,14 +20,13 @@ public class MainGame extends Application {
         stage.show();
         stage.setResizable(false);
 
-        SongUtils.songListIndicesBoundaries = SongUtils.getSongListIndicesBoundaries();
+        SongList.songListIndicesBoundaries = SongUtils.getSongListIndicesBoundaries();
 
         // Note for JoelM: Optimize this solution in accordance with the design principles when everything works
         ChillList chillList = new ChillList(new String[] {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"}, 0);
         TrapList trapList = new TrapList(new String[]{"Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav"}, 1);
 
-        // SongUtils.startAudioClip(SongUtils.listIndices[SongUtils.currentListIndex]);
-        SongUtils.startAudioClip2();
+        SongUtils.startAudioClip();
 
         System.out.println(SongList.currentSongIndices.get(0) + ", " + SongList.currentSongIndices.get(1)); // 0, 3
         System.out.println(SongList.songs);

@@ -56,7 +56,7 @@
             <Font name="System Italic" size="13.0" />
          </font>
       </Text>
-      <RadioButton fx:id="chill" layoutX="257.0" layoutY="53.0" mnemonicParsing="false" onAction="#changeSongList" selected="true" text="Chill" />
+      <RadioButton fx:id="chill" layoutX="257.0" layoutY="53.0" mnemonicParsing="false" onAction="#changeSongList" text="Chill" />
       <RadioButton fx:id="trap" layoutX="257.0" layoutY="79.0" mnemonicParsing="false" onAction="#changeSongList" text="Trap" />
       <CheckBox fx:id="pauseCheckBox" layoutX="38.0" layoutY="136.0" mnemonicParsing="false" onAction="#pauseSong" text="Pause" />
    </children>
