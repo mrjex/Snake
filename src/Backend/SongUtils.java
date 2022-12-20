@@ -117,12 +117,13 @@ public class SongUtils
 
     public static void updateSongBarProgression()
     {
-        double barProgression = (Utils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondPosition(), 3) / (double) Utils.setCommaNDigitsFromEnd(SongUtils.currentClip.getMicrosecondLength(), 3));
+        double barProgression = (Utils.setCommaNDigitsFromEnd(currentClip.getMicrosecondPosition(), 3) / (double) Utils.setCommaNDigitsFromEnd(currentClip.getMicrosecondLength(), 3));
 
         // Toggle/Play next song if the current song has completed
         if (barProgression == 1)
         {
-            SongUtils.toggleSong(true);
+            toggleSong(true);
+            SongList.synchronizeThumbnailWithSong();
         }
 
         ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));

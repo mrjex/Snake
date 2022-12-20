@@ -35,6 +35,9 @@ public class Controller{
     private RadioButton trap;
 
     @FXML
+    private RadioButton hipHop;
+
+    @FXML
     private CheckBox pauseCheckBox;
 
     // "resources/assets/apple.png"
@@ -219,6 +222,13 @@ public class Controller{
             selectedListIndex = 1;
             deselectRadioButton(mostRecentSelectedRadioButton, trap);
             mostRecentSelectedRadioButton = trap;
+        }
+
+        if (hipHop.isSelected())
+        {
+            selectedListIndex = 2;
+            deselectRadioButton(mostRecentSelectedRadioButton, hipHop);
+            mostRecentSelectedRadioButton = hipHop;
         }
 
         SongList.toggleSongList(selectedListIndex);

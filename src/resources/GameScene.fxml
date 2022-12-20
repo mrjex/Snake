@@ -59,7 +59,8 @@
       </Text>
       <RadioButton fx:id="chill" layoutX="18.0" layoutY="200.0" mnemonicParsing="false" onAction="#changeSongList" text="Chill" />
       <RadioButton fx:id="trap" layoutX="18.0" layoutY="226.0" mnemonicParsing="false" onAction="#changeSongList" text="Trap" />
-      <CheckBox fx:id="pauseCheckBox" layoutX="18.0" layoutY="259.0" mnemonicParsing="false" onAction="#pauseSong" text="Pause" />
+      <CheckBox fx:id="pauseCheckBox" layoutX="14.0" layoutY="282.0" mnemonicParsing="false" onAction="#pauseSong" text="Pause" />
       <ImageView fx:id="songPictureDisplayer" fitHeight="80.0" fitWidth="80.0" layoutX="32.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
+      <RadioButton fx:id="hipHop" layoutX="18.0" layoutY="254.0" mnemonicParsing="false" onAction="#changeSongList" text="HipHop" />
    </children>
 </AnchorPane>
