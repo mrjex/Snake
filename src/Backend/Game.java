@@ -33,6 +33,7 @@ public class Game extends AnimationTimer {
 
     public static ChillList chillList;
     public static TrapList trapList;
+    public static HipHopList hipHopList;
 
     public Game(Canvas grid, boolean frenzy){
 

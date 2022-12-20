@@ -22,6 +22,7 @@ public class MainGame extends Application {
         // Note for JoelM: Optimize this solution in accordance with the design principles when everything works
         Game.chillList = new ChillList(new String[] {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"}, 0);
         Game.trapList = new TrapList(new String[]{"Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav"}, 1);
+        Game.hipHopList = new HipHopList(new String[]{"The Flower - RA.wav"}, 2);
 
         SongUtils.startAudioClip();
 

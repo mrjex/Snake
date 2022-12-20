@@ -16,14 +16,14 @@ public abstract class SongList
 
     // Have a number for each class that is the number of songs in the current list
     public static ArrayList<String> songs = new ArrayList<>();
-    public static int[] numberOfSongsInList = {3, 2}; // Note for JoelM: Set its values in a more general way dependent on variables instead of magic numbers
+    public static int[] numberOfSongsInList = {3, 2, 1}; // Note for JoelM: Set its values in a more general way dependent on variables instead of magic numbers
     // Benefit of the list and the system of cooperating variables built around it: More freedom for the developers (us)
     // when developing the game: The number of songs in each list don't need to be the same --> Less restrictions for us
     // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
 
     public static ArrayList<Integer> currentSongIndices = new ArrayList<>();
     public static int[][] songListIndicesBoundaries;
-    public static String[] listNames = {"Chill", "Trap"};
+    public static String[] listNames = {"Chill", "Trap", "HipHop"};
 
     public SongList(String[] newSongs, int listIndex)
     {
@@ -71,6 +71,10 @@ public abstract class SongList
         else if (SongList.listIndex == 1)
         {
             list = "TrapList";
+        }
+        else if (SongList.listIndex == 2)
+        {
+            list = "HipHopList";
         }
 
         newSong = SongList.songs.get(SongList.songIndex); // Create method: 'GetCurrentSong()'?

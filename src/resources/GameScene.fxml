@@ -47,19 +47,19 @@
             <Button layoutX="83.0" layoutY="134.0" mnemonicParsing="false" onAction="#StartMenu" text="Quit" />
          </children>
       </Group>
-      <ProgressBar fx:id="songProgressBar" layoutX="21.0" layoutY="66.0" prefWidth="200.0" progress="0.44">
+      <ProgressBar fx:id="songProgressBar" layoutX="11.0" layoutY="165.0" prefHeight="18.0" prefWidth="121.0" progress="0.44">
          <effect>
             <SepiaTone />
          </effect>
       </ProgressBar>
-      <Text fx:id="songNameText" layoutX="65.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song name here">
+      <Text fx:id="songNameText" layoutX="9.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song name here">
          <font>
-            <Font name="System Italic" size="13.0" />
+            <Font name="System Italic" size="9.0" />
          </font>
       </Text>
-      <RadioButton fx:id="chill" layoutX="257.0" layoutY="53.0" mnemonicParsing="false" onAction="#changeSongList" text="Chill" />
-      <RadioButton fx:id="trap" layoutX="257.0" layoutY="79.0" mnemonicParsing="false" onAction="#changeSongList" text="Trap" />
-      <CheckBox fx:id="pauseCheckBox" layoutX="38.0" layoutY="136.0" mnemonicParsing="false" onAction="#pauseSong" text="Pause" />
-      <ImageView fx:id="songPictureDisplayer" fitHeight="80.0" fitWidth="80.0" layoutX="318.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <RadioButton fx:id="chill" layoutX="18.0" layoutY="200.0" mnemonicParsing="false" onAction="#changeSongList" text="Chill" />
+      <RadioButton fx:id="trap" layoutX="18.0" layoutY="226.0" mnemonicParsing="false" onAction="#changeSongList" text="Trap" />
+      <CheckBox fx:id="pauseCheckBox" layoutX="18.0" layoutY="259.0" mnemonicParsing="false" onAction="#pauseSong" text="Pause" />
+      <ImageView fx:id="songPictureDisplayer" fitHeight="80.0" fitWidth="80.0" layoutX="32.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
