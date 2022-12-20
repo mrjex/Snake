@@ -57,11 +57,12 @@ public class Game extends AnimationTimer {
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
 
         selectSongUI();
+        SongList.updateSongListTexts();
         SongList.synchronizeThumbnailWithSong();
     }
 
     // Note for JoelM: Either come up with a better general design for all song lists, or make general method for the things below
-    private void selectSongUI()
+    private void selectSongUI() // This method doesn't belong to this class, based on its behaviour - JoelM: Fix this
     {
         String selectedSongList = SongList.selectSongList();
 

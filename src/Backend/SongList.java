@@ -3,9 +3,16 @@ package Backend;
 import Frontend.Controller;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.scene.paint.Paint;
 
 public abstract class SongList
 {
@@ -94,5 +101,34 @@ public abstract class SongList
         Image newSongImage = new Image(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
         ImageView songPictureDisplayer = (ImageView)(Controller.scene.lookup("#songPictureDisplayer")); // Reuse method in Utils.java?, Seperate logic from UI!
         songPictureDisplayer.setImage(newSongImage);
+    }
+
+    public static void updateSongListTexts()
+    {
+        for (int i = 0; i < 5; i++) // Remove magic number: There are 5 unique texts in the scene
+        {
+            Text songText = (Text)(Controller.scene.lookup("#song" + (i + 1)));
+
+            if (i < SongList.numberOfSongsInList[SongList.listIndex])
+                songText.setOpacity(1);
+            else
+                songText.setOpacity(0);
+        }
+
+        updateSelectedSongText();
+    }
+
+    public static void updateSelectedSongText() // int previousSongIndex
+    {
+        Text songText = (Text)(Controller.scene.lookup("#song" + (songIndex + 1)));
+        // songText.setUnderline(true);
+        songText.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC, 12));
+
+        Text song2 = (Text)(Controller.scene.lookup("#song2"));
+
+        LinearGradient fgg = (LinearGradient) song2.getFill();
+
+        songText.setFill(fgg);
+
     }
 }
