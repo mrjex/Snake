@@ -37,6 +37,9 @@ public class Controller{
     @FXML
     private RadioButton hipHop;
 
+     @FXML
+     private RadioButton disco;
+
     @FXML
     private CheckBox pauseCheckBox;
 
@@ -211,6 +214,7 @@ public class Controller{
     {
         int selectedListIndex = 0;
 
+        // Note for JoelM: Possible to make this more optimal in terms of design?
         if(chill.isSelected())
         {
             deselectRadioButton(mostRecentSelectedRadioButton, chill);
@@ -229,6 +233,13 @@ public class Controller{
             selectedListIndex = 2;
             deselectRadioButton(mostRecentSelectedRadioButton, hipHop);
             mostRecentSelectedRadioButton = hipHop;
+        }
+
+        if (disco.isSelected())
+        {
+            selectedListIndex = 3;
+            deselectRadioButton(mostRecentSelectedRadioButton, disco);
+            mostRecentSelectedRadioButton = disco;
         }
 
         SongList.toggleSongList(selectedListIndex);

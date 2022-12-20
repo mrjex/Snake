@@ -23,6 +23,7 @@ public class MainGame extends Application {
         Game.chillList = new ChillList(new String[] {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"}, 0);
         Game.trapList = new TrapList(new String[]{"Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav"}, 1);
         Game.hipHopList = new HipHopList(new String[]{"The Flower - RA.wav", "Jazz And Hop - kidcut.wav"}, 2);
+        Game.discoList = new DiscoList(new String[]{"Disco Street - Andrey Rossi.wav", "Soulful Sparks - Soundroll.wav"}, 3);
 
         SongUtils.startAudioClip();
 

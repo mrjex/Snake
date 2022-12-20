@@ -16,14 +16,16 @@ public abstract class SongList
 
     // Have a number for each class that is the number of songs in the current list
     public static ArrayList<String> songs = new ArrayList<>();
-    public static int[] numberOfSongsInList = {3, 2, 2}; // Note for JoelM: Set its values in a more general way dependent on variables instead of magic numbers
-    // Benefit of the list and the system of cooperating variables built around it: More freedom for the developers (us)
-    // when developing the game: The number of songs in each list don't need to be the same --> Less restrictions for us
-    // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
 
     public static ArrayList<Integer> currentSongIndices = new ArrayList<>();
     public static int[][] songListIndicesBoundaries;
-    public static String[] listNames = {"Chill", "Trap", "HipHop"};
+
+    // The two variables below needs to be updates manually when adding a new songlist:
+    public static int[] numberOfSongsInList = {3, 2, 2, 2}; // Note for JoelM: Set its values in a more general way dependent on variables instead of magic numbers
+    // Benefit of the list and the system of cooperating variables built around it: More freedom for the developers (us)
+    // when developing the game: The number of songs in each list don't need to be the same --> Less restrictions for us
+    // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
+    public static String[] listNames = {"Chill", "Trap", "HipHop", "Disco"};
 
     public SongList(String[] newSongs, int listIndex)
     {
@@ -45,10 +47,12 @@ public abstract class SongList
         Utils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);
     }
 
+    // Returns the name of the current list that is being played
     public static String selectSongList() // Logic for determining UI
     {
         for (int i = 0; i < songListIndicesBoundaries.length; i++)
         {
+            // If the index of the current song in within the interval of the current list, that list is being played
             if (Utils.isWithinRange(songIndex, songListIndicesBoundaries[i]))
             {
                 return listNames[i];
@@ -64,6 +68,7 @@ public abstract class SongList
         String list = "";
         String newSong = "";
 
+        // Note for JoelM: Come up with design.solution to counteract this poor manual-dependent solution
         if (SongList.listIndex == 0)
         {
             list = "ChillList";
@@ -75,6 +80,10 @@ public abstract class SongList
         else if (SongList.listIndex == 2)
         {
             list = "HipHopList";
+        }
+        else if (SongList.listIndex == 3)
+        {
+            list = "DiscoList";
         }
 
         newSong = SongList.songs.get(SongList.songIndex); // Create method: 'GetCurrentSong()'?

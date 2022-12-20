@@ -31,9 +31,11 @@ public class Game extends AnimationTimer {
     private ArrayList<ScoreData> scoreList;
     public static boolean isFrenzy;
 
+    // Note for JoelM: Come up with better solution:
     public static ChillList chillList;
     public static TrapList trapList;
     public static HipHopList hipHopList;
+    public static DiscoList discoList;
 
     public Game(Canvas grid, boolean frenzy){
 
@@ -78,6 +80,11 @@ public class Game extends AnimationTimer {
         else if (Objects.equals(selectedSongList, SongList.listNames[2]))
         {
             RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#hipHop")); // Make general using (Object) in Utils?
+            hipHopButton.setSelected(true);
+        }
+        else if (Objects.equals(selectedSongList, SongList.listNames[3]))
+        {
+            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#disco")); // Make general using (Object) in Utils?
             hipHopButton.setSelected(true);
         }
     }
