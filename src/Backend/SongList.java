@@ -1,8 +1,10 @@
 package Backend;
 
 import Frontend.Controller;
+import com.sun.prism.paint.Gradient;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -107,28 +109,31 @@ public abstract class SongList
     {
         for (int i = 0; i < 5; i++) // Remove magic number: There are 5 unique texts in the scene
         {
-            Text songText = (Text)(Controller.scene.lookup("#song" + (i + 1)));
+            Text songText = (Text)(Controller.scene.lookup("#song" + i));
 
             if (i < SongList.numberOfSongsInList[SongList.listIndex])
                 songText.setOpacity(1);
             else
                 songText.setOpacity(0);
         }
-
-        updateSelectedSongText();
     }
 
-    public static void updateSelectedSongText() // int previousSongIndex
+    // Note for JoelM: This only works in 'ChillList', execution-error in the other lists
+    public static void updateSelectedSongText(int previousSongIndex) // Note for JoelM: Clean this method - Make it more smooth
     {
-        Text songText = (Text)(Controller.scene.lookup("#song" + (songIndex + 1)));
-        // songText.setUnderline(true);
-        songText.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC, 12));
+        Text selectedText = (Text)(Controller.scene.lookup("#song" + songIndex));
+        Text previouslySelectedText = (Text)(Controller.scene.lookup("#song" + previousSongIndex));
 
-        Text song2 = (Text)(Controller.scene.lookup("#song2"));
+        // System.out.println("songIdex: " + songIndex + ", previousIndex: " + previousSongIndex);
 
-        LinearGradient fgg = (LinearGradient) song2.getFill();
+        selectedText.setFont(Utils.getSelectedFont("Verdana", false, 12));
+        previouslySelectedText.setFont(Utils.getNormalFont("Verdana", 12));
 
-        songText.setFill(fgg);
+        LinearGradient selectedColorGradient = (LinearGradient)previouslySelectedText.getFill();
 
+        Color normalColorGradient = (Color) selectedText.getFill();
+        previouslySelectedText.setFill(normalColorGradient);
+
+        selectedText.setFill(selectedColorGradient);
     }
 }

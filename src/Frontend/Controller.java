@@ -155,6 +155,8 @@ public class Controller{
         {
             if (e.getCode().equals(KeyCode.E) || e.getCode().equals(KeyCode.Q))
             {
+                int previousSongIndex = SongList.songIndex;
+
                 // Make method for this:
                 if (e.getCode().equals(KeyCode.E))
                 {
@@ -166,6 +168,8 @@ public class Controller{
                 }
 
                 SongList.synchronizeThumbnailWithSong();
+                previousSongIndex = Utils.limitValue(previousSongIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
+                SongList.updateSelectedSongText(previousSongIndex);
             }
         });
 
@@ -245,6 +249,7 @@ public class Controller{
 
         SongList.toggleSongList(selectedListIndex);
         SongList.synchronizeThumbnailWithSong();
+        SongList.updateSongListTexts();
 
         // Deal with case where no song is selected: Don't make it impossible to have 0 selected lists at once
     }

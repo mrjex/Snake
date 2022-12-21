@@ -1,6 +1,9 @@
 package Backend;
 import Frontend.Controller;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Utils
@@ -29,19 +32,12 @@ public class Utils
         return (long)(number / Math.pow(10, n));
     }
 
-    public static int limitValue(boolean upperLimit, int value, int[] limits)
+    public static int limitValue(int value, int[] limits)
     {
-        if (upperLimit)
-        {
-            if (value > limits[1])
-            {
-                value = limits[0];
-            }
-        }
+        if (value > limits[1])
+            return limits[0];
         else if (value < limits[0])
-        {
-            value = limits[1];
-        }
+            return limits[1];
 
         return value;
     }
@@ -54,5 +50,22 @@ public class Utils
     public static Object linkObjectWithId(String id) // Note for JoelM: Create class 'UI-Utils.java' where we put this method and 'updateText()'?
     {
         return Controller.scene.lookup(id);
+    }
+
+    public static Font getNormalFont(String fontType, int size)
+    {
+        return Font.font(fontType, FontWeight.NORMAL, FontPosture.REGULAR, size);
+    }
+
+    public static Font getSelectedFont(String fontType, boolean italicFont, int size)
+    {
+        if (italicFont)
+        {
+            return Font.font(fontType, FontWeight.BOLD, FontPosture.ITALIC, size);
+        }
+        else
+        {
+            return Font.font(fontType, FontWeight.BOLD, size);
+        }
     }
 }

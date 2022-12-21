@@ -91,14 +91,14 @@ public class SongUtils
         if (increase)
         {
             SongList.songIndex++;
-            SongList.songIndex = Utils.limitValue(true, SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
+            SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         }
 
         // User clicks 'Q' and goes back to the previous song
         else
         {
             SongList.songIndex--;
-            SongList.songIndex = Utils.limitValue(false, SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
+            SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         }
 
         startAudioClip();
