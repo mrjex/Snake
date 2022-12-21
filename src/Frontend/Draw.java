@@ -1,13 +1,10 @@
 package Frontend;
 
 import Backend.Food;
-import Backend.Game;
+import Backend.FoodTypes.SnakePart;
 import Backend.Grid;
 import Backend.GridPos;
-import javafx.application.Application;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -34,7 +31,11 @@ public class Draw {
 //        this.draw((GridPos) food);
         this.gc.drawImage(food.getImage(), food.getxPos(), food.getyPos(), Grid.POS_LENGTH, Grid.POS_LENGTH);
 
+
     }
+    public void draw(SnakePart skin) {
 
-
+//        this.draw((GridPos) food);
+        this.gc.drawImage(skin.getImage(), skin.getxPos(), skin.getyPos(), Grid.POS_LENGTH, Grid.POS_LENGTH);
+    }
 }
