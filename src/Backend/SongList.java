@@ -113,14 +113,43 @@ public abstract class SongList
 
     public static void updateSongListTexts()
     {
+        // i < 5
         for (int i = 0; i < 5; i++) // Note for JoelM: Remove magic number - There are 5 unique texts in the scene - Variable: 'maximumSongsInList'
         {
             Text songText = (Text)(Controller.scene.lookup("#song" + i));
+            setSongListTextsOpacity(songText, i);
+            setSongListTexts(songText, i);
+        }
+    }
 
-            if (i < SongList.numberOfSongsInList[SongList.listIndex])
-                songText.setOpacity(1);
-            else
-                songText.setOpacity(0);
+    private static void setSongListTexts(Text songText, int i)
+    {
+        if (checkIfIndexIsWithinRangeOfList(listIndex, i))
+        {
+            int startIdxOfCurrentList = songListIndicesBoundaries[listIndex][0];
+            String nameOfSong = songs.get(startIdxOfCurrentList + i);
+            songText.setText(nameOfSong);
+        }
+    }
+
+    // Only returns true if the index is within the interval of the songs contained in the specified list
+    private static boolean checkIfIndexIsWithinRangeOfList(int listIndex, int index)
+    {
+        return index >= 0 && index < numberOfSongsInList[listIndex];
+    }
+
+    private static void setSongListTextsOpacity(Text songText, int i)
+    {
+        // Make text visible if its index is within the range of the length of the list
+        if (checkIfIndexIsWithinRangeOfList(listIndex, i))
+        {
+            songText.setOpacity(1);
+        }
+
+        // Make text invisible if the size of the current list of songs doesn't support enough songs
+        else
+        {
+            songText.setOpacity(0);
         }
     }
 
