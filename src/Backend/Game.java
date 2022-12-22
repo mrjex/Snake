@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -58,6 +59,7 @@ public class Game extends AnimationTimer {
 
         selectSongUI();
         SongList.updateSongListTexts();
+        SongList.updateSelectedSongText(SongList.songIndex, false); // (SongList.songIndex, true)
         SongList.synchronizeThumbnailWithSong();
     }
 

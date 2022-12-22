@@ -1,8 +1,11 @@
 import Backend.*;
+import Frontend.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainGame extends Application {
@@ -26,9 +29,6 @@ public class MainGame extends Application {
         Game.discoList = new DiscoList(new String[]{"Disco Street - Andrey Rossi.wav", "Soulful Sparks - Soundroll.wav"}, 3);
 
         SongUtils.startAudioClip();
-
-        System.out.println(SongList.currentSongIndices.get(0) + ", " + SongList.currentSongIndices.get(1)); // 0, 3
-        System.out.println(SongList.songs);
     }
 
     public static void main(String[] args) {

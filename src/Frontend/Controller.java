@@ -169,7 +169,7 @@ public class Controller{
 
                 SongList.synchronizeThumbnailWithSong();
                 previousSongIndex = Utils.limitValue(previousSongIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
-                SongList.updateSelectedSongText(previousSongIndex);
+                SongList.updateSelectedSongText(previousSongIndex, false);
             }
         });
 
@@ -218,6 +218,7 @@ public class Controller{
     public void changeSongList(ActionEvent event)
     {
         int selectedListIndex = 0;
+        int previousIndex = SongList.songIndex;
 
         // Note for JoelM: Possible to make this more optimal in terms of design?
         if(chill.isSelected())
@@ -249,19 +250,19 @@ public class Controller{
 
         SongList.toggleSongList(selectedListIndex);
         SongList.synchronizeThumbnailWithSong();
-        SongList.updateSongListTexts();
 
-        // Deal with case where no song is selected: Don't make it impossible to have 0 selected lists at once
+        SongList.updateSongListTexts();
+        SongList.updateSelectedSongText(previousIndex, true);
+
+        // Deal with case where no song is selected: Make it impossible to have 0 selected lists at once
     }
 
     private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected)
     {
         if (mostRecentSelected != null && mostRecentSelected != selected)
         {
-            if (mostRecentSelected != null)
-            {
-                mostRecentSelected.setSelected(false);
-            }
+            mostRecentSelected.setSelected(false);
+            SongList.previousListIndex = SongList.listIndex;
         }
     }
 

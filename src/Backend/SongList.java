@@ -4,8 +4,9 @@ import Frontend.Controller;
 import com.sun.prism.paint.Gradient;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -14,7 +15,6 @@ import javafx.scene.text.Text;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javafx.scene.paint.Paint;
 
 public abstract class SongList
 {
@@ -23,9 +23,10 @@ public abstract class SongList
     public static int listIndex = 0;
     public static int songIndex = 0;
 
+    public static int previousListIndex = 0;
+
     // Have a number for each class that is the number of songs in the current list
     public static ArrayList<String> songs = new ArrayList<>();
-
     public static ArrayList<Integer> currentSongIndices = new ArrayList<>();
     public static int[][] songListIndicesBoundaries;
 
@@ -35,6 +36,13 @@ public abstract class SongList
     // when developing the game: The number of songs in each list don't need to be the same --> Less restrictions for us
     // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
     public static String[] listNames = {"Chill", "Trap", "HipHop", "Disco"};
+
+    private final static LinearGradient selectedSongTextGradient = new LinearGradient(
+            0.0, 0.0, 0.6667, 1.0, true, CycleMethod.NO_CYCLE,
+            new Stop(0.0, new Color(0.95, 0.057, 0.057, 1.0)),
+            new Stop(1.0, new Color(0.2526, 0.0229, 0.8842, 1.0)));
+
+    private final static Color normalSongTextGradient = new Color(0.0, 0.0, 0.0, 1.0);
 
     public SongList(String[] newSongs, int listIndex)
     {
@@ -50,7 +58,7 @@ public abstract class SongList
     public static void toggleSongList(int newListIndex)
     {
         listIndex = newListIndex;
-        songIndex = currentSongIndices.get(listIndex);
+        songIndex = currentSongIndices.get(listIndex); // Set index to start of list
 
         SongUtils.startAudioClip();
         Utils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);
@@ -77,7 +85,7 @@ public abstract class SongList
         String list = "";
         String newSong = "";
 
-        // Note for JoelM: Come up with design.solution to counteract this poor manual-dependent solution
+        // Note for JoelM: Come up with design solution to counteract this poor manual-dependent solution
         if (SongList.listIndex == 0)
         {
             list = "ChillList";
@@ -97,8 +105,6 @@ public abstract class SongList
 
         newSong = SongList.songs.get(SongList.songIndex); // Create method: 'GetCurrentSong()'?
 
-        // System.out.println(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
-
         // Note for JoelM: To avoid using function from Utils, remove ".wav" in MainGame.java and add function 'SetFormat(String format)' where 'format' = "wav", "png"
         Image newSongImage = new Image(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
         ImageView songPictureDisplayer = (ImageView)(Controller.scene.lookup("#songPictureDisplayer")); // Reuse method in Utils.java?, Seperate logic from UI!
@@ -107,7 +113,7 @@ public abstract class SongList
 
     public static void updateSongListTexts()
     {
-        for (int i = 0; i < 5; i++) // Remove magic number: There are 5 unique texts in the scene
+        for (int i = 0; i < 5; i++) // Note for JoelM: Remove magic number - There are 5 unique texts in the scene - Variable: 'maximumSongsInList'
         {
             Text songText = (Text)(Controller.scene.lookup("#song" + i));
 
@@ -118,22 +124,32 @@ public abstract class SongList
         }
     }
 
-    // Note for JoelM: This only works in 'ChillList', execution-error in the other lists
-    public static void updateSelectedSongText(int previousSongIndex) // Note for JoelM: Clean this method - Make it more smooth
+    // Note for JoelM: Clean this method - Make it more smooth
+    public static void updateSelectedSongText(int previousSongIndex, boolean userSwitchedList)
     {
-        Text selectedText = (Text)(Controller.scene.lookup("#song" + songIndex));
+        int songIdIndex = getSongInListIndex(songIndex, false);
+        previousSongIndex = getSongInListIndex(previousSongIndex, userSwitchedList);
+
+        Text selectedText = (Text)(Controller.scene.lookup("#song" + songIdIndex));
         Text previouslySelectedText = (Text)(Controller.scene.lookup("#song" + previousSongIndex));
 
-        // System.out.println("songIdex: " + songIndex + ", previousIndex: " + previousSongIndex);
-
-        selectedText.setFont(Utils.getSelectedFont("Verdana", false, 12));
         previouslySelectedText.setFont(Utils.getNormalFont("Verdana", 12));
+        selectedText.setFont(Utils.getSelectedFont("Verdana", false, 12));
 
-        LinearGradient selectedColorGradient = (LinearGradient)previouslySelectedText.getFill();
+        previouslySelectedText.setFill(normalSongTextGradient);
+        selectedText.setFill(selectedSongTextGradient);
+    }
 
-        Color normalColorGradient = (Color) selectedText.getFill();
-        previouslySelectedText.setFill(normalColorGradient);
+    // Returns the index for the song within the list itself
+    // without regards to its index in the entirety of all the stored songs in the ArrayList<String> songs
+    private static int getSongInListIndex(int index, boolean userSwitchedList)
+    {
+        // If the user switched list, we need the previous text-index for the previous list
+        if (userSwitchedList)
+        {
+            return index - songListIndicesBoundaries[previousListIndex][0];
+        }
 
-        selectedText.setFill(selectedColorGradient);
+        return index - songListIndicesBoundaries[listIndex][0];
     }
 }

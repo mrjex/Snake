@@ -10,9 +10,6 @@
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -103,26 +100,6 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="song0" layoutX="29.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Song name">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="0.6666666955658884" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.949999988079071" green="0.05700000002980232" blue="0.05700000002980232" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.25260040163993835" green="0.022923976182937622" blue="0.8842105269432068" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
+      <Text fx:id="song0" layoutX="29.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Song name" />
    </children>
 </AnchorPane>
