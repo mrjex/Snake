@@ -11,34 +11,40 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #4BC27E;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.Controller">
    <children>
-      <Label layoutX="31.0" layoutY="10.0" prefHeight="44.0" prefWidth="68.0" text="Back">
+      <Label layoutX="27.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="110.0" text="back">
          <font>
-            <Font name="04b 30" size="29.0" />
+            <Font name="04b 30" size="25.0" />
          </font>
       </Label>
-      <Button layoutX="9.0" layoutY="10.0" mnemonicParsing="false" onAction="#StartMenu" opacity="0.0" prefHeight="44.0" prefWidth="112.0" text="Back">
+      <Button layoutX="14.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#StartMenu" opacity="0.0" prefHeight="35.0" prefWidth="106.0" text="Back">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#15de73" height="92.0" layoutX="757.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="135.0" />
-      <Label layoutX="796.0" layoutY="10.0" prefHeight="24.0" prefWidth="96.0" text="Score">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#42ae75" height="71.0" layoutX="759.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" width="126.0" />
+      <Label layoutX="778.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="96.0" text="score">
          <font>
             <Font name="04b 30" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="score" layoutX="814.0" layoutY="49.0" prefHeight="26.0" prefWidth="53.0" text="0" textAlignment="CENTER">
+      <Label fx:id="score" layoutX="814.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="28.0" text="0" textAlignment="CENTER">
          <font>
             <Font name="04b 30" size="23.0" />
          </font>
       </Label>
-      <Line endX="93.00006103515625" layoutX="780.0" layoutY="44.0" startX="-3.0" />
-      <Canvas fx:id="Grid" height="600.0" layoutX="300.0" layoutY="71.0" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0" />
+      <Line endX="100.6666259765625" endY="3.814697265625E-6" layoutX="778.0" layoutY="49.0" startX="-11.3333740234375" startY="3.814697265625E-6" />
+      <Canvas fx:id="Grid" height="600.0" layoutX="128.0" layoutY="1.0" width="600.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="1.0" />
       <Group fx:id="pause" disable="true" layoutX="318.0" layoutY="200.0" opacity="0.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Button fx:id="resume" layoutX="64.0" layoutY="75.0" mnemonicParsing="false" text="Resume" />
-            <Button layoutX="83.0" layoutY="134.0" mnemonicParsing="false" onAction="#StartMenu" text="Quit" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="131.0" layoutX="6.0" layoutY="36.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Button fx:id="resume" layoutX="47.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.55" prefHeight="30.0" prefWidth="122.0" text="RESUME" textFill="RED">
+               <font>
+                  <Font name="04b 30" size="16.0" />
+               </font></Button>
+            <Button layoutX="47.0" layoutY="106.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#StartMenu" opacity="0.55" prefHeight="30.0" prefWidth="122.0" text="QUIT" textFill="RED">
+               <font>
+                  <Font name="04b 30" size="18.0" />
+               </font></Button>
          </children>
       </Group>
    </children>
