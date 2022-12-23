@@ -55,12 +55,12 @@ public abstract class SongList
         currentSongIndices.add(songListIndicesBoundaries[listIndex][0]);
     }
 
-    public static void toggleSongList(int newListIndex)
+    public static void toggleSongList(int newListIndex, boolean songIsPaused)
     {
         listIndex = newListIndex;
         songIndex = currentSongIndices.get(listIndex); // Set index to start of list
 
-        SongUtils.startAudioClip();
+        SongUtils.startAudioClip(songIsPaused);
         Utils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);
     }
 
@@ -113,7 +113,6 @@ public abstract class SongList
 
     public static void updateSongListTexts()
     {
-        // i < 5
         for (int i = 0; i < 5; i++) // Note for JoelM: Remove magic number - There are 5 unique texts in the scene - Variable: 'maximumSongsInList'
         {
             Text songText = (Text)(Controller.scene.lookup("#song" + i));
@@ -127,7 +126,10 @@ public abstract class SongList
         if (checkIfIndexIsWithinRangeOfList(listIndex, i))
         {
             int startIdxOfCurrentList = songListIndicesBoundaries[listIndex][0];
-            String nameOfSong = songs.get(startIdxOfCurrentList + i);
+            String nameOfWAVSong = songs.get(startIdxOfCurrentList + i);
+            String songNumber = (i + 1) + ". ";
+
+            String nameOfSong = songNumber + Utils.removeNLastCharactersInString(nameOfWAVSong, 4);
             songText.setText(nameOfSong);
         }
     }
@@ -162,8 +164,8 @@ public abstract class SongList
         Text selectedText = (Text)(Controller.scene.lookup("#song" + songIdIndex));
         Text previouslySelectedText = (Text)(Controller.scene.lookup("#song" + previousSongIndex));
 
-        previouslySelectedText.setFont(Utils.getNormalFont("Verdana", 12));
-        selectedText.setFont(Utils.getSelectedFont("Verdana", false, 12));
+        previouslySelectedText.setFont(Utils.getNormalFont("Verdana", 8)); // JoelM: Avoid magic number '8', create variable for font size. Connect it to size set in GameScene
+        selectedText.setFont(Utils.getSelectedFont("Verdana", false, 8));
 
         previouslySelectedText.setFill(normalSongTextGradient);
         selectedText.setFill(selectedSongTextGradient);

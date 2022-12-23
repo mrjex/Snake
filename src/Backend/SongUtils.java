@@ -44,7 +44,7 @@ public class SongUtils
         return listBoundaries;
     }
 
-    public static void startAudioClip()
+    public static void startAudioClip(boolean songIsPaused)
     {
         try
         {
@@ -62,7 +62,11 @@ public class SongUtils
                 }
 
                 clip.open(audioInput);
-                clip.start();
+
+                if (!songIsPaused)
+                {
+                    clip.start();
+                }
 
                 currentClip = clip;
                 mostRecentClip = clip;
@@ -85,7 +89,7 @@ public class SongUtils
     }
 
     // Toggle song in current song list: Is executed when user presses 'Q', 'E' or when song is finished
-    public static void toggleSong(boolean increase) // Note for JoelM: Put in SongList.java in next commit
+    public static void toggleSong(boolean increase, boolean songIsPaused) // Note for JoelM: Put in SongList.java in next commit
     {
         // User clicks 'E' and moves on to the next song in the current song list
         if (increase)
@@ -101,11 +105,11 @@ public class SongUtils
             SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         }
 
-        startAudioClip();
+        startAudioClip(songIsPaused);
         Utils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
     }
 
-    public static void toggleSongAudio(boolean pause)
+    public static void togglePause(boolean pause)
     {
         if (pause)
         {
@@ -122,7 +126,7 @@ public class SongUtils
         // Toggle/Play next song if the current song has completed
         if (barProgression == 1)
         {
-            toggleSong(true);
+            toggleSong(true, false);
             SongList.synchronizeThumbnailWithSong();
         }
 

@@ -12,13 +12,14 @@ public class Utils
     {
         if (isSong)
         {
-            newMessage = removeNLastCharactersInString(newMessage, 4); // Remove ".wav" for every song
+            newMessage = removeNLastCharactersInString(newMessage, 4);
         }
 
         Text text = (Text)(Controller.scene.lookup("#songNameText"));
         text.setText(newMessage);
     }
 
+    // Used to remove ".wav" for every song in this project
     public static String removeNLastCharactersInString(String stringText, int n)
     {
         return stringText.substring(0, stringText.length() - n);

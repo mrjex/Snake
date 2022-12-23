@@ -156,16 +156,10 @@ public class Controller{
             if (e.getCode().equals(KeyCode.E) || e.getCode().equals(KeyCode.Q))
             {
                 int previousSongIndex = SongList.songIndex;
+                CheckBox pauseBox = (CheckBox)scene.lookup("#pauseCheckBox"); // Avoid NullPointerException when referring to 'pauseCheckBox'
 
-                // Make method for this:
-                if (e.getCode().equals(KeyCode.E))
-                {
-                    SongUtils.toggleSong(true);
-                }
-                else
-                {
-                    SongUtils.toggleSong(false);
-                }
+                boolean increaseIndexOfSong = e.getCode().equals(KeyCode.E);
+                SongUtils.toggleSong(increaseIndexOfSong, pauseBox.isSelected());
 
                 SongList.synchronizeThumbnailWithSong();
                 previousSongIndex = Utils.limitValue(previousSongIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
@@ -220,8 +214,13 @@ public class Controller{
         int selectedListIndex = 0;
         int previousIndex = SongList.songIndex;
 
+        /*
+        if (chill.isSelected() && SongList.listIndex == 1)
+            chill.setSelected(true);
+         */
+
         // Note for JoelM: Possible to make this more optimal in terms of design?
-        if(chill.isSelected())
+        if(chill.isSelected()) // && SongList.listIndex != 1
         {
             deselectRadioButton(mostRecentSelectedRadioButton, chill);
             mostRecentSelectedRadioButton = chill;
@@ -248,7 +247,7 @@ public class Controller{
             mostRecentSelectedRadioButton = disco;
         }
 
-        SongList.toggleSongList(selectedListIndex);
+        SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
         SongList.synchronizeThumbnailWithSong();
 
         SongList.updateSongListTexts();
@@ -268,13 +267,6 @@ public class Controller{
 
     public void pauseSong()
     {
-        if (pauseCheckBox.isSelected())
-        {
-            SongUtils.toggleSongAudio(true);
-        }
-        else
-        {
-            SongUtils.toggleSongAudio(false);
-        }
+        SongUtils.togglePause(pauseCheckBox.isSelected());
     }
 }

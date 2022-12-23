@@ -69,15 +69,31 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="40.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current list" underline="true">
+      <Text layoutX="19.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current list" underline="true">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Text>
-      <Text fx:id="song1" layoutX="29.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Song name" />
-      <Text fx:id="song2" layoutX="29.0" layoutY="495.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Song name" />
-      <Text fx:id="song3" layoutX="28.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Song name" />
-      <Text fx:id="song4" layoutX="29.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5. Song name" />
+      <Text fx:id="song1" layoutX="4.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Song name">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Text>
+      <Text fx:id="song2" layoutX="4.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Song name">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Text>
+      <Text fx:id="song3" layoutX="3.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Song name">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Text>
+      <Text fx:id="song4" layoutX="4.0" layoutY="542.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5. Song name">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Text>
       <Text layoutX="127.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;">
          <font>
             <Font size="16.0" />
@@ -100,6 +116,10 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="song0" layoutX="29.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Song name" />
+      <Text fx:id="song0" layoutX="4.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Song name">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
