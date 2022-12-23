@@ -34,19 +34,12 @@ public class Controller{
     private RadioButton chill;
     @FXML
     private RadioButton trap;
-
     @FXML
     private RadioButton hipHop;
-
      @FXML
      private RadioButton disco;
-
     @FXML
     private CheckBox pauseCheckBox;
-
-    // "resources/assets/apple.png"
-    private String[] imagesTest = {"Lazy Love - KEM.png", "Music Is - Pryces.png"};
-
     private RadioButton mostRecentSelectedRadioButton = null;
 
     public void StartMenu(ActionEvent event) throws IOException {
@@ -213,47 +206,106 @@ public class Controller{
     {
         int selectedListIndex = 0;
         int previousIndex = SongList.songIndex;
+        RadioButton[] listButtons = new RadioButton[]{chill, trap, hipHop, disco};
 
-        /*
-        if (chill.isSelected() && SongList.listIndex == 1)
-            chill.setSelected(true);
-         */
-
-        // Note for JoelM: Possible to make this more optimal in terms of design?
-        if(chill.isSelected()) // && SongList.listIndex != 1
+        if (!checkIfAnyListIsSelectedTwice(listButtons))
         {
-            deselectRadioButton(mostRecentSelectedRadioButton, chill);
-            mostRecentSelectedRadioButton = chill;
+            // Note for JoelM: Possible to make this more optimal in terms of design?
+            if(chill.isSelected())
+            {
+                deselectRadioButton(mostRecentSelectedRadioButton, chill);
+                mostRecentSelectedRadioButton = chill;
+
+                // System.out.println("chill");
+            }
+
+            if(trap.isSelected())
+            {
+                selectedListIndex = 1;
+                deselectRadioButton(mostRecentSelectedRadioButton, trap);
+                mostRecentSelectedRadioButton = trap;
+
+                // System.out.println("trap");
+            }
+
+            if (hipHop.isSelected())
+            {
+                selectedListIndex = 2;
+                deselectRadioButton(mostRecentSelectedRadioButton, hipHop);
+                mostRecentSelectedRadioButton = hipHop;
+
+                // System.out.println("hiphop");
+            }
+
+            if (disco.isSelected())
+            {
+                selectedListIndex = 3;
+                deselectRadioButton(mostRecentSelectedRadioButton, disco);
+                mostRecentSelectedRadioButton = disco;
+
+                // System.out.println("disco");
+            }
+
+            // Attempt 1: Refactoring the above lines of code:
+            /*
+            int[] testIndices = getSelectedListIndex(listButtons);
+            selectNewList(listButtons, testIndices);
+            selectedListIndex = testIndices[testIndices.length - 1];
+             */
+
+            SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
+            SongList.synchronizeThumbnailWithSong();
+
+            SongList.updateSongListTexts();
+            SongList.updateSelectedSongText(previousIndex, true);
+        }
+    }
+
+    private void selectNewList(RadioButton[] listButtons, int[] indices)
+    {
+        for (int i = 0; i < indices.length; i++)
+        {
+            deselectRadioButton(mostRecentSelectedRadioButton, listButtons[indices[i]]);
+            mostRecentSelectedRadioButton = listButtons[indices[i]];
+        }
+    }
+
+    private int[] getSelectedListIndex(RadioButton[] listButtons)
+    {
+        int j = 0;
+        int[] lists = new int[]{-1, -1};
+
+        for (int i = 0; i < listButtons.length; i++)
+            if (listButtons[i].isSelected())
+            {
+                lists[j++] = i;
+            }
+
+        if (j == 2)
+            return lists;
+        else
+            return new int[]{lists[0]};
+    }
+
+    // Selected Twice in a row - According to SceneBuilder - Toggle - Would result in turning off/on list - But we have pause button
+    private boolean checkIfAnyListIsSelectedTwice(RadioButton[] selectedLists)
+    {
+        // Go through every possible list-index
+        for (int i = 0; i < SongList.numberOfSongsInList.length; i++)
+        {
+            if (checkIfCurrentListWasSelectedTwice(selectedLists[i], i))
+            {
+                selectedLists[i].setSelected(true);
+                return true;
+            }
         }
 
-        if(trap.isSelected())
-        {
-            selectedListIndex = 1;
-            deselectRadioButton(mostRecentSelectedRadioButton, trap);
-            mostRecentSelectedRadioButton = trap;
-        }
+        return false;
+    }
 
-        if (hipHop.isSelected())
-        {
-            selectedListIndex = 2;
-            deselectRadioButton(mostRecentSelectedRadioButton, hipHop);
-            mostRecentSelectedRadioButton = hipHop;
-        }
-
-        if (disco.isSelected())
-        {
-            selectedListIndex = 3;
-            deselectRadioButton(mostRecentSelectedRadioButton, disco);
-            mostRecentSelectedRadioButton = disco;
-        }
-
-        SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
-        SongList.synchronizeThumbnailWithSong();
-
-        SongList.updateSongListTexts();
-        SongList.updateSelectedSongText(previousIndex, true);
-
-        // Deal with case where no song is selected: Make it impossible to have 0 selected lists at once
+    private boolean checkIfCurrentListWasSelectedTwice(RadioButton selectedList, int listIndex)
+    {
+        return !selectedList.isSelected() && SongList.listIndex == listIndex;
     }
 
     private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected)
