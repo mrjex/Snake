@@ -4,6 +4,7 @@ import Backend.FoodTypes.Apple;
 import Backend.FoodTypes.Pizza;
 import Backend.FoodTypes.HotDog;
 
+import Backend.FoodTypes.SnakePart;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class Grid {
     }
 
     public Food getFood() { return this.food; }
-    public ArrayList<GridPos> getBodyPos(){
+    public ArrayList<SnakePart> getBodyPos(){
         return snake.getBodyPos();
     }
 }

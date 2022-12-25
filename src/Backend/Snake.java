@@ -1,12 +1,13 @@
 package Backend;
 
+import Backend.FoodTypes.SnakePart;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class Snake {
     private GridPos headPos;
-    private ArrayList<GridPos> bodyPos;
+    private ArrayList<SnakePart> bodyPos;
     private int direction;// 0 = north, 1 = west, 2 = south, 3 = east
 
     public Snake() {
@@ -25,7 +26,7 @@ public class Snake {
             if (i < (bodyPos.size() - 1)) {
                 this.bodyPos.set(i, this.bodyPos.get(i + 1));
             } else {
-                this.bodyPos.set(i, new GridPos(this.headPos.getxPos(), this.headPos.getyPos(), Color.ORANGE));
+                this.bodyPos.set(i, new SnakePart(this.headPos.getxPos(), this.headPos.getyPos(), Color.ORANGE));
             }
         }
         switch (this.direction) {
@@ -80,14 +81,14 @@ public class Snake {
     }
 
     public void grow(){
-        this.bodyPos.add(0, new GridPos(-50,250,Color.ORANGE));
+        this.bodyPos.add(0, new SnakePart(-50,250,Color.ORANGE));
     }
     public void grow(int amount){
         for(int i = 0; i < amount; i++){
             this.grow();
         }
     }
-    public ArrayList<GridPos> getBodyPos(){
+    public ArrayList<SnakePart> getBodyPos(){
         return this.bodyPos;
     }
 

@@ -1,5 +1,6 @@
 package Backend;
 
+import Backend.FoodTypes.SnakePart;
 import Frontend.Controller;
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
@@ -14,9 +15,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import javafx.fxml.FXML;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -203,11 +204,12 @@ public class Game extends AnimationTimer {
                 Draw playground = new Draw(canvas.getGraphicsContext2D());
                 playground.drawBackground(getPos());
                 playground.draw(getHeadPos());
-                for(GridPos bodyPos : gameGrid.getBodyPos()){
+                for(SnakePart bodyPos : gameGrid.getBodyPos()){
                     playground.draw(bodyPos);
                 }
                 playground.draw(gameGrid.getFood());
                 lastUpdate = time;
+
 
 
         }
@@ -226,7 +228,7 @@ public class Game extends AnimationTimer {
         return gameGrid.getDirection();
     }
 
-    public int getScore(ArrayList<GridPos> positions) {
+    public int getScore(ArrayList<SnakePart> positions) {
         return positions.size() - 3;
     }
     /*public boolean play(int direction) throws Exception{
