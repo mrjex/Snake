@@ -1,6 +1,8 @@
 package Frontend;
 
 import Backend.*;
+import Backend.Utils.SongUtils;
+import Backend.Utils.Utils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,13 +16,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // import javax.swing.text.html.ImageView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -128,6 +128,48 @@ public class Controller{
 
         vbox.getChildren().add(accordion);
         stage.show();
+    }
+
+    // The 3 methods contained in this generalized method can be used in all the methods above except 'exit'
+    // The reason this isn't refactored before pushing remotely is because I don't want to take credit
+    // for the code itself, but for the refactoring design-aspect of it.
+    public void generalizedMethod(ActionEvent event) throws IOException {
+        root = getRoot("directory here");
+        setScene(event);
+
+        boolean bool = false; // This value varies depending on what method
+        // we are inspecting of the ones above ('Leaderboard', 'playAgain', 'normalMode', 'foodFrenzyButton')
+        startGame(bool);
+    }
+
+    // Gets the root with respect to its directory
+    public Parent getRoot(String directory) throws IOException {
+        return FXMLLoader.load(getClass().getResource(directory));
+    }
+
+    //
+    public void setScene(ActionEvent event)
+    {
+        scene = new Scene(root);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void startGame(boolean frenzyModeIsSelected)
+    {
+        Canvas grid = (Canvas) scene.lookup("#Grid");
+        Game game = new Game(grid, frenzyModeIsSelected);
+
+        changeDirection(scene, game);
+        game.start();
+    }
+
+    public boolean checkIfUserPressedEQ(Scene scene, KeyEvent teest)
+    {
+        // scene.setOnKeyReleased();
+        return teest.getCode().equals(KeyCode.E) || teest.getCode().equals(KeyCode.Q);
     }
 
     public void changeDirection(Scene scene, Game game) {

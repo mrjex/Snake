@@ -1,12 +1,10 @@
 import Backend.*;
-import Frontend.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import Backend.Utils.SongUtils;
 
 public class MainGame extends Application {
 

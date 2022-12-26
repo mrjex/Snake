@@ -1,7 +1,10 @@
 package Backend;
 
 import Backend.FoodTypes.SnakePart;
+import Backend.Utils.SongUtils;
+import Backend.Utils.Utils;
 import Frontend.Controller;
+import Frontend.Utils.UIUtils;
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,7 +50,7 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-        Utils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
+        Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
 
         // Update songListUI buttons: If user has selected 'TrapList' the scene automatically
         // starts with displaying 'ChillList' as selected, while 'TrapList' is the list being played

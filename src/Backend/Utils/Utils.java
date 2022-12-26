@@ -1,4 +1,4 @@
-package Backend;
+package Backend.Utils;
 import Frontend.Controller;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -6,19 +6,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class Utils
+public class Utils // Note for JoelM: Create separate back-end from front-end: Create 'UIUtils.java' and put suitable methods in new script
 {
-    public static void updateText(Scene scene, String textId, String newMessage, boolean isSong)
-    {
-        if (isSong)
-        {
-            newMessage = removeNLastCharactersInString(newMessage, 4);
-        }
-
-        Text text = (Text)(Controller.scene.lookup("#songNameText"));
-        text.setText(newMessage);
-    }
-
     // Used to remove ".wav" for every song in this project
     public static String removeNLastCharactersInString(String stringText, int n)
     {
@@ -48,25 +37,8 @@ public class Utils
         return (value >= range[0] && value <= range[1]);
     }
 
-    public static Object linkObjectWithId(String id) // Note for JoelM: Create class 'UI-Utils.java' where we put this method and 'updateText()'?
+    public static boolean checkIfIndexIsWithinRangeOfList(int lengthOfList, int index)
     {
-        return Controller.scene.lookup(id);
-    }
-
-    public static Font getNormalFont(String fontType, int size)
-    {
-        return Font.font(fontType, FontWeight.NORMAL, FontPosture.REGULAR, size);
-    }
-
-    public static Font getSelectedFont(String fontType, boolean italicFont, int size)
-    {
-        if (italicFont)
-        {
-            return Font.font(fontType, FontWeight.BOLD, FontPosture.ITALIC, size);
-        }
-        else
-        {
-            return Font.font(fontType, FontWeight.BOLD, size);
-        }
+        return index >= 0 && index < lengthOfList;
     }
 }

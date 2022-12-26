@@ -1,6 +1,8 @@
-package Backend;
+package Backend.Utils;
 
+import Backend.SongList;
 import Frontend.Controller;
+import Frontend.Utils.UIUtils;
 import javafx.scene.control.ProgressBar;
 
 import javax.sound.sampled.AudioInputStream;
@@ -50,27 +52,25 @@ public class SongUtils
         {
             File musicPath = new File(SongList.songs.get(SongList.songIndex));
 
+            // The song was found and is playable
             if (musicPath.exists())
             {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 Clip clip = AudioSystem.getClip();
 
-                if (mostRecentClip != null)
-                {
-                    mostRecentClip.close();
-                    mostRecentClip.stop();
-                }
-
+                stopLatestClip();
                 clip.open(audioInput);
 
+                // If the user selects a new song while the 'pause' option is selected, the new song shouldn't be played, only selected
                 if (!songIsPaused)
                 {
                     clip.start();
                 }
 
-                currentClip = clip;
-                mostRecentClip = clip;
+                setStatesOfCurrentClip(clip);
             }
+
+            // The song wasn't found
             else
             {
                 System.out.println("File was not found!");
@@ -82,6 +82,22 @@ public class SongUtils
         }
     }
 
+    private static void setStatesOfCurrentClip(Clip currentClip)
+    {
+        SongUtils.currentClip = currentClip;
+        mostRecentClip = currentClip;
+    }
+
+    private static void stopLatestClip()
+    {
+        if (mostRecentClip != null)
+        {
+            mostRecentClip.close();
+            mostRecentClip.stop();
+        }
+    }
+
+    // Stops and closes the current song as the user exits the game
     public static void stop()
     {
         currentClip.close();
@@ -95,20 +111,20 @@ public class SongUtils
         if (increase)
         {
             SongList.songIndex++;
-            SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         }
 
         // User clicks 'Q' and goes back to the previous song
         else
         {
             SongList.songIndex--;
-            SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         }
 
+        SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         startAudioClip(songIsPaused);
-        Utils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
+        Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
     }
 
+    // Pauses or unpauses the current song depending on previous pause-state
     public static void togglePause(boolean pause)
     {
         if (pause)
@@ -119,6 +135,7 @@ public class SongUtils
             currentClip.start();
     }
 
+    // Update the visual progression of the bar and display it to the user
     public static void updateSongBarProgression()
     {
         double barProgression = (Utils.setCommaNDigitsFromEnd(currentClip.getMicrosecondPosition(), 3) / (double) Utils.setCommaNDigitsFromEnd(currentClip.getMicrosecondLength(), 3));
