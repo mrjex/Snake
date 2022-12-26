@@ -3,6 +3,7 @@ package Frontend;
 import Backend.*;
 import Backend.Utils.SongUtils;
 import Backend.Utils.Utils;
+import Frontend.Utils.UIUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -298,7 +299,7 @@ public class Controller{
             SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
             SongList.synchronizeThumbnailWithSong();
 
-            SongList.updateSongListTexts();
+            UIUtils.updateSongListTexts();
             SongList.updateSelectedSongText(previousIndex, true);
         }
     }

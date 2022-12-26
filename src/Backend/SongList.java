@@ -14,11 +14,14 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class SongList // Note for JoelM - Design solutions:
+// Note: This is a back-end class with general behaviour and logic that heavily cooperates with the front-end-related class 'UIUtils'
+public abstract class SongList // JoelM - Decision to make: 'SongList.java' or 'SongListUtils.java'
+
+// Note for JoelM - Design solutions:
 // 1. Rename to 'SongListUtils.java'
 // 2. Make an interface of this - More than constants
 // 3. Make this an abstract class, remove sub-classes but keep the constructor
-// 4. Polymorhpism inheritance?
+// 4. Polymorphism inheritance?
 
 {
     // Note: The values of the variables below are not assigned in the constructor,
@@ -38,17 +41,7 @@ public abstract class SongList // Note for JoelM - Design solutions:
     // Benefit of the list and the system of cooperating variables built around it: More freedom for the developers (us)
     // when developing the game: The number of songs in each list don't need to be the same --> Less restrictions for us
     // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
-    public static final String[] listNames = {"Chill", "Trap", "HipHop", "Disco"}; // + "List"
-
-    /*
-    public static final LinearGradient selectedSongTextGradient = new LinearGradient(
-            0.0, 0.0, 0.6667, 1.0, true, CycleMethod.NO_CYCLE,
-            new Stop(0.0, new Color(0.95, 0.057, 0.057, 1.0)),
-            new Stop(1.0, new Color(0.2526, 0.0229, 0.8842, 1.0)));
-
-    public final static Color normalSongTextGradient = new Color(0.0, 0.0, 0.0, 1.0);
-
-     */
+    public static final String[] listNames = {"ChillList", "TrapList", "HipHopList", "DiscoList"};
 
     public SongList(String[] newSongs, int listIndex)
     {
@@ -67,108 +60,47 @@ public abstract class SongList // Note for JoelM - Design solutions:
         songIndex = currentSongIndices.get(listIndex); // Set index to start of list
 
         SongUtils.startAudioClip(songIsPaused);
-        Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);
+        UIUtils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);
     }
 
-    // Returns the name of the current list that is being played
-    public static String selectSongList() // Logic for determining UI
+    public static void synchronizeThumbnailWithSong()
     {
-        for (int i = 0; i < songListIndicesBoundaries.length; i++)
-        {
-            // If the index of the current song in within the interval of the current list, that list is being played
-            if (Utils.isWithinRange(songIndex, songListIndicesBoundaries[i]))
-            {
-                return listNames[i];
-            }
-        }
+        String list = getCurrentList();
+        String newSong = getCurrentSong();
 
-        return "-1";
-    }
-
-    public static void synchronizeThumbnailWithSong() // Put this in SongUtils.java
-    {
         String commonPath = "resources/assets/";
-        String list = "";
-        String newSong = "";
-
-        // Note for JoelM: Come up with design solution to counteract this poor manual-dependent solution
-        if (SongList.listIndex == 0)
-        {
-            list = "ChillList";
-        }
-        else if (SongList.listIndex == 1)
-        {
-            list = "TrapList";
-        }
-        else if (SongList.listIndex == 2)
-        {
-            list = "HipHopList";
-        }
-        else if (SongList.listIndex == 3)
-        {
-            list = "DiscoList";
-        }
-
-        newSong = SongList.songs.get(SongList.songIndex); // Create method: 'GetCurrentSong()'?
-
         // Note for JoelM: To avoid using function from Utils, remove ".wav" in MainGame.java and add function 'SetFormat(String format)' where 'format' = "wav", "png"
         Image newSongImage = new Image(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
+
         ImageView songPictureDisplayer = (ImageView)(Controller.scene.lookup("#songPictureDisplayer")); // Reuse method in Utils.java?, Seperate logic from UI!
         songPictureDisplayer.setImage(newSongImage);
     }
 
-    public static void updateSongListTexts() // Put this in UIUtils.java - Note for JoelM: 'UISongUtils.java'?
+    public static String getCurrentSong()
     {
-        for (int i = 0; i < 5; i++) // Note for JoelM: Remove magic number - There are 5 unique texts in the scene - Variable: 'maximumSongsInList'
-        {
-            Text songText = (Text)(Controller.scene.lookup("#song" + i));
-            setSongListTextsOpacity(songText, i);
-            setSongListTexts(songText, i);
-        }
+        return songs.get(songIndex);
     }
 
-    private static void setSongListTexts(Text songText, int i)
+    public static String getCurrentList()
     {
-        if (Utils.checkIfIndexIsWithinRangeOfList(numberOfSongsInList[listIndex], i))
-        {
-            int startIdxOfCurrentList = songListIndicesBoundaries[listIndex][0];
-            String nameOfWAVSong = songs.get(startIdxOfCurrentList + i);
-            String songNumber = (i + 1) + ". ";
-
-            String nameOfSong = songNumber + Utils.removeNLastCharactersInString(nameOfWAVSong, 4);
-            songText.setText(nameOfSong);
-        }
-    }
-
-    private static void setSongListTextsOpacity(Text songText, int i)
-    {
-        // Make text visible if its index is within the range of the length of the list
-        if (Utils.checkIfIndexIsWithinRangeOfList(numberOfSongsInList[listIndex], i))
-        {
-            songText.setOpacity(1);
-        }
-
-        // Make text invisible if the size of the current list of songs doesn't support enough songs
-        else
-        {
-            songText.setOpacity(0);
-        }
+        return listNames[listIndex];
     }
 
     // Note for JoelM: Clean this method - Make it more smooth
-    public static void updateSelectedSongText(int previousSongIndex, boolean userSwitchedList)
+    public static void updateSelectedSongText(int previousSongIndex, boolean userSwitchedList) // UIUtils.java
     {
         int songIdIndex = getSongInListIndex(songIndex, false);
         previousSongIndex = getSongInListIndex(previousSongIndex, userSwitchedList);
 
-        Text selectedText = (Text)(Controller.scene.lookup("#song" + songIdIndex));
-        Text previouslySelectedText = (Text)(Controller.scene.lookup("#song" + previousSongIndex));
+        // Create method - Seperate Front-end from Back-end
+        Text selectedText = UIUtils.getText("#song" + songIdIndex);
+        Text previouslySelectedText = UIUtils.getText("#song" + previousSongIndex);
 
         Text[] textsThatChangesColors = new Text[]{previouslySelectedText, selectedText};
 
         // Note for JoelM: Make overload method in UIUtils.java
-        previouslySelectedText.setFont(Frontend.Utils.UIUtils.getNormalFont("Verdana", 8)); // JoelM: Avoid magic number '8', create variable for font size. Connect it to size set in GameScene
-        selectedText.setFont(Frontend.Utils.UIUtils.getSelectedFont("Verdana", false, 8));
+        previouslySelectedText.setFont(UIUtils.getNormalFont("Verdana", 8)); // JoelM: Avoid magic number '8', create variable for font size. Connect it to size set in GameScene
+        selectedText.setFont(UIUtils.getSelectedFont("Verdana", false, 8));
 
         UIUtils.changeTextColor(textsThatChangesColors, true, 2);
     }
@@ -184,5 +116,27 @@ public abstract class SongList // Note for JoelM - Design solutions:
         }
 
         return index - songListIndicesBoundaries[listIndex][0];
+    }
+
+    public static int[][] getSongListIndicesBoundaries()
+    {
+        // [3, 2] ---> [0, 2], [3, 4]
+        // [3, 2, 3, 4, 2] ---> [0, 2], [3, 4], [5, 7], [8, 11], [12, 13]
+
+        int[][] listBoundaries = new int[numberOfSongsInList.length][];
+
+        int min = 0;
+        int max = SongList.numberOfSongsInList[0] - 1;
+
+        for (int i = 0; i < numberOfSongsInList.length - 1; i++)
+        {
+            listBoundaries[i] = new int[]{min, max};
+
+            min += SongList.numberOfSongsInList[i];
+            max += SongList.numberOfSongsInList[i + 1];
+        }
+
+        listBoundaries[listBoundaries.length - 1] = new int[]{min, max};
+        return listBoundaries;
     }
 }

@@ -24,33 +24,14 @@ public class SongUtils
     public static Clip currentClip;
     public static Clip mostRecentClip = null;
 
-    public static int[][] getSongListIndicesBoundaries()
-    {
-        // [3, 2] ---> [0, 2], [3, 4]
-        // [3, 2, 3, 4, 2] ---> [0, 2], [3, 4], [5, 7], [8, 11], [12, 13]
-
-        int[][] listBoundaries = new int[SongList.numberOfSongsInList.length][];
-
-        int min = 0;
-        int max = SongList.numberOfSongsInList[0] - 1;
-
-        for (int i = 0; i < SongList.numberOfSongsInList.length - 1; i++)
-        {
-            listBoundaries[i] = new int[]{min, max};
-
-            min += SongList.numberOfSongsInList[i];
-            max += SongList.numberOfSongsInList[i + 1];
-        }
-
-        listBoundaries[listBoundaries.length - 1] = new int[]{min, max};
-        return listBoundaries;
-    }
-
     public static void startAudioClip(boolean songIsPaused)
     {
         try
         {
-            File musicPath = new File(SongList.songs.get(SongList.songIndex));
+            String commonPath = "src/resources/assets/Songs/";
+            String specificSongPath = SongList.getCurrentList() + "/" + SongList.getCurrentSong();
+
+            File musicPath = new File(commonPath + specificSongPath);
 
             // The song was found and is playable
             if (musicPath.exists())

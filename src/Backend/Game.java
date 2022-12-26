@@ -60,16 +60,16 @@ public class Game extends AnimationTimer {
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
 
         selectSongUI();
-        SongList.updateSongListTexts();
+        UIUtils.updateSongListTexts();
         SongList.updateSelectedSongText(SongList.songIndex, false); // (SongList.songIndex, true)
         SongList.synchronizeThumbnailWithSong();
     }
 
-    // Note for JoelM: Either come up with a better general design for all song lists, or make general method for the things below
     private void selectSongUI() // This method doesn't belong to this class, based on its behaviour - JoelM: Fix this
     {
-        String selectedSongList = SongList.selectSongList();
+        String selectedSongList = SongList.getCurrentList();
 
+        // Note for JoelM: Either come up with a better general design for all song lists, or make general method for the things below
         if (Objects.equals(selectedSongList, SongList.listNames[0]))
         {
             // RadioButton chillButton = (RadioButton) Utils.linkObjectWithId(String.valueOf(Controller.scene.lookup("#chill")));

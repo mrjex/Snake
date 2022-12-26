@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Backend.Utils.SongUtils;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.jar.JarFile;
+
 public class MainGame extends Application {
 
     @Override
@@ -18,7 +22,11 @@ public class MainGame extends Application {
         stage.show();
         stage.setResizable(false);
 
-        SongList.songListIndicesBoundaries = SongUtils.getSongListIndicesBoundaries();
+        SongList.songListIndicesBoundaries = SongList.getSongListIndicesBoundaries();
+
+        // Add folders/packages of song-lists in particular order here
+        // getClass().getResource("Lazy Love - KEM.wav").getPath();
+        // String[] chillSongs =
 
         // Note for JoelM: Optimize this solution in accordance with the design principles when everything works
         Game.chillList = new ChillList(new String[] {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"}, 0);

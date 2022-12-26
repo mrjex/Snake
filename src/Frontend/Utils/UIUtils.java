@@ -1,4 +1,8 @@
 package Frontend.Utils;
+
+import Backend.SongList;
+import Backend.Utils.Utils;
+import Backend.Utils.SongUtils;
 import Frontend.Controller;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -10,7 +14,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class UIUtils
+public class UIUtils // 'UISongUtils.java'?
 {
     public static final LinearGradient selectedSongTextGradient = new LinearGradient(
             0.0, 0.0, 0.6667, 1.0, true, CycleMethod.NO_CYCLE,
@@ -79,5 +83,55 @@ public class UIUtils
                     texts[i].setFill(normalSongTextGradient);
             }
         }
+    }
+
+    public static void updateSongListTexts()
+    {
+        for (int i = 0; i < 5; i++) // Note for JoelM: Remove magic number - There are 5 unique texts in the scene - Variable: 'maximumSongsInList'
+        {
+            Text songText = UIUtils.getText("#song" + i);
+
+            setSongListTextsOpacity(songText, i);
+            setSongListTexts(songText, i);
+        }
+    }
+
+    private static void setSongListTexts(Text songText, int i) // UIUtils.java
+    {
+        if (Utils.checkIfIndexIsWithinRangeOfList(SongList.numberOfSongsInList[SongList.listIndex], i))
+        {
+            int startIdxOfCurrentList = SongList.songListIndicesBoundaries[SongList.listIndex][0];
+
+            String nameOfWAVSong = SongList.songs.get(startIdxOfCurrentList + i);
+            String songNumber = (i + 1) + ". ";
+
+            String nameOfSong = songNumber + Utils.removeNLastCharactersInString(nameOfWAVSong, 4);
+            songText.setText(nameOfSong);
+        }
+    }
+
+    private static void setSongListTextsOpacity(Text songText, int i) // UIUtils.java
+    {
+        // Make text visible if its index is within the range of the length of the list
+        if (Utils.checkIfIndexIsWithinRangeOfList(SongList.numberOfSongsInList[SongList.listIndex], i))
+        {
+            songText.setOpacity(1);
+        }
+
+        // Make text invisible if the size of the current list of songs doesn't support enough songs
+        else
+        {
+            songText.setOpacity(0);
+        }
+    }
+
+    public static void changeTextFont(Text[] texts) // Note for JoelM: Fix when I got time
+    {
+
+    }
+
+    public static Text getText(String id)
+    {
+        return (Text)(Controller.scene.lookup(id));
     }
 }
