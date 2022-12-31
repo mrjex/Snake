@@ -34,12 +34,6 @@ public class Game extends AnimationTimer {
     private ArrayList<ScoreData> scoreList;
     public static boolean isFrenzy;
 
-    // Note for JoelM: Come up with better solution:
-    public static ChillList chillList;
-    public static TrapList trapList;
-    public static HipHopList hipHopList;
-    public static DiscoList discoList;
-
     public Game(Canvas grid, boolean frenzy){
 
         this.gameGrid = new Grid();
@@ -61,7 +55,7 @@ public class Game extends AnimationTimer {
 
         selectSongUI();
         UIUtils.updateSongListTexts();
-        SongList.updateSelectedSongText(SongList.songIndex, false); // (SongList.songIndex, true)
+        SongList.updateSelectedSongText(SongList.songIndex, false);
         SongList.synchronizeThumbnailWithSong();
     }
 

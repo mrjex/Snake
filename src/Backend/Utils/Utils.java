@@ -1,12 +1,6 @@
 package Backend.Utils;
-import Frontend.Controller;
-import javafx.scene.Scene;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
-public class Utils // Note for JoelM: Create separate back-end from front-end: Create 'UIUtils.java' and put suitable methods in new script
+public class Utils
 {
     // Used to remove ".wav" for every song in this project
     public static String removeNLastCharactersInString(String stringText, int n)
@@ -30,11 +24,6 @@ public class Utils // Note for JoelM: Create separate back-end from front-end: C
             return limits[1];
 
         return value;
-    }
-
-    public static boolean isWithinRange(int value, int[] range)
-    {
-        return (value >= range[0] && value <= range[1]);
     }
 
     public static boolean checkIfIndexIsWithinRangeOfList(int lengthOfList, int index)

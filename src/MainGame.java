@@ -24,15 +24,13 @@ public class MainGame extends Application {
 
         SongList.songListIndicesBoundaries = SongList.getSongListIndicesBoundaries();
 
-        // Add folders/packages of song-lists in particular order here
-        // getClass().getResource("Lazy Love - KEM.wav").getPath();
-        // String[] chillSongs =
-
-        // Note for JoelM: Optimize this solution in accordance with the design principles when everything works
-        Game.chillList = new ChillList(new String[] {"Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav"}, 0);
-        Game.trapList = new TrapList(new String[]{"Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav"}, 1);
-        Game.hipHopList = new HipHopList(new String[]{"The Flower - RA.wav", "Jazz And Hop - kidcut.wav"}, 2);
-        Game.discoList = new DiscoList(new String[]{"Disco Street - Andrey Rossi.wav", "Soulful Sparks - Soundroll.wav"}, 3);
+        // + ".wav"
+        SongList.addSongs(new String[] {
+                "Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav", // ChillList
+                "Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav",                        // TrapList
+                "The Flower - RA.wav", "Jazz And Hop - kidcut.wav",                               // HipHopList
+                "Disco Street - Andrey Rossi.wav", "Soulful Sparks - Soundroll.wav"               // DiscoList
+        });
 
         SongUtils.startAudioClip(false);
     }

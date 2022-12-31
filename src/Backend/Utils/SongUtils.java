@@ -14,11 +14,6 @@ import java.io.File;
 // https://stackoverflow.com/questions/12908412/print-hello-world-every-x-seconds (2022-12-15): The one with 210+ upvotes
 // https://www.youtube.com/watch?v=wJO_cq5XeSA (Retrieved 2022-12-15)
 
-        /*
-            // Ideas for improvement that will be implemented by JoelM soon:
-            * Make the relationship between this class and MainGame.java clean and readable (smooth code and good comments)
-         */
-
 public class SongUtils
 {
     public static Clip currentClip;

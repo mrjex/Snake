@@ -15,7 +15,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 // Note: This is a back-end class with general behaviour and logic that heavily cooperates with the front-end-related class 'UIUtils'
-public abstract class SongList // JoelM - Decision to make: 'SongList.java' or 'SongListUtils.java'
+
+// Justification of design choice:
+// The variables should be static and belong to the class rather than to objects.
+// Allowing multiple objects means enabling multiple song lists at once in the gameplay.
+// Having a single player snake-game with more than one song list or radio would create
+// confusion and hurt the user experience.
+
+// However, if it would be a multiplayer game, where each player would have their own
+// radio, it would be appropriate to capitalize upon the programming feature of creating
+// several objects of same type that stores unique values (in this case selected list and
+// selected song)
+
+public class SongList // JoelM - Decision to make: 'SongList.java' or 'SongListUtils.java'
 
 // Note for JoelM - Design solutions:
 // 1. Rename to 'SongListUtils.java'
@@ -28,36 +40,28 @@ public abstract class SongList // JoelM - Decision to make: 'SongList.java' or '
     // because they are static, meaning they belong to the class itself, not the instances or objects we create of it
     public static int listIndex = 0;
     public static int songIndex = 0;
-
     public static int previousListIndex = 0;
-
-    // Have a number for each class that is the number of songs in the current list
     public static ArrayList<String> songs = new ArrayList<>();
-    public static ArrayList<Integer> currentSongIndices = new ArrayList<>();
+    public static ArrayList<Integer> startIndicesForSongLists = new ArrayList<>();
     public static int[][] songListIndicesBoundaries;
 
     // The two variables below needs to be updates manually when adding a new songlist:
     public static final int[] numberOfSongsInList = {3, 2, 2, 2}; // Note for JoelM: Set its values in a more general way dependent on variables instead of magic numbers
+
     // Benefit of the list and the system of cooperating variables built around it: More freedom for the developers (us)
     // when developing the game: The number of songs in each list don't need to be the same --> Less restrictions for us
     // Using a 2D array - Would restrict us: Waste allocated space or same number of songs for each list?
     public static final String[] listNames = {"ChillList", "TrapList", "HipHopList", "DiscoList"};
 
-    public SongList(String[] newSongs, int listIndex)
-    {
-        addSongs(newSongs, listIndex);
-    }
-
-    public void addSongs(String[] newSongs, int listIndex)
+    public static void addSongs(String[] newSongs)
     {
         songs.addAll(Arrays.asList(newSongs));
-        currentSongIndices.add(songListIndicesBoundaries[listIndex][0]);
     }
 
     public static void toggleSongList(int newListIndex, boolean songIsPaused) // Note for JoelM: Put this in 'SongUtils.java' and add 'scene' and 'id' parameters
     {
         listIndex = newListIndex;
-        songIndex = currentSongIndices.get(listIndex); // Set index to start of list
+        songIndex = songListIndicesBoundaries[listIndex][0];
 
         SongUtils.startAudioClip(songIsPaused);
         UIUtils.updateText(Controller.scene, "#songNameText", songs.get(songIndex), true);

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class Controller{
     private Stage stage;
-    public static Scene scene; // Change back to previous if it turns out to not work: "private Scene scene;"
+    public static Scene scene;
     private Parent root;
 
     @FXML
@@ -67,7 +67,10 @@ public class Controller{
         Canvas grid = (Canvas) scene.lookup("#Grid");
 
         Game game = new Game(grid, true);
-        changeDirection(scene, game);
+        setOnKeyPressed(game, scene);
+
+        checkIfToggleSong(scene);
+        resumeButton(game);
         game.start();
 
 
@@ -91,8 +94,12 @@ public class Controller{
         Canvas grid = (Canvas) scene.lookup("#Grid");
 
         Game game = new Game(grid, false);
-        changeDirection(scene, game);
+        setOnKeyPressed(game, scene);
+
+        checkIfToggleSong(scene);
+        resumeButton(game);
         game.start();
+
     }
 
     public void playAgain(ActionEvent event) throws IOException {
@@ -105,8 +112,54 @@ public class Controller{
         Canvas grid = (Canvas) scene.lookup("#Grid");
 
         Game game = new Game(grid, Game.isFrenzy);
-        changeDirection(scene, game);
+        setOnKeyPressed(game, scene);
+
+        checkIfToggleSong(scene);
+        resumeButton(game);
         game.start();
+    }
+
+    public void checkIfToggleSong(Scene scene)
+    {
+        scene.setOnKeyReleased(e ->
+        {
+            if (e.getCode().equals(KeyCode.E) || e.getCode().equals(KeyCode.Q))
+            {
+                int previousSongIndex = SongList.songIndex;
+                CheckBox pauseBox = (CheckBox)scene.lookup("#pauseCheckBox"); // Avoid NullPointerException when referring to 'pauseCheckBox'
+
+                boolean increaseIndexOfSong = e.getCode().equals(KeyCode.E);
+                SongUtils.toggleSong(increaseIndexOfSong, pauseBox.isSelected());
+
+                SongList.synchronizeThumbnailWithSong();
+                previousSongIndex = Utils.limitValue(previousSongIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
+                SongList.updateSelectedSongText(previousSongIndex, false);
+            }
+        });
+    }
+
+    public void resumeButton(Game game)
+    {
+        Group pauseGroup = (Group) scene.lookup("#pause");
+        Button button = (Button)scene.lookup("#resume");
+
+        // User clicks 'resume game' and the panel disappears as the game starts again
+        button.setOnAction(e ->
+        {
+            pauseGroup.setOpacity(0);
+            pauseGroup.setDisable(true);
+
+            game.start();
+        });
+    }
+
+    public void pauseGame(Game game, Scene scene)
+    {
+        Group pauseGroup = (Group) scene.lookup("#pause");
+        game.stop();
+
+        pauseGroup.setDisable(false);
+        pauseGroup.setOpacity(1);
     }
 
     public void Leaderboard(ActionEvent event) throws IOException {
@@ -163,7 +216,11 @@ public class Controller{
         Canvas grid = (Canvas) scene.lookup("#Grid");
         Game game = new Game(grid, frenzyModeIsSelected);
 
-        changeDirection(scene, game);
+        // pauseGame(game, scene);
+        // changeDirection(scene, game);
+
+        setOnKeyPressed(game, scene);
+
         game.start();
     }
 
@@ -173,75 +230,50 @@ public class Controller{
         return teest.getCode().equals(KeyCode.E) || teest.getCode().equals(KeyCode.Q);
     }
 
-    public void changeDirection(Scene scene, Game game) {
-
-        Group pauseGroup = (Group) scene.lookup("#pause");
-
-        Button button = (Button)scene.lookup("#resume");
-        button.setOnAction(e -> {
-
-            pauseGroup.setOpacity(0);
-            pauseGroup.setDisable(true);
-
-            game.start();
-        });
-
-        // Note for JoelM: Make new method for this
-        scene.setOnKeyReleased(e ->
-        {
-            if (e.getCode().equals(KeyCode.E) || e.getCode().equals(KeyCode.Q))
-            {
-                int previousSongIndex = SongList.songIndex;
-                CheckBox pauseBox = (CheckBox)scene.lookup("#pauseCheckBox"); // Avoid NullPointerException when referring to 'pauseCheckBox'
-
-                boolean increaseIndexOfSong = e.getCode().equals(KeyCode.E);
-                SongUtils.toggleSong(increaseIndexOfSong, pauseBox.isSelected());
-
-                SongList.synchronizeThumbnailWithSong();
-                previousSongIndex = Utils.limitValue(previousSongIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
-                SongList.updateSelectedSongText(previousSongIndex, false);
-            }
-        });
-
+    public void setOnKeyPressed(Game game, Scene scene)
+    {
         scene.setOnKeyPressed(e ->
         {
-            if (e.getCode().equals(KeyCode.ESCAPE)) // Note for JoelM: This if-statement does not belong in this function - Fix
+            if (e.getCode().equals(KeyCode.ESCAPE))
             {
-                game.stop();
-
-                pauseGroup.setDisable(false);
-                pauseGroup.setOpacity(1);
+                pauseGame(game, scene);
             }
 
-            if(!game.canTurn) return;
-
-            switch (e.getCode()) {
-                case W:
-                    if (game.getDirection() == 1 || game.getDirection() == 3) {
-                        game.setDirection(0);
-                    }
-                    break;
-                case S:
-                    if (game.getDirection() == 1 || game.getDirection() == 3) {
-                        game.setDirection(2);
-                    }
-                    break;
-                case D:
-                    if (game.getDirection() == 0 || game.getDirection() == 2) {
-                        game.setDirection(3);
-                    }
-                    break;
-                case A:
-                    if (game.getDirection() == 0 || game.getDirection() == 2) {
-                        game.setDirection(1);
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            game.canTurn = false;
+            changeDirection(scene, game, e);
         });
+    }
+
+    // Made by Felix and Mohamad
+    public void changeDirection(Scene scene, Game game, KeyEvent keyEvent)
+    {
+        if(!game.canTurn) return;
+
+        switch (keyEvent.getCode()) {
+            case W:
+                if (game.getDirection() == 1 || game.getDirection() == 3) {
+                    game.setDirection(0);
+                }
+                break;
+            case S:
+                if (game.getDirection() == 1 || game.getDirection() == 3) {
+                    game.setDirection(2);
+                }
+                break;
+            case D:
+                if (game.getDirection() == 0 || game.getDirection() == 2) {
+                    game.setDirection(3);
+                }
+                break;
+            case A:
+                if (game.getDirection() == 0 || game.getDirection() == 2) {
+                    game.setDirection(1);
+                }
+                break;
+            default:
+                break;
+        }
+
+        game.canTurn = false;
     }
 
     // Note for JoelM: Refactor this code
