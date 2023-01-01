@@ -4,6 +4,7 @@ import Backend.FoodTypes.SnakePart;
 import Backend.Utils.SongUtils;
 import Backend.Utils.Utils;
 import Frontend.Controller;
+import Frontend.Utils.UISongUtils;
 import Frontend.Utils.UIUtils;
 import Frontend.Draw;
 import javafx.animation.AnimationTimer;
@@ -46,9 +47,6 @@ public class Game extends AnimationTimer {
 
         Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
 
-        // Update songListUI buttons: If user has selected 'TrapList' the scene automatically
-        // starts with displaying 'ChillList' as selected, while 'TrapList' is the list being played
-
         // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
         CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
@@ -66,24 +64,22 @@ public class Game extends AnimationTimer {
         // Note for JoelM: Either come up with a better general design for all song lists, or make general method for the things below
         if (Objects.equals(selectedSongList, SongList.listNames[0]))
         {
-            // RadioButton chillButton = (RadioButton) Utils.linkObjectWithId(String.valueOf(Controller.scene.lookup("#chill")));
-
-            RadioButton chillButton = (RadioButton)(Controller.scene.lookup("#chill")); // Make general using (Object) in Utils?
+            RadioButton chillButton = (RadioButton)(Controller.scene.lookup("#chill"));
             chillButton.setSelected(true);
         }
         else if (Objects.equals(selectedSongList, SongList.listNames[1]))
         {
-            RadioButton trapButton = (RadioButton)(Controller.scene.lookup("#trap")); // Make general using (Object) in Utils?
+            RadioButton trapButton = (RadioButton)(Controller.scene.lookup("#trap"));
             trapButton.setSelected(true);
         }
         else if (Objects.equals(selectedSongList, SongList.listNames[2]))
         {
-            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#hipHop")); // Make general using (Object) in Utils?
+            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#hipHop"));
             hipHopButton.setSelected(true);
         }
         else if (Objects.equals(selectedSongList, SongList.listNames[3]))
         {
-            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#disco")); // Make general using (Object) in Utils?
+            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#disco"));
             hipHopButton.setSelected(true);
         }
     }
@@ -129,13 +125,9 @@ public class Game extends AnimationTimer {
                 Label label = (Label) canvas.getScene().lookup("#score");
                 String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
                 label.setText(scores);
-
-                // Sound effect here - Eat specific food
             }
 
             if (code == 2) {
-                // Sound effect here - Snake dies
-
                 try {
                     ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
                     this.scoreList.add(currentScore);

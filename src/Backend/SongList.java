@@ -143,4 +143,9 @@ public class SongList // JoelM - Decision to make: 'SongList.java' or 'SongListU
         listBoundaries[listBoundaries.length - 1] = new int[]{min, max};
         return listBoundaries;
     }
+
+    public static int getNumberOfSongLists()
+    {
+        return numberOfSongsInList.length;
+    }
 }

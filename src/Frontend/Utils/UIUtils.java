@@ -2,28 +2,18 @@ package Frontend.Utils;
 
 import Backend.SongList;
 import Backend.Utils.Utils;
-import Backend.Utils.SongUtils;
 import Frontend.Controller;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.control.RadioButton;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class UIUtils // 'UISongUtils.java'?
+import java.util.Objects;
+
+public class UIUtils
 {
-    public static final LinearGradient selectedSongTextGradient = new LinearGradient(
-            0.0, 0.0, 0.6667, 1.0, true, CycleMethod.NO_CYCLE,
-            new Stop(0.0, new Color(0.95, 0.057, 0.057, 1.0)),
-            new Stop(1.0, new Color(0.2526, 0.0229, 0.8842, 1.0)));
-
-    public final static Color normalSongTextGradient = new Color(0.0, 0.0, 0.0, 1.0);
-
-
     public static void updateText(Scene scene, String textId, String newMessage, boolean isSong)
     {
         if (isSong)
@@ -52,7 +42,7 @@ public class UIUtils // 'UISongUtils.java'?
         }
     }
 
-    public static Object linkObjectWithId(String id) // Note for JoelM: Create class 'UI-Utils.java' where we put this method and 'updateText()'?
+    public static Object linkObjectWithId(String id)
     {
         return Controller.scene.lookup(id);
     }
@@ -65,7 +55,7 @@ public class UIUtils // 'UISongUtils.java'?
         if (!usePattern)
         {
             for (Text currentText : texts)
-                currentText.setFill(selectedSongTextGradient);
+                currentText.setFill(UISongUtils.selectedSongTextGradient);
         }
 
         // Use pattern - The order of the texts in the array determines their color
@@ -78,9 +68,9 @@ public class UIUtils // 'UISongUtils.java'?
                 useDefaultColor = (i % pattern) == 1;
 
                 if (useDefaultColor)
-                    texts[i].setFill(selectedSongTextGradient);
+                    texts[i].setFill(UISongUtils.selectedSongTextGradient);
                 else
-                    texts[i].setFill(normalSongTextGradient);
+                    texts[i].setFill(UISongUtils.normalSongTextGradient);
             }
         }
     }
@@ -91,43 +81,9 @@ public class UIUtils // 'UISongUtils.java'?
         {
             Text songText = UIUtils.getText("#song" + i);
 
-            setSongListTextsOpacity(songText, i);
-            setSongListTexts(songText, i);
+            UISongUtils.setSongListTextsOpacity(songText, i);
+            UISongUtils.setSongListTexts(songText, i);
         }
-    }
-
-    private static void setSongListTexts(Text songText, int i) // UIUtils.java
-    {
-        if (Utils.checkIfIndexIsWithinRangeOfList(SongList.numberOfSongsInList[SongList.listIndex], i))
-        {
-            int startIdxOfCurrentList = SongList.songListIndicesBoundaries[SongList.listIndex][0];
-
-            String nameOfWAVSong = SongList.songs.get(startIdxOfCurrentList + i);
-            String songNumber = (i + 1) + ". ";
-
-            String nameOfSong = songNumber + Utils.removeNLastCharactersInString(nameOfWAVSong, 4);
-            songText.setText(nameOfSong);
-        }
-    }
-
-    private static void setSongListTextsOpacity(Text songText, int i) // UIUtils.java
-    {
-        // Make text visible if its index is within the range of the length of the list
-        if (Utils.checkIfIndexIsWithinRangeOfList(SongList.numberOfSongsInList[SongList.listIndex], i))
-        {
-            songText.setOpacity(1);
-        }
-
-        // Make text invisible if the size of the current list of songs doesn't support enough songs
-        else
-        {
-            songText.setOpacity(0);
-        }
-    }
-
-    public static void changeTextFont(Text[] texts) // Note for JoelM: Fix when I got time
-    {
-
     }
 
     public static Text getText(String id)

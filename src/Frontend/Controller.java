@@ -3,6 +3,7 @@ package Frontend;
 import Backend.*;
 import Backend.Utils.SongUtils;
 import Backend.Utils.Utils;
+import Frontend.Utils.UISongUtils;
 import Frontend.Utils.UIUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,9 +40,14 @@ public class Controller{
     private RadioButton hipHop;
      @FXML
      private RadioButton disco;
+
+     private RadioButton[] listButtons;
+
     @FXML
     private CheckBox pauseCheckBox;
     private RadioButton mostRecentSelectedRadioButton = null;
+
+    private int selectedListIndex; //
 
     public void StartMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../resources/StartMenu.fxml"));
@@ -119,10 +125,12 @@ public class Controller{
         game.start();
     }
 
+    // Checks if user wants to toggle song in current list and performs the desired action when requested
     public void checkIfToggleSong(Scene scene)
     {
         scene.setOnKeyReleased(e ->
         {
+            // User presses either 'E' or 'Q'
             if (e.getCode().equals(KeyCode.E) || e.getCode().equals(KeyCode.Q))
             {
                 int previousSongIndex = SongList.songIndex;
@@ -138,6 +146,7 @@ public class Controller{
         });
     }
 
+    // Pause-panel is inactivated and game continues as the user clicks 'Resume'
     public void resumeButton(Game game)
     {
         Group pauseGroup = (Group) scene.lookup("#pause");
@@ -153,6 +162,7 @@ public class Controller{
         });
     }
 
+    // When the user pauses the game the pause-panel is activated
     public void pauseGame(Game game, Scene scene)
     {
         Group pauseGroup = (Group) scene.lookup("#pause");
@@ -201,7 +211,7 @@ public class Controller{
         return FXMLLoader.load(getClass().getResource(directory));
     }
 
-    //
+    // Sets a reference root to the scene and displays the stage
     public void setScene(ActionEvent event)
     {
         scene = new Scene(root);
@@ -211,29 +221,22 @@ public class Controller{
         stage.show();
     }
 
+    // Instantiates grid and activates key-listener when game starts
     public void startGame(boolean frenzyModeIsSelected)
     {
         Canvas grid = (Canvas) scene.lookup("#Grid");
         Game game = new Game(grid, frenzyModeIsSelected);
 
-        // pauseGame(game, scene);
-        // changeDirection(scene, game);
-
         setOnKeyPressed(game, scene);
-
         game.start();
     }
 
-    public boolean checkIfUserPressedEQ(Scene scene, KeyEvent teest)
-    {
-        // scene.setOnKeyReleased();
-        return teest.getCode().equals(KeyCode.E) || teest.getCode().equals(KeyCode.Q);
-    }
-
+    // This methods works as a listener that identifies if keys are pressed
     public void setOnKeyPressed(Game game, Scene scene)
     {
         scene.setOnKeyPressed(e ->
         {
+            // Pause game if user clicks 'Esc'
             if (e.getCode().equals(KeyCode.ESCAPE))
             {
                 pauseGame(game, scene);
@@ -243,7 +246,6 @@ public class Controller{
         });
     }
 
-    // Made by Felix and Mohamad
     public void changeDirection(Scene scene, Game game, KeyEvent keyEvent)
     {
         if(!game.canTurn) return;
@@ -276,57 +278,16 @@ public class Controller{
         game.canTurn = false;
     }
 
-    // Note for JoelM: Refactor this code
     public void changeSongList(ActionEvent event)
     {
-        int selectedListIndex = 0;
+        selectedListIndex = 0;
         int previousIndex = SongList.songIndex;
-        RadioButton[] listButtons = new RadioButton[]{chill, trap, hipHop, disco};
+        listButtons = new RadioButton[]{chill, trap, hipHop, disco};
 
+        // Only select or unselect list if a new list was picked
         if (!checkIfAnyListIsSelectedTwice(listButtons))
         {
-            // Note for JoelM: Possible to make this more optimal in terms of design?
-            if(chill.isSelected())
-            {
-                deselectRadioButton(mostRecentSelectedRadioButton, chill);
-                mostRecentSelectedRadioButton = chill;
-
-                // System.out.println("chill");
-            }
-
-            if(trap.isSelected())
-            {
-                selectedListIndex = 1;
-                deselectRadioButton(mostRecentSelectedRadioButton, trap);
-                mostRecentSelectedRadioButton = trap;
-
-                // System.out.println("trap");
-            }
-
-            if (hipHop.isSelected())
-            {
-                selectedListIndex = 2;
-                deselectRadioButton(mostRecentSelectedRadioButton, hipHop);
-                mostRecentSelectedRadioButton = hipHop;
-
-                // System.out.println("hiphop");
-            }
-
-            if (disco.isSelected())
-            {
-                selectedListIndex = 3;
-                deselectRadioButton(mostRecentSelectedRadioButton, disco);
-                mostRecentSelectedRadioButton = disco;
-
-                // System.out.println("disco");
-            }
-
-            // Attempt 1: Refactoring the above lines of code:
-            /*
-            int[] testIndices = getSelectedListIndex(listButtons);
-            selectNewList(listButtons, testIndices);
-            selectedListIndex = testIndices[testIndices.length - 1];
-             */
+            selectNewList();
 
             SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
             SongList.synchronizeThumbnailWithSong();
@@ -336,33 +297,21 @@ public class Controller{
         }
     }
 
-    private void selectNewList(RadioButton[] listButtons, int[] indices)
+    // Select the new list to play based on what the user selected
+    private void selectNewList()
     {
-        for (int i = 0; i < indices.length; i++)
+        for (int i = 0; i < listButtons.length; i++)
         {
-            deselectRadioButton(mostRecentSelectedRadioButton, listButtons[indices[i]]);
-            mostRecentSelectedRadioButton = listButtons[indices[i]];
+            if (listButtons[i].isSelected())
+            {
+                selectedListIndex = i;
+                deselectRadioButton(mostRecentSelectedRadioButton, listButtons[i]);
+                mostRecentSelectedRadioButton = listButtons[i];
+            }
         }
     }
 
-    private int[] getSelectedListIndex(RadioButton[] listButtons)
-    {
-        int j = 0;
-        int[] lists = new int[]{-1, -1};
-
-        for (int i = 0; i < listButtons.length; i++)
-            if (listButtons[i].isSelected())
-            {
-                lists[j++] = i;
-            }
-
-        if (j == 2)
-            return lists;
-        else
-            return new int[]{lists[0]};
-    }
-
-    // Selected Twice in a row - According to SceneBuilder - Toggle - Would result in turning off/on list - But we have pause button
+    // Checks if user clicked on ANY radio button that already is selected
     private boolean checkIfAnyListIsSelectedTwice(RadioButton[] selectedLists)
     {
         // Go through every possible list-index
@@ -378,20 +327,28 @@ public class Controller{
         return false;
     }
 
+    // Checks if the specific radio button was selected twice in a row
     private boolean checkIfCurrentListWasSelectedTwice(RadioButton selectedList, int listIndex)
     {
         return !selectedList.isSelected() && SongList.listIndex == listIndex;
     }
 
-    private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected)
+    // Deselect the UI button of the previously selected song-list
+    private void deselectRadioButton(RadioButton mostRecentSelected, RadioButton selected) // Put this is 'UI script'
     {
-        if (mostRecentSelected != null && mostRecentSelected != selected)
+        // Handles the case where user hasn't selected any list in advance
+        if (mostRecentSelected == null)
+            return;
+
+        // Inactivates the latest song-list and updates its index accordingly
+        if (mostRecentSelected != selected)
         {
             mostRecentSelected.setSelected(false);
             SongList.previousListIndex = SongList.listIndex;
         }
     }
 
+    // When the user clicks the 'Pause' checkbox the current song being played pauses/continues depending on the button's previous state
     public void pauseSong()
     {
         SongUtils.togglePause(pauseCheckBox.isSelected());
