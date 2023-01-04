@@ -22,7 +22,7 @@ public class SongUtils
     {
         try
         {
-   String commonPath = "target/classes/assets/Songs/";
+   String commonPath = "classes/assets/Songs/";
             String specificSongPath = SongList.getCurrentList() + "/" + SongList.getCurrentSong();
             System.out.println(commonPath + specificSongPath);
 
