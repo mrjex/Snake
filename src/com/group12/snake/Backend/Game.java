@@ -82,6 +82,7 @@ public class Game extends AnimationTimer {
         }
     }
 
+    /*readScores will load the score.json file and read its values adding them to the leaderboard array*/
     public static ArrayList<ScoreData> readScores() {
 
         ArrayList<ScoreData> leaderboard = new ArrayList<>();
@@ -96,7 +97,7 @@ public class Game extends AnimationTimer {
             for(Object score : scores) {
 
                 JSONObject scoreObject = (JSONObject) score;
-//                String name = (String) scoreObject.get("name");
+
                 int value = (Integer) scoreObject.get("value");
                 leaderboard.add(new ScoreData(value));
 
@@ -112,98 +113,120 @@ public class Game extends AnimationTimer {
         return leaderboard;
 
     }
+
+    /*The handle method is a javafx method that is overridden and will be called on every frame update by javafx
+    * this allows us to have the game loop aspect which we need */
     @Override
     public void handle(long time) {
-        if(time-lastUpdate >= Math.pow(10,9)/5)
+
+        if((time-lastUpdate) >= Math.pow(10,9)/5)
         {
+
             SongUtils.updateSongBarProgression();
-
             int code = gameGrid.moveSnake(isFrenzy);
-            if (code == 1){
-                Label label = (Label) canvas.getScene().lookup("#score");
-                String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
-                label.setText(scores);
-            }
 
-            if (code == 2) {
-                try {
-                    ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
-                    this.scoreList.add(currentScore);
+            switch (code) {
 
-                    JSONObject jo = new JSONObject();
-                    JSONArray scores = new JSONArray();
+                case 1:
+                    this.updateScore();
+                    break;
+                case 2:
+                    this.stop();
+                    this.writeScores();
+                    this.showGameOver();
+                    break;
 
-                    for(ScoreData score : this.scoreList) {
-
-                        JSONObject data = new JSONObject();
-                        data.put("value", score.getValue());
-                        data.put("timestamp", score.getDate());
-                        scores.put(data);
-
-                    }
-                    jo.put("scores", scores);
-                    FileWriter writer = new FileWriter("Scores/score.json");
-                    writer.write(jo.toString());
-                    writer.flush();
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-                this.stop();
-
-                Stage window = (Stage)canvas.getScene().getWindow();
-                try {
-
-                    Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameOverScreen.fxml"));
-                    Scene scene = new Scene(root);
-                    window.setScene(scene);
-
-                    Label label = (Label) scene.lookup("#finalScore");
-                    label.setText(String.valueOf(getScore(gameGrid.getBodyPos())));
-
-                    VBox vbox = (VBox) scene.lookup("#leaderboard");
-
-                    ArrayList<ScoreData> leaderboard = Game.readScores();
-                    Accordion accordion = new Accordion();
-
-                    for (ScoreData score : leaderboard) {
-
-                        TitledPane titledPane = new TitledPane("Score: " + score.getValue(), new Label("Obtained at " + score.getDate()));
-                        accordion.getPanes().add(titledPane);
-
-                    }
-
-                    vbox.getChildren().add(accordion);
-
-                }
-                catch (Exception e){
-                    System.out.println(e.getMessage());
-                }
-
+                default:
+                    this.paintScene(time);
+                    break;
 
             }
-
-            if(code != 2) {
-
-                Draw playground = new Draw(canvas.getGraphicsContext2D());
-                playground.drawBackground(getPos());
-                playground.draw(getHeadPos());
-                for(SnakePart bodyPos : gameGrid.getBodyPos()){
-                    playground.draw(bodyPos);
-                }
-                playground.draw(gameGrid.getFood());
-                lastUpdate = time;
-
 
 
         }
 
-            this.canTurn = true;
+
+
+    }
+
+    /*paintScene will repaint/draw the scene on every update*/
+    public void paintScene(long time) {
+
+        Draw playground = new Draw(canvas.getGraphicsContext2D());
+        playground.drawBackground(getPos());
+        playground.draw(getHeadPos());
+        for(SnakePart bodyPos : gameGrid.getBodyPos()){
+            playground.draw(bodyPos);
+        }
+        playground.draw(gameGrid.getFood());
+        this.lastUpdate = time;
+        this.canTurn = true;
+
+    }
+    public void updateScore() {
+        Label label = (Label) canvas.getScene().lookup("#score");
+        String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
+        label.setText(scores);
+    }
+    public void showGameOver() {
+
+        Stage window = (Stage)canvas.getScene().getWindow();
+        try {
+
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameOverScreen.fxml"));
+            Scene scene = new Scene(root);
+            window.setScene(scene);
+
+            Label label = (Label) scene.lookup("#finalScore");
+            label.setText(String.valueOf(getScore(gameGrid.getBodyPos())));
+
+            VBox vbox = (VBox) scene.lookup("#leaderboard");
+            ArrayList<ScoreData> leaderboard = Game.readScores();
+            Accordion accordion = new Accordion();
+
+            for (ScoreData score : leaderboard) {
+
+                TitledPane titledPane = new TitledPane("Score: " + score.getValue(), new Label("Obtained at " + score.getDate()));
+                accordion.getPanes().add(titledPane);
+
+            }
+
+            vbox.getChildren().add(accordion);
 
         }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
+    }
 
+    /*writeScores will attempt to write the scores to the score.json file*/
+    public void writeScores() {
+
+        try {
+            ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
+            this.scoreList.add(currentScore);
+
+            JSONObject jo = new JSONObject();
+            JSONArray scores = new JSONArray();
+
+            for(ScoreData score : this.scoreList) {
+
+                JSONObject data = new JSONObject();
+                data.put("value", score.getValue());
+                data.put("timestamp", score.getDate());
+                scores.put(data);
+
+            }
+            jo.put("scores", scores);
+            FileWriter writer = new FileWriter("Scores/score.json");
+            writer.write(jo.toString());
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public void setDirection(int newDirection){
@@ -213,6 +236,7 @@ public class Game extends AnimationTimer {
         return gameGrid.getDirection();
     }
 
+    /**/
     public int getScore(ArrayList<SnakePart> positions) {
         return positions.size() - 3;
     }

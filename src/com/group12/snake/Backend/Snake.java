@@ -13,9 +13,7 @@ public class Snake {
     public Snake() {
         this.headPos = new GridPos(Grid.POS_LENGTH, Grid.POS_LENGTH * 2, Color.DEEPSKYBLUE);
         this.bodyPos = new ArrayList<>();
-        this.grow();
-        this.grow();
-        this.grow();
+        this.grow(3);
         this.direction = 3;
     }
 

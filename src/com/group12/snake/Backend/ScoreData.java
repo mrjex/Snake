@@ -18,6 +18,7 @@ public class ScoreData implements Serializable, Comparable {
     }
 
 
+    /*Parses the score date into a readable format*/
     public String getDate() {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy H:m");

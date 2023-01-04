@@ -11,13 +11,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid {
-
     private final double WIDTH;
     private final double HEIGHT;
     public static final int POS_LENGTH = 50;
     private final static ArrayList<GridPos> positions = new ArrayList<>();;
     private Snake snake;
-
     public Food food;
 
     public Grid() {
@@ -30,6 +28,7 @@ public class Grid {
     }
 
 
+    /* The drawGrid method draws the game grid by iterating through the columns and rows and adding them to the positions array */
     private void drawGrid() {
 
         double horizontalPositions = Math.floor(this.WIDTH / POS_LENGTH);
@@ -51,6 +50,8 @@ public class Grid {
     public ArrayList<GridPos> getPositions(){
         return Grid.positions;
     }
+
+    /*The spawnFood method handles spawning food in the game by randomly spawning in an unused game tile*/
     public Food spawnFood(boolean foodFrenzy) {
 
         ArrayList<GridPos> unusedPositions = new ArrayList<>(Grid.positions);
@@ -87,7 +88,6 @@ public class Grid {
 
             this.food = this.spawnFood(frenzy);
 
-
         }
         return code;
     }
@@ -102,9 +102,9 @@ public class Grid {
     public int getDirection(){
         return snake.getDirection();
     }
-
     public Food getFood() { return this.food; }
     public ArrayList<SnakePart> getBodyPos(){
         return snake.getBodyPos();
     }
+
 }
