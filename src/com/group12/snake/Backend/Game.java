@@ -58,9 +58,11 @@ public class Game extends AnimationTimer {
     private void selectSongUI() // This method doesn't belong to this class, based on its behaviour - JoelM: Fix this
     {
         String selectedSongList = SongList.getCurrentList();
+        RadioButton Button = (RadioButton)(Controller.scene.lookup("#" + selectedSongList));
+        Button.setSelected(true);
 
         // Note for JoelM: Either come up with a better general design for all song lists, or make general method for the things below
-        if (Objects.equals(selectedSongList, SongList.listNames[0]))
+        /*if (Objects.equals(selectedSongList, SongList.listNames[0]))
         {
             RadioButton chillButton = (RadioButton)(Controller.scene.lookup("#chill"));
             chillButton.setSelected(true);
@@ -79,7 +81,7 @@ public class Game extends AnimationTimer {
         {
             RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#disco"));
             hipHopButton.setSelected(true);
-        }
+        }*/
     }
 
     /*readScores will load the score.json file and read its values adding them to the leaderboard array*/
