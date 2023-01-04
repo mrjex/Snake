@@ -1,6 +1,7 @@
 package com.group12.snake.Backend;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
@@ -14,6 +15,14 @@ public class ScoreData implements Serializable, Comparable {
 
         this.timestamp = Instant.now().getEpochSecond();
         this.value = value;
+
+    }
+
+    public ScoreData(int value, String timestamp) throws ParseException {
+
+        this.value = value;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy H:m");
+        this.timestamp = formatter.parse(timestamp).toInstant().getEpochSecond();
 
     }
 
