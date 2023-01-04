@@ -32,13 +32,13 @@ public class Controller{
     private Parent root;
 
     @FXML
-    private RadioButton chill;
+    private RadioButton ChillList;
     @FXML
-    private RadioButton trap;
+    private RadioButton TrapList;
     @FXML
-    private RadioButton hipHop;
+    private RadioButton HipHopList;
      @FXML
-     private RadioButton disco;
+     private RadioButton DiscoList;
 
      private RadioButton[] listButtons;
 
@@ -253,7 +253,7 @@ public class Controller{
     {
         selectedListIndex = 0;
         int previousIndex = SongList.songIndex;
-        listButtons = new RadioButton[]{chill, trap, hipHop, disco};
+        listButtons = new RadioButton[]{ChillList, TrapList, HipHopList, DiscoList};
 
         // Only select or unselect list if a new list was picked
         if (!checkIfAnyListIsSelectedTwice(listButtons))

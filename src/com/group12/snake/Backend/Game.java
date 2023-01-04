@@ -131,6 +131,7 @@ public class Game extends AnimationTimer {
 
                 case 1:
                     this.updateScore();
+                    this.paintScene(time);
                     break;
                 case 2:
                     this.stop();
