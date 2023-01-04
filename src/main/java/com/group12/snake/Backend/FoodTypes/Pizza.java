@@ -9,7 +9,7 @@ public class Pizza extends Food {
 
         super(xPos, yPos, 3);
         super.setColor(Color.YELLOW);
-        super.setImage("resources/assets/pizza.png");
+        super.setImage("assets/pizza.png");
 
     }
 }

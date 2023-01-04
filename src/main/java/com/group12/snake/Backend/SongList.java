@@ -69,7 +69,7 @@ public class SongList // JoelM - Decision to make: 'SongList.java' or 'SongListU
         String list = getCurrentList();
         String newSong = getCurrentSong();
 
-        String commonPath = "resources/assets/";
+        String commonPath = "assets/";
         // Note for JoelM: To avoid using function from Utils, remove ".wav" in com.group12.snake.MainGame.java and add function 'SetFormat(String format)' where 'format' = "wav", "png"
         Image newSongImage = new Image(commonPath + list + "/" + Utils.removeNLastCharactersInString(newSong, 4) + ".png");
 

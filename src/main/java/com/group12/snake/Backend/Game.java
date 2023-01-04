@@ -176,7 +176,7 @@ public class Game extends AnimationTimer {
         Stage window = (Stage)canvas.getScene().getWindow();
         try {
 
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameOverScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("GameOverScreen.fxml"));
             Scene scene = new Scene(root);
             window.setScene(scene);
 

@@ -49,7 +49,7 @@ public class Controller{
     private int selectedListIndex; //
 
     public void StartMenu(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/StartMenu.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("StartMenu.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -63,7 +63,7 @@ public class Controller{
 
     public void FoodFrenzyButton(ActionEvent event) throws IOException {
 
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameScene.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("GameScene.fxml"));
         setScene(event);
 
         Canvas grid = (Canvas) scene.lookup("#Grid");
@@ -78,7 +78,7 @@ public class Controller{
     }
 
     public void GameOverScreen(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameOverScreen.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("GameOverScreen.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -87,7 +87,7 @@ public class Controller{
 
     public void NormalMode(ActionEvent event) throws Exception {
 
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameScene.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("GameScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -105,7 +105,7 @@ public class Controller{
 
     public void playAgain(ActionEvent event) throws IOException {
 
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameScene.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("GameScene.fxml"));
         setScene(event);
         Canvas grid = (Canvas) scene.lookup("#Grid");
 

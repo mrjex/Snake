@@ -13,7 +13,7 @@ public class MainGame extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/StartMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("StartMenu.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Snake");
         stage.setScene(scene);

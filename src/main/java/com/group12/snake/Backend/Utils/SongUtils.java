@@ -22,8 +22,9 @@ public class SongUtils
     {
         try
         {
-            String commonPath = "src/resources/assets/Songs/";
+   String commonPath = "target/classes/assets/Songs/";
             String specificSongPath = SongList.getCurrentList() + "/" + SongList.getCurrentSong();
+            System.out.println(commonPath + specificSongPath);
 
             File musicPath = new File(commonPath + specificSongPath);
 
