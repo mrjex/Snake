@@ -64,12 +64,9 @@ public class Controller{
     public void FoodFrenzyButton(ActionEvent event) throws IOException {
 
         root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        Canvas grid = (Canvas) scene.lookup("#Grid");
+        setScene(event);
 
+        Canvas grid = (Canvas) scene.lookup("#Grid");
         Game game = new Game(grid, true);
         setOnKeyPressed(game, scene);
 
@@ -109,10 +106,7 @@ public class Controller{
     public void playAgain(ActionEvent event) throws IOException {
 
         root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/GameScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        setScene(event);
         Canvas grid = (Canvas) scene.lookup("#Grid");
 
         Game game = new Game(grid, Game.isFrenzy);
@@ -170,27 +164,6 @@ public class Controller{
         pauseGroup.setOpacity(1);
     }
 
-    public void Leaderboard(ActionEvent event) throws IOException {
-
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/Leaderboard.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        VBox vbox = (VBox) scene.lookup("#leaderboard");
-
-        ArrayList<ScoreData> leaderboard = Game.readScores();
-        Accordion accordion = new Accordion();
-
-        for (ScoreData score : leaderboard) {
-
-            TitledPane titledPane = new TitledPane("Score: " + score.getValue(), new Label("Obtained at " + score.getDate()));
-            accordion.getPanes().add(titledPane);
-
-        }
-
-        vbox.getChildren().add(accordion);
-        stage.show();
-    }
 
     // The 3 methods contained in this generalized method can be used in all the methods above except 'exit'
     // The reason this isn't refactored before pushing remotely is because I don't want to take credit
