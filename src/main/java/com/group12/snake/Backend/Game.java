@@ -101,7 +101,8 @@ public class Game extends AnimationTimer {
                 JSONObject scoreObject = (JSONObject) score;
 
                 int value = (Integer) scoreObject.get("value");
-                leaderboard.add(new ScoreData(value));
+                String timestamp = (String) scoreObject.get("timestamp");
+                leaderboard.add(new ScoreData(value, timestamp));
 
             }
 
