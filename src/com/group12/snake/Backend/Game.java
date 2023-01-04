@@ -59,27 +59,35 @@ public class Game extends AnimationTimer {
     {
         String selectedSongList = SongList.getCurrentList();
 
+        switch(selectedSongList){
+            String playList = "";
+
+            case 0:
+                playList += "#chill";
+                chillButton.setSelected(true);
+                break;
+
+            case 1:
+                playList += "#trap";
+                trapButton.setSelected(true);
+                break;
+
+            case 2:
+                playList += "#hipHop";
+                hipHopButton.setSelected(true);
+                break;
+
+            case 3:
+                playList += "#disco";
+                discoButton.setSelected(true);
+                break;
+        }
+        RadioButton chillButton = (RadioButton)(Controller.scene.lookup(playList));
+
+
+
         // Note for JoelM: Either come up with a better general design for all song lists, or make general method for the things below
-        if (Objects.equals(selectedSongList, SongList.listNames[0]))
-        {
-            RadioButton chillButton = (RadioButton)(Controller.scene.lookup("#chill"));
-            chillButton.setSelected(true);
-        }
-        else if (Objects.equals(selectedSongList, SongList.listNames[1]))
-        {
-            RadioButton trapButton = (RadioButton)(Controller.scene.lookup("#trap"));
-            trapButton.setSelected(true);
-        }
-        else if (Objects.equals(selectedSongList, SongList.listNames[2]))
-        {
-            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#hipHop"));
-            hipHopButton.setSelected(true);
-        }
-        else if (Objects.equals(selectedSongList, SongList.listNames[3]))
-        {
-            RadioButton hipHopButton = (RadioButton)(Controller.scene.lookup("#disco"));
-            hipHopButton.setSelected(true);
-        }
+
     }
 
     public static ArrayList<ScoreData> readScores() {
