@@ -22,7 +22,6 @@ public class MainGame extends Application {
 
         SongList.songListIndicesBoundaries = SongList.getSongListIndicesBoundaries();
 
-        // + ".wav"
         SongList.addSongs(new String[] {
                 "Lazy Love - KEM.wav", "Music Is - Pryces.wav", "Bees In The Garden - Moire.wav", // ChillList
                 "Sky High - Trinity.wav", "Energy I Need - Pecan Pie.wav",                        // TrapList

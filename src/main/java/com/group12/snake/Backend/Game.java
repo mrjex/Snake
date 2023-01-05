@@ -4,6 +4,7 @@ import com.group12.snake.Backend.FoodTypes.SnakePart;
 import com.group12.snake.Backend.Utils.SongUtils;
 import com.group12.snake.Frontend.Controller;
 import com.group12.snake.Frontend.Utils.UISongUtils;
+import com.group12.snake.Frontend.Controller;
 import com.group12.snake.Frontend.Utils.UIUtils;
 import com.group12.snake.Frontend.Draw;
 import javafx.animation.AnimationTimer;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Console;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -125,8 +127,12 @@ public class Game extends AnimationTimer {
 
         if((time-lastUpdate) >= Math.pow(10,9)/5)
         {
+            // Only update song-bar progression when user is in the game scene
+            if (!Controller.userIsInStartMenu)
+            {
+                SongUtils.updateSongBarProgression();
+            }
 
-            SongUtils.updateSongBarProgression();
             int code = gameGrid.moveSnake(isFrenzy);
 
             switch (code) {

@@ -22,14 +22,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-// import javax.swing.text.html.ImageView;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller{
-    private Stage stage;
+
     public static Scene scene;
+    public static boolean userIsInStartMenu = true;
+
+    private Stage stage;
     private Parent root;
     @FXML
     private RadioButton ChillList;
@@ -54,6 +55,8 @@ public class Controller{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        userIsInStartMenu = true;
     }
 
     public void exit() {
@@ -74,7 +77,7 @@ public class Controller{
         resumeButton(game);
         game.start();
 
-
+        userIsInStartMenu = false;
     }
 
     public void GameOverScreen(ActionEvent event) throws IOException {
@@ -101,6 +104,7 @@ public class Controller{
         resumeButton(game);
         game.start();
 
+        userIsInStartMenu = false;
     }
 
     public void playAgain(ActionEvent event) throws IOException {
