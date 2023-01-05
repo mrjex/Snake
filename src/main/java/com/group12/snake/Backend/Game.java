@@ -55,7 +55,7 @@ public class Game extends AnimationTimer {
         SongList.synchronizeThumbnailWithSong();
     }
 
-    private void selectSongUI() // This method doesn't belong to this class, based on its behaviour - JoelM: Fix this
+        private void selectSongUI() // This method doesn't belong to this class, based on its behaviour - JoelM: Fix this
     {
         String selectedSongList = SongList.getCurrentList();
         RadioButton Button = (RadioButton)(Controller.scene.lookup("#" + selectedSongList));
@@ -154,7 +154,7 @@ public class Game extends AnimationTimer {
     }
 
     /*paintScene will repaint/draw the scene on every update*/
-    public void paintScene(long time) {
+    private void paintScene(long time) {
 
         Draw playground = new Draw(canvas.getGraphicsContext2D());
         playground.drawBackground(getPos());
@@ -167,12 +167,12 @@ public class Game extends AnimationTimer {
         this.canTurn = true;
 
     }
-    public void updateScore() {
+    private void updateScore() {
         Label label = (Label) canvas.getScene().lookup("#score");
         String scores = String.valueOf(getScore(gameGrid.getBodyPos()));
         label.setText(scores);
     }
-    public void showGameOver() {
+    private void showGameOver() {
 
         Stage window = (Stage)canvas.getScene().getWindow();
         try {
@@ -205,7 +205,7 @@ public class Game extends AnimationTimer {
     }
 
     /*writeScores will attempt to write the scores to the score.json file*/
-    public void writeScores() {
+    private void writeScores() {
 
         try {
             ScoreData currentScore = new ScoreData(this.getScore(gameGrid.getBodyPos()));
