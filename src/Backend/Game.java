@@ -45,14 +45,14 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-        Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
+        Frontend.Utils.UIUtils.updateText( "#songNameText", SongList.songs.get(SongList.songIndex), true);
 
         // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
         CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
 
         selectSongUI();
-        UIUtils.updateSongListTexts();
+        UISongUtils.updateSongListTexts();
         SongList.updateSelectedSongText(SongList.songIndex, false);
         SongList.synchronizeThumbnailWithSong();
     }

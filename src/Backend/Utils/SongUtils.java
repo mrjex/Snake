@@ -19,6 +19,7 @@ public class SongUtils
     public static Clip currentClip;
     public static Clip mostRecentClip = null;
 
+    // Starts playing a new song
     public static void startAudioClip(boolean songIsPaused)
     {
         try
@@ -58,12 +59,14 @@ public class SongUtils
         }
     }
 
+    // Registers new states of the two most recent audio-clips when a new song starts
     private static void setStatesOfCurrentClip(Clip currentClip)
     {
         SongUtils.currentClip = currentClip;
         mostRecentClip = currentClip;
     }
 
+    // Stops playing the most recent clip once the next song starts
     private static void stopLatestClip()
     {
         if (mostRecentClip != null)
@@ -71,13 +74,6 @@ public class SongUtils
             mostRecentClip.close();
             mostRecentClip.stop();
         }
-    }
-
-    // Stops and closes the current song as the user exits the game
-    public static void stop()
-    {
-        currentClip.close();
-        currentClip.stop();
     }
 
     // Toggle song in current song list: Is executed when user presses 'Q', 'E' or when song is finished
@@ -97,7 +93,7 @@ public class SongUtils
 
         SongList.songIndex = Utils.limitValue(SongList.songIndex, SongList.songListIndicesBoundaries[SongList.listIndex]);
         startAudioClip(songIsPaused);
-        Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
+        Frontend.Utils.UIUtils.updateText("#songNameText", SongList.songs.get(SongList.songIndex), true);
     }
 
     // Pauses or unpauses the current song depending on previous pause-state
@@ -125,5 +121,12 @@ public class SongUtils
 
         ProgressBar bar = (ProgressBar) (Controller.scene.lookup("#songProgressBar"));
         bar.setProgress(barProgression);
+    }
+
+    // Stops and closes the current song as the user exits the game
+    public static void stop()
+    {
+        currentClip.close();
+        currentClip.stop();
     }
 }

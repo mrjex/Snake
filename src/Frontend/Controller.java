@@ -31,7 +31,6 @@ public class Controller{
     private Stage stage;
     public static Scene scene;
     private Parent root;
-
     @FXML
     private RadioButton chill;
     @FXML
@@ -47,7 +46,7 @@ public class Controller{
     private CheckBox pauseCheckBox;
     private RadioButton mostRecentSelectedRadioButton = null;
 
-    private int selectedListIndex; //
+    private int selectedListIndex;
 
     public void StartMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../resources/StartMenu.fxml"));
@@ -292,7 +291,7 @@ public class Controller{
             SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
             SongList.synchronizeThumbnailWithSong();
 
-            UIUtils.updateSongListTexts();
+            UISongUtils.updateSongListTexts();
             SongList.updateSelectedSongText(previousIndex, true);
         }
     }
