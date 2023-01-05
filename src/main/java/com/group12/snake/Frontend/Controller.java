@@ -3,6 +3,7 @@ package com.group12.snake.Frontend;
 import com.group12.snake.Backend.*;
 import com.group12.snake.Backend.Utils.SongUtils;
 import com.group12.snake.Backend.Utils.Utils;
+import com.group12.snake.Frontend.Utils.UISongUtils;
 import com.group12.snake.Frontend.Utils.UIUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,7 +31,6 @@ public class Controller{
     private Stage stage;
     public static Scene scene;
     private Parent root;
-
     @FXML
     private RadioButton ChillList;
     @FXML
@@ -46,7 +46,7 @@ public class Controller{
     private CheckBox pauseCheckBox;
     private RadioButton mostRecentSelectedRadioButton = null;
 
-    private int selectedListIndex; //
+    private int selectedListIndex;
 
     public void StartMenu(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getClassLoader().getResource("StartMenu.fxml"));
@@ -263,7 +263,7 @@ public class Controller{
             SongList.toggleSongList(selectedListIndex, pauseCheckBox.isSelected());
             SongList.synchronizeThumbnailWithSong();
 
-            UIUtils.updateSongListTexts();
+            UISongUtils.updateSongListTexts();
             SongList.updateSelectedSongText(previousIndex, true);
         }
     }

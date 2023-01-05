@@ -3,6 +3,7 @@ package com.group12.snake.Backend;
 import com.group12.snake.Backend.FoodTypes.SnakePart;
 import com.group12.snake.Backend.Utils.SongUtils;
 import com.group12.snake.Frontend.Controller;
+import com.group12.snake.Frontend.Utils.UISongUtils;
 import com.group12.snake.Frontend.Utils.UIUtils;
 import com.group12.snake.Frontend.Draw;
 import javafx.animation.AnimationTimer;
@@ -43,14 +44,14 @@ public class Game extends AnimationTimer {
         this.isFrenzy = frenzy;
         gameGrid.spawnFood(isFrenzy);
 
-        com.group12.snake.Frontend.Utils.UIUtils.updateText(Controller.scene, "#songNameText", SongList.songs.get(SongList.songIndex), true);
+        UIUtils.updateText("#songNameText", SongList.songs.get(SongList.songIndex), true);
 
         // Note for JoelM: The two lines below are repetitive - Controller.java: 'pauseSong()'
         CheckBox pauseCheckBox = (CheckBox)(Controller.scene.lookup("#pauseCheckBox"));
         pauseCheckBox.setSelected(!SongUtils.currentClip.isRunning());
 
         selectSongUI();
-        UIUtils.updateSongListTexts();
+        UISongUtils.updateSongListTexts();
         SongList.updateSelectedSongText(SongList.songIndex, false);
         SongList.synchronizeThumbnailWithSong();
     }
