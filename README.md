@@ -21,11 +21,7 @@ Further down the line we switched roles with the intention to ensure all group m
 
 ## Demo
 
-<div align="center">
-  <video src="https://www.youtube.com/watch?v=G-k05avLEZI" width="400" controls="controls" muted="muted">
-    Your browser does not support the video tag.
-  </video>
-</div>
+[![Snake Demo](https://img.youtube.com/vi/G-k05avLEZI/maxresdefault.jpg)](https://www.youtube.com/watch?v=G-k05avLEZI)
 
 
 ## User Controls
