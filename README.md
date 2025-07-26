@@ -35,3 +35,14 @@ We applied *agile* practices in a team setting, and divided the 10 weeks into sp
 There are 4 types of playlists that contain their own unique songs: Chill, Trap, HipHop, Disco
 
 For more information about user controls, go to `/documentation/User Manual.pdf`
+
+
+## Contributors
+
+- Felix Humleby
+- Lucas Carlsson Holter
+- Joel Celén
+- Manely Abbasi
+- Utkarsh Singh
+- Mohamad Khalil
+- Joel Mattsson
